@@ -76,7 +76,6 @@ router.get("/env",function(req,res){
 });
 
 router.get('/session-user',function(req,res){
-  req.user.id=req.user._id;
   return res.json({ user: req.user });
 });
 

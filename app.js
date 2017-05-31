@@ -37,6 +37,7 @@ var jobBoardApi = require('./routes/jobBoards/api');
 var api = require('./routes/api');
 
 var app = express();
+var middleware = require('./middleware/app');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,9 +61,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/',route);
-app.use('/escritorio',jobBoards);
-app.use('/api/info', jobBoardApi);
-app.use('/api/v1',api);
+app.use('/escritorio', middleware.shouldLogged, jobBoards);
+app.use('/api/info', middleware.shouldLogged, jobBoardApi);
+app.use('/api/v1', middleware.shouldLogged, api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
