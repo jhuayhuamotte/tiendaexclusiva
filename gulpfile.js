@@ -33,16 +33,15 @@ var src = {
         ROOT_DIR + 'scripts/jobBoards/**/*.html'
     ],
     stylesgeneral: [
-      ROOT_DIR + 'styles/general/**/*.css'
+        ROOT_DIR + 'styles/general/**/*.css'
     ],
     json: [
         ROOT_DIR + 'json/*.json'
     ],
     assets: [
-      ROOT_DIR + 'assets/**/*'
+        ROOT_DIR + 'assets/**/*'
     ],
     unlisted: [
-        // Kurento Utils has faulty bower.json
         BOWER_DIR + 'kurento-utils/js/kurento-utils.js'
     ]
 };
