@@ -1,0 +1,128 @@
+<div style="margin-top: 8px;">
+  <div style="padding: 0 0 5px 0;">
+    <div class="col-xs-3">
+      <label class="radio-inline">
+        <input type="radio" ng-change="search()" ng-model="table" value="actividades">Actividades
+      </label>
+    </div>
+    <div class="col-xs-3">
+      <label class="radio-inline">
+        <input type="radio" ng-change="search()" ng-model="table" value="categorias">Categorias
+      </label>
+    </div>
+    <div class="col-xs-2">
+      <label class="radio-inline">
+        <input type="radio" ng-change="search()" ng-model="table" value="commodities">Commodities
+      </label>
+    </div>
+    <div class="col-xs-4">
+      <div style="padding: 0 4px;">
+        <label for="top1">Top:</label>
+        <input id="top1" type="number" ng-model="top" ng-min="5" style="width: 40px;">
+        <label>Total P. Onet: {{puestosonet.length}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <input type="text" ng-model="text" ng-change="search()" placeholder="Buscar..." class="form-control" >
+    <span class="input-group-addon" style="padding: 0 3px;">
+      <span ng-show="consolStatus.noResults">No hay resultados</span>
+      <span ng-show="consolStatus.loading">Buscando...</span>
+    </span>
+  </div>
+
+  <div style="margin-top:5px">
+      <div style="overflow: auto; max-height: 350px; min-height: 286px;">
+        <table ng-show="table=='actividades'">
+          <tr>
+            <th ng-show="spanish">GWA_SP</th>
+            <th ng-show="spanish">GWA_DESC_SP</th>
+            <th ng-show="spanish">IWA_SP</th>
+            <th ng-show="spanish">DWA_SP</th>
+            <th ng-show="english">GWA_EN</th>
+            <th ng-show="english">GWA_DESC_EN</th>
+            <th ng-show="english">IWA_EN</th>
+            <th ng-show="english">DWA_EN</th>
+          </tr>
+          <tr class="rows" ng-show="table=='actividades'" ng-repeat="actividad in actividades" ng-dblclick="getGlobes(actividad)">
+            <td ng-show="spanish">{{actividad.gwa_sp}}</td>
+            <td ng-show="spanish">{{actividad.gwa_desc_sp}}</td>
+            <td ng-show="spanish">{{actividad.iwa_sp}}</td>
+            <td ng-show="spanish">{{actividad.dwa_sp}}</td>
+            <td ng-show="english">{{actividad.gwa_en}}</td>
+            <td ng-show="english">{{actividad.gwa_desc_en}}</td>
+            <td ng-show="english">{{actividad.iwa_en}}</td>
+            <td ng-show="english">{{actividad.dwa_en}}</td>
+          </tr>
+        </table>
+        <table ng-show="table=='categorias'">
+          <tr>
+            <th ng-show="spanish">CAT_SP</th>
+            <th ng-show="spanish">CAT_DESC_SP</th>
+            <th ng-show="spanish">CAT_ELEMENT_NAME_SP</th>
+            <th ng-show="english">CAT_EN</th>
+            <th ng-show="english">CAT_DESC_EN</th>
+            <th ng-show="english">CAT_ELEMENT_NAME_EN</th>
+          </tr>
+          <tr class="rows" ng-show="table=='categorias'" ng-repeat="categoria in categorias" ng-dblclick="getGlobes(categoria)">
+            <td ng-show="spanish">{{categoria.cat_sp}}</td>
+            <td ng-show="spanish">{{categoria.cat_desc_sp}}</td>
+            <td ng-show="spanish">{{categoria.cat_element_name_sp}}</td>
+            <td ng-show="english">{{categoria.cat_en}}</td>
+            <td ng-show="english">{{categoria.cat_desc_en}}</td>
+            <td ng-show="english">{{categoria.cat_element_name_en}}</td>
+          </tr>
+        </table>
+        <table ng-show="table=='commodities'">
+          <tr>
+            <th>COMMODITY_EN</th>
+            <th>COMMODITY_EXAMPLE</th>
+          </tr>
+          <tr class="rows" ng-show="table=='commodities'" ng-repeat="commodity in commodities" ng-dblclick="getGlobes(commodity)">
+            <td>{{commodity.commodity_en}}</td>
+            <td>{{commodity.commodity_example}}</td>
+          </tr>
+        </table>
+
+        <!-- <div class="cont-positions-help">
+          <div ng-hide="positions.length>0">
+            <div><b>PUESTOS ONET</b></div>
+            <div class="globo-position pointer" ng-repeat="onet in puestosonet | limitTo:top track by $index" ng-click="selectPuesto(onet)" data-drag="true" data-jqyoui-options="{revert: 'invalid',helper: 'clone'}" ng-model="onet" jqyoui-draggable="{animate:true,placeholder: 'keep'}">
+              {{onet._id.title}}
+            </div>
+          </div>
+          <div style="clear:both;"></div>
+        </div> -->
+      </div>
+  </div>
+</div>
+
+<style>
+.ui-draggable-dragging{
+  position: fixed !important;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.41);
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid white;
+    text-align: left;
+    padding: 3px;
+    cursor: pointer;
+}
+.selected{
+  background: #de640e;
+}
+.rows:hover{
+  background: #ef8f05;
+}
+
+tr:nth-child(even) {
+
+}
+</style>

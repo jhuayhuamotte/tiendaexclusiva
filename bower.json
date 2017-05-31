@@ -1,0 +1,24 @@
+{
+  "name": "mitiendaexclusiva",
+  "description": "Administración de la tienda exclusiva",
+  "main": "",
+  "authors": [
+    "Jaime Huayhua <jhuayhuamotte@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "http://localhost:3000/",
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-route": "1.5.8",
+    "angular-loader": "1.5.8",
+    "angular-animate": "1.5.8",
+    "angular-bootstrap": "2.0.2",
+    "angular-sanitize": "1.5.8",
+    "bootstrap": "3.3.7",
+    "components-font-awesome": "^4.6.3",
+    "angular-ui-router": "^0.3.1",
+    "angular-websocket": "^2.0.0",
+    "angular-filter": "^0.5.14",
+    "angular-dragdrop": "^1.0.13"
+  }
+}

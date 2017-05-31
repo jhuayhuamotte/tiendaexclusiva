@@ -1,0 +1,9 @@
+node_modules
+*.lock
+*.orig
+bower_components/
+dist/*
+media
+audio
+videos
+test

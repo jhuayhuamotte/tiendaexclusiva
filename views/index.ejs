@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="krowdy-positions">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Avisos</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/dist/styles/vendor.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/styles/general.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/styles/style_jobs.css"/>
+  </head>
+<body>
+<div id="wrapper" style="height: 100%">
+    <div id="sidebar-wrapper">
+        <div class="navbar-header navbar-header-kdy">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ui-sref="home">&nbsp;</a>
+        </div>
+        <div class="menu-buttons">
+            <div style="padding: 0px 17px 35px 17px;">
+                <a tooltip-placement="right" uib-tooltip="Cerrar Sesíon" href="/logout"><img src="dist/img/exit.svg"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" style="height: 100%">
+        <div class="menu-button" id="menu-toggle">
+            <img src="dist/img/menubar.svg" class="menubar-icon">
+        </div>
+        <div ui-view class="main-container" style="height: 100%"></div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+
+<style>
+.menu-button:hover{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 40px;
+    width: 40px;
+    padding: 10px 10px;
+    background-color: #f36a00 ;
+    z-index: 3
+}
+
+.menu-button{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 7.5px;
+    height: 32.5px;
+    width: 7.5px;
+    background-color: #f36a00;
+    z-index: 3;
+    padding: 10px 5px 11px 0px;
+}
+
+</style>
+    <script src="/dist/scripts/vendor.js"></script>
+    <script src="/dist/scripts/main.js"></script>
+    <script src="/dist/scripts/templates.js"></script>
+    <script>
+    $(".navbar-brand").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $("#menu-toggle").show();
+        $(".menu-buttons").hide();
+    });
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $(".menu-buttons").show();
+        $(this).hide();
+    });
+    </script>
+</body>
+</html>

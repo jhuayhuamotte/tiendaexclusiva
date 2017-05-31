@@ -1,0 +1,13 @@
+<div class="input-row">
+  <div class="cont-labels-sugg" style="display: inline-block; margin-top: 10px;">
+    <div class="drop-container">
+      <div class="ind-label-sugg" ng-init="globe.status=true;" ng-repeat="sugg in field.funciones" ng-dblclick="globe.status=false; textedit=sugg.nombre;">
+        <span class="text-origin" ng-show="globe.status" style="white-space: normal;">{{sugg.nombre}}</span>
+        <span ng-show="globe.status" class="glyphicon glyphicon-remove btn-remove" ng-click="removeHomo($index)"></span>
+        <input ng-show="!globe.status" ng-model="textedit" type="text" class="input-globe" ng-enterkey="editHomo(textedit,$index); globe.status=true;">
+        <span ng-show="!globe.status" class="glyphicon glyphicon-ok btn-remove" ng-click="editHomo(textedit,$index); globe.status=true;"></span>
+      </div>
+      <textarea id="textGlobe" class="dropTextarea" name="name" ng-model="sugerencias" ng-change="addHomo(sugerencias); sugerencias='';"></textarea>
+    </div>
+  </div>
+</div>
