@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  angular.module('krowdy-positions').directive('tiendaMenu',function(){
+  angular.module('tiendaexclusiva').directive('tiendaMenu',function(){
     return {
       required: 'field',
       restrict : 'E',

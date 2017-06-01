@@ -1,12 +1,12 @@
 (function () {
   'use strict';
-  angular.module('krowdy-positions').config(function ($stateProvider,
+  angular.module('tiendaexclusiva').config(function ($stateProvider,
   $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/puestos/');
+    $urlRouterProvider.otherwise('/grid');
 
     $stateProvider
-    .state('puestos', {
+    .state('productgrid', {
       resolve: {
         userinfo: function($http){
           return $http({ method: 'GET', url:'/session-user'})
@@ -15,7 +15,7 @@
          });
        }
       },
-      url: '/puestos',
+      url: '/grid',
       templateUrl: "scripts/app/modules/grid/views/index.html",
       controller: 'positionCtrl',
       controllerAs: '$ctrl'

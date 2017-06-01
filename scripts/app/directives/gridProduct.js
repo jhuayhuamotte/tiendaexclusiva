@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  angular.module('krowdy-positions').directive('gridProduct',function(){
+  angular.module('tiendaexclusiva').directive('gridProduct',function(){
     return {
       required: 'field',
       restrict : 'E',

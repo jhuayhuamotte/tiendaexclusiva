@@ -17,32 +17,20 @@ var src = {
     styles: [
         ROOT_DIR + 'styles/app/**/*.css'
     ],
+    stylesgeneral: [
+        ROOT_DIR + 'styles/general/**/*.css'
+    ],
     scripts: [
         ROOT_DIR + 'scripts/app/**/*.js'
     ],
     templates: [
         ROOT_DIR + 'scripts/app/**/*.html'
     ],
-    stylesjobs: [
-        ROOT_DIR + 'styles/jobBoards/**/*.css'
-    ],
-    scriptsjobs: [
-        ROOT_DIR + 'scripts/jobBoards/**/*.js'
-    ],
-    templatesjobs: [
-        ROOT_DIR + 'scripts/jobBoards/**/*.html'
-    ],
-    stylesgeneral: [
-        ROOT_DIR + 'styles/general/**/*.css'
-    ],
     json: [
         ROOT_DIR + 'json/*.json'
     ],
     assets: [
         ROOT_DIR + 'assets/**/*'
-    ],
-    unlisted: [
-        BOWER_DIR + 'kurento-utils/js/kurento-utils.js'
     ]
 };
 
@@ -69,17 +57,13 @@ function swallowError(error) {
 
 gulp.task('scripts-vendor', function () {
     var jsFilter = plugins.filter('**/*.js');
-    var unlisted = gulp.src(src.unlisted)
-        .pipe(plugins.print(function(filepath) {
-            return "script: " + filepath;
-        }));
     var listed = gulp.src(plugins.bower(), { base: BOWER_DIR })
         .pipe(jsFilter)
         .pipe(plugins.print(function(filepath) {
             return "script: " + filepath;
         }));
 
-    return merge(listed, unlisted)
+    return merge(listed)
         .pipe(plugins.order([
             'bower_components/jquery/**/*.js',
             'bower_components/angular/**/*.js',
@@ -106,35 +90,19 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest(dest.js));
 });
 
-gulp.task('scripts-jobs', function () {
-    var jsFilter = plugins.filter('**/*.js');
-    return gulp.src(src.scriptsjobs)
-        .pipe(jsFilter)
-        .pipe(plugins.if(!args.production, plugins.sourcemaps.init()))
-        .pipe(plugins.ngAnnotate({
-            add: true
-        }))
-        .on('error', swallowError)
-        .pipe(plugins.concat('scripts_jobs.js'))
-        .pipe(plugins.if(args.production, plugins.uglify({mangle: true})))
-        .pipe(plugins.if(!args.production, plugins.sourcemaps.write()))
-        .pipe(gulp.dest(dest.js));
-});
-
 gulp.task('styles-vendor', function () {
     var relative_img_path = path.relative(dest.css, dest.img)
-           .replace(path.sep, '/'),
-        vendor = gulp.src(BOWER_DIR + '**/*.css')
-            .pipe(plugins.filter([
-                '**/*.css', '!**/*.min.css'
-            ]))
-            .pipe(plugins.print(function (filepath) {
-                return "stylesheet: " + filepath;
-            }))
-            .pipe(plugins.replace(
-                /url\((["']?)(?:\\?(?:[^\)]+\/)?([^\/\)]+\.(?:gif|jpe?g|png)))*?\1\)/g,
-                'url($1' + relative_img_path + '/vendor/$2$1)'
-            ));
+         .replace(path.sep, '/'), vendor = gulp.src(BOWER_DIR + '**/*.css')
+          .pipe(plugins.filter([
+              '**/*.css', '!**/*.min.css'
+          ]))
+          .pipe(plugins.print(function (filepath) {
+              return "stylesheet: " + filepath;
+          }))
+          .pipe(plugins.replace(
+              /url\((["']?)(?:\\?(?:[^\)]+\/)?([^\/\)]+\.(?:gif|jpe?g|png)))*?\1\)/g,
+              'url($1' + relative_img_path + '/vendor/$2$1)'
+          ));
     return vendor.pipe(plugins.concat('vendor.css'))
         .pipe(plugins.if(args.production, plugins.cleanCss()))
         .pipe(gulp.dest(dest.css));
@@ -142,31 +110,22 @@ gulp.task('styles-vendor', function () {
 
 gulp.task('styles', function () {
     var localApp = gulp.src(src.styles)
-            .pipe(plugins.filter('**/*.{scss,css}')),
+        .pipe(plugins.filter('**/*.{scss,css}')),
         localComponents = gulp.src('scripts/app/kroudy_components/**/*.css')
-                .pipe(plugins.filter('**/*.{scss,css}'));
+        .pipe(plugins.filter('**/*.{scss,css}'));
+
     return merge(localApp, localComponents)
         .pipe(plugins.concat('base.css'))
         .pipe(plugins.if(args.production, plugins.cleanCss()))
         .pipe(gulp.dest(dest.css));
 });
 
-gulp.task('styles-jobs', function () {
-    var localApp = gulp.src(src.stylesjobs)
-            .pipe(plugins.filter('**/*.{scss,css}')),
-        localComponents = gulp.src('scripts/app/kroudy_components/**/*.css')
-                .pipe(plugins.filter('**/*.{scss,css}'));
-    return merge(localApp, localComponents)
-        .pipe(plugins.concat('style_jobs.css'))
-        .pipe(plugins.if(args.production, plugins.cleanCss()))
-        .pipe(gulp.dest(dest.css));
-});
-
 gulp.task('styles-general', function () {
     var localApp = gulp.src(src.stylesgeneral)
-            .pipe(plugins.filter('**/*.{scss,css}')),
+        .pipe(plugins.filter('**/*.{scss,css}')),
         localComponents = gulp.src('scripts/app/kroudy_components/**/*.css')
-                .pipe(plugins.filter('**/*.{scss,css}'));
+        .pipe(plugins.filter('**/*.{scss,css}'));
+
     return merge(localApp, localComponents)
         .pipe(plugins.concat('general.css'))
         .pipe(plugins.if(args.production, plugins.cleanCss()))
@@ -182,7 +141,6 @@ gulp.task('fonts', function () {
     return gulp.src(plugins.bower(), { base: BOWER_DIR })
         .pipe(plugins.filter('**/*.{eot,svg,ttf,woff,woff2}'))
         .pipe(plugins.print(function (filepath) {
-          // console.log('filepathFonts',filepath);
             return "font: " + filepath;
         }))
         .pipe(plugins.flatten())
@@ -192,18 +150,9 @@ gulp.task('fonts', function () {
 gulp.task('templates', function () {
     gulp.src(src.templates)
         .pipe(plugins.angularTemplatecache({
-            module: 'krowdy-positions'
+            module: 'tiendaexclusiva'
         }))
         .pipe(plugins.concat('templates.js'))
-        .pipe(gulp.dest(dest.js));
-});
-
-gulp.task('templates-jobs', function () {
-    gulp.src(src.templatesjobs)
-        .pipe(plugins.angularTemplatecache({
-            module: 'krowdy-joboards'
-        }))
-        .pipe(plugins.concat('templates-jobs.js'))
         .pipe(gulp.dest(dest.js));
 });
 
@@ -218,13 +167,13 @@ gulp.task('images', function () {
 });
 
 gulp.task('json',function () {
-  return gulp.src(src.json)
-  .pipe(gulp.dest(dest.json));
+    return gulp.src(src.json)
+          .pipe(gulp.dest(dest.json));
 });
 
 gulp.task('assets', function () {
-  return gulp.src(src.assets)
-  .pipe(gulp.dest(dest.assets));
+    return gulp.src(src.assets)
+          .pipe(gulp.dest(dest.assets));
 });
 
 gulp.task('watch', function () {
@@ -233,9 +182,9 @@ gulp.task('watch', function () {
 
 gulp.task('compile', function (done) {
     runSequence(
-        ['images', 'scripts','scripts-jobs', 'bootstrap-fonts', 'templates','templates-jobs', 'fonts','json', 'assets'],
+        ['images', 'scripts', 'bootstrap-fonts', 'templates', 'fonts','json', 'assets'],
         'scripts-vendor',
-        ['styles-vendor','styles-general','styles','styles-jobs'],
+        ['styles-vendor','styles-general','styles'],
         done
     );
 });

@@ -5,7 +5,6 @@ var utils = require('./utils');
 require('./models/users');
 var userModel = mongoose.model('Users');
 var Pool = require('pg-pool')
-var uuid = require('node-uuid');
 var fs = require('fs');
 
 /*define connection to DB*/
@@ -56,10 +55,10 @@ module.exports = function(passport) {
   passport.use(new LocalStrategy(
   function(username, password, cb) {
     userModel.find({email:username},function(err,user){
-      if(err){ return cb(err); }
-      if(!user[0]){ return cb(null,false); }
+      if(err){ return cb(null, false,{code:0}); }
+      if(!user[0]){ return cb(null, false,{code:1}); }
       var passEnc=utils.encript.password(password);
-      if (user[0].password != passEnc) { return cb(null, false); }
+      if (user[0].password != passEnc) { return cb(null, false,{code:2}); }
         delete user[0].password;
         utils.log.save('login',user[0]);
         return cb(null, user[0]);

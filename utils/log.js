@@ -3,6 +3,7 @@ require('../models/log');
 var Log = mongoose.model('Log');
 
 exports.save = function(action,In) {
+    // var contentIn = JSON.stringify(In);
     if(process.env.SAVELOG=='true'){
         var data = {process:action,content:In};
         var Logs = new Log(data);

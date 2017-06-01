@@ -1,64 +1,79 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var idInterview = '57f26ac03eea6a4e4215fa61';//'10000000-0000-0000-0000-000000000000';
 var mongoose = require('mongoose');
-//var usersModel = mongoose.model('Users');
+var utils = require('../utils/url');
 
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Puestos' });
-// });
-
-/* GET home page. */
+/* GET Login Page. */
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Home del portal',user:req.user });
+  res.redirect('/login');
 });
 
-router.get('/login',function(req, res){
-  res.render('login');
-});
-
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login'}),function(req, res){
-  res.redirect('/escritorio');
-  // if(req.user.rol=='1'){
-  //     res.redirect('/dashboard#/preview/'+idInterview);
-  // }else{
-  //     res.redirect('/dashboard');
-  // }
-});
-
-router.get('/logout',
-  function(req, res){
-    req.logout();
-    res.redirect('/');
-  });
-
-router.get('/dashboard',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('dashboard', { user: req.user ,interview:idInterview});
-  });
-
-router.get('/dashboard/:ctrl/:id',function(req,res,next){
-  idInterview = req.params.id;
-  // console.log('req.user',req.user);
-  if(req.user){
-    if(req.user.rol=='1'){
-        // res.redirect('/dashboard#/preview/'+idInterview);
-        res.redirect('/dashboard#/candidate-interview/'+idInterview);
-    }else{
-        // console.log('redirect=====>','/dashboard#/'+req.params.ctrl+'/'+idInterview);
-        res.redirect('/dashboard#/'+req.params.ctrl+'/'+idInterview);
-    }
-  }else{
-    res.redirect('/dashboard');
+router.get('/login',function(req, res, next){
+  console.log('isAuthenticated',req.isAuthenticated());
+  console.log('sessionID',req.sessionID);
+  if(!req.isAuthenticated()) {
+      redirect = utils.getRedirectUrl(req.originalUrl)
+      if (!redirect) {
+          res.render('login',{
+              'error' : false
+          });
+      } else {
+          var message=false;
+          switch (req.query.error) {
+              case '1':
+                  message="El usuario no está registrado.";
+              break;
+              case '2':
+                  message="El password es incorrecto.";
+              break;
+              case '3':
+                  message="El usuario tiene una sesión activa";
+              break;
+          }
+          res.render('login',{
+              'error' : message,
+          });
+      }
+  } else {
+      console.log("User Already Logged",req.user)
+      if(req.user.enabled){
+          res.redirect('/escritorio');
+      }else{
+          res.render('login');
+      }
   }
-})
+});
+
+router.post('/login',function(req, res, next){
+  passport.authenticate('local', function(err, user, info) {
+       if(typeof(info)!='undefined'){
+           console.log('info.sessionID',info.sessionID);
+           console.log('req.sessionID',req.sessionID);
+           res.redirect('/login?error='+info.code);
+       }
+       if(user!=false){
+           req.logIn(user, function(err) {
+              if (err) { return next(err); }
+
+              if(req.user.enabled){
+                  res.redirect('/escritorio')
+              } else {
+                  res.render('login');
+              }
+          });
+       }
+   })(req,res,next);
+});
+
+router.get('/logout', function(req, res, next){
+  req.logout();
+  res.redirect('/');
+});
 
 router.get("/rest/savelog", function(req, res) {
-    var env = process.env.SAVELOG;
-    res.json({result: env});
+  var env = process.env.SAVELOG;
+  res.json({result: env});
 });
 
 router.get("/env",function(req,res){
@@ -71,7 +86,7 @@ router.get("/env",function(req,res){
     kurento:env.KURENTOSERVER,
     savelog:env.SAVELOG
   };
-  // console.log('rpta',rpta);
+
   res.json({result:rpta});
 });
 

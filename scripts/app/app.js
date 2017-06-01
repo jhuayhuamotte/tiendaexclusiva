@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  angular.module('krowdy-positions', [
+  angular.module('tiendaexclusiva', [
     "ngSanitize",
     "ui.bootstrap",
     'ui.router',
