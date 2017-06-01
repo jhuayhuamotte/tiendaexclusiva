@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', require('connect-ensure-login').ensureLoggedIn(), function(req, res, next) {
-  res.render('escritorio',{ title: 'jobBoards'});
+  res.render('index',{ title: 'jobBoards'});
 });
 
 module.exports = router;

@@ -32,8 +32,7 @@ require('./models/productos');
 require('./models/ventas');
 
 var route = require('./routes/index');
-var jobBoards = require('./routes/jobBoards/index');
-var jobBoardApi = require('./routes/jobBoards/api');
+var escritorio = require('./routes/escritorio/index');
 var api = require('./routes/api');
 
 var app = express();
@@ -61,8 +60,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/',route);
-app.use('/escritorio', middleware.shouldLogged, jobBoards);
-app.use('/api/info', middleware.shouldLogged, jobBoardApi);
+app.use('/escritorio', middleware.shouldLogged, escritorio);
 app.use('/api/v1', middleware.shouldLogged, api);
 
 // catch 404 and forward to error handler
