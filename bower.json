@@ -2,16 +2,13 @@
     "name": "mitiendaexclusiva",
     "description": "Administración de la tienda exclusiva",
     "main": "",
-    "resolutions": {
-        "angular": "1.5.0"
-    },
     "authors": [
         "Jaime Huayhua <jhuayhuamotte@gmail.com>"
     ],
     "license": "MIT",
     "homepage": "http://localhost:3000/",
     "dependencies": {
-        "angular": "^1.6.2",
+        "angular": "^1.5.8",
         "angular-route": "1.5.8",
         "angular-loader": "1.5.8",
         "angular-animate": "1.5.8",
