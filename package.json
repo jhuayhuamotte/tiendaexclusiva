@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "bower install && gulp compile",
     "prestart": "npm install",
     "start": "hotnode ./bin/server.js",
     "pretest": "npm install"
