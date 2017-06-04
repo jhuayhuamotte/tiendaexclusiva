@@ -3,9 +3,8 @@ var Schema = mongoose.Schema;
 
 var PedidosSchema = new Schema({
   id_pedido:String,
-  estado:Boolean,
-  vendedor:{type:mongoose.Schema.Types.ObjectId,ref:'Profiles'},
-  cliente:{type:mongoose.Schema.Types.ObjectId,ref:'Profiles'},
+  estado:Number,
+  profile:{id:{ type: mongoose.Schema.Types.ObjectId, ref: 'Profiles' }, displayName:String},
   costo_total:Number,
   enable:{type:Boolean, default: true},
   createAt:{ type: Date, default: Date.now },

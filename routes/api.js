@@ -1,177 +1,296 @@
 var express = require('express');
 var router = express.Router();
+var ObjectId = require('mongoose').Types.ObjectId;
 var mongoose = require('mongoose');
 var when = require('when');
-var DataModel = mongoose.model('Data');
-var TopModel = mongoose.model('Top');
-var ActividadesModel = mongoose.model('Actividades');
-var CategoriasModel = mongoose.model('Categorias');
-var CommodityModel = mongoose.model('Commodity');
-var ConsolidadoModel = mongoose.model('Consolidado');
-var toolsTechnologyModel = mongoose.model('ToolsTechnology');
-var ProfilesDetailModel = mongoose.model('ProfilesDetail');
-var OnetsModel = mongoose.model('Onets');
+var moment = require('moment');
 var LogModel = mongoose.model('Log');
 var CarroModel = mongoose.model('Carros');
 var PedidoModel = mongoose.model('Pedidos');
 var ProductoModel = mongoose.model('Productos');
 var VentaModel = mongoose.model('Ventas');
 
-/* SUGG START */
-router.get('/positions/:code',function(req,res,next){
-  var code=req.params.code;
-  TopModel.find({id:code},{onet_code:true,title_es:true,data:true},
-  function(err,tops){
-      if(err){return next(err);}
-      res.json(tops);
-    }).sort({data: -1}).exec(function(err, docs) {
-      if(err){return next(err);}
+/* START Carros */
+router.get('/carros', function(req, res, next){
+  CarroModel.find({enable:true},function(err,carros){
+    if(err){return next(err);}
+    res.json(carros);
+  });
+});
+
+router.get('/carro/:id', function(req, res, next){
+  var id = req.params.id;
+  CarroModel.findOne({_id: new ObjectId(id)},function(err, carro){
+    if(err){return next(err);}
+    res.json(carro);
+  });
+});
+
+router.get('/carro/profile/:id', function(req, res, next){
+  var id = req.params.id;
+  CarroModel.findOne({id_profile: new ObjectId(id), enable:true},function(err, carro){
+    if(err){return next(err);}
+    res.json(carro);
+  });
+});
+
+router.post('/carro', function(req, res, next){
+  var Carro = new CarroModel(req.body);
+  Carro.save(function(err, carro){
+    if(err){ return next(err);}
+    res.json(carro);
+  })
+});
+
+router.put('/carro/:id', function(req, res, next){
+
+});
+
+router.put('/carro/profile/:id', function(req, res, next){
+    var id = req.params.id;
+    var producto = req.body;
+    console.log("producto", producto);
+    CarroModel.findOne({id_profile: new ObjectId(id)},function(err, carro){
+        if(err){return next(err);}
+        var productos = carro.productos;
+        if(!productos){productos=[];}
+        productos.push(producto);
+        CarroModel.update({id_profile: new ObjectId(id)},
+        {$set: {productos:productos}},
+        function(err, rowsAffected){
+            if(err){return next(err);}
+            res.json(rowsAffected);
+        });
     });
 });
-/* SUGG END */
 
-/* START Consolidado */
-router.post('/consolidado', function(req, res, next){
-  var data = req.body;
-  var textArr = data.text.split(" ");
-  var queryOR = [];
-  var tables = [];
-  var query = {};
-  if(data.actividades) tables.push(" this.tabla=='actividades' ");
-  if(data.categorias) tables.push(" this.tabla=='categorias' ");
-  if(data.commodities) tables.push(" this.tabla=='commodities' ");
+router.delete('/carro/:id', function(req, res, next){
+  var id = req.params.id;
+  CarroModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+    if(err) { return next(err); }
+    res.json(numAffected)
+  })
+});
+/* END Carros */
 
-  for(var k in textArr){
-    if(textArr[k].length>3){
-      var like = new RegExp(textArr[k], "i");
-      queryOR.push({desc:like});
-    }
-  }
-
-  if(textArr.length>0){
-    var like = new RegExp(data.text, "i");
-    queryOR.push({desc:like});
-  }
-
-  query = {$or:queryOR,$where:tables.toString().replace(/,/g,'||')};
-
-  ConsolidadoModel.find(query,{_id:1,codigo:1,id:1,desc:1,tabla:1,campo:1},
-  function(err,consolidados){
+/* START Pedidos */
+router.get('/pedidos', function(req, res, next){
+  PedidoModel.find({enable:true},function(err,pedidos){
     if(err){return next(err);}
-    res.json(consolidados);
+    res.json(pedidos);
   });
 });
 
-router.get('/actividades/:id', function(req, res, next){
+router.get('/pedido/:id', function(req, res, next){
   var id = req.params.id;
-  ActividadesModel.find({codigo:id},{}, function(err, actividades){
+  PedidoModel.findOne({_id: new ObjectId(id)},function(err, pedido){
     if(err){return next(err);}
-    res.json(actividades);
+    res.json(pedido);
   });
 });
 
-router.get('/categorias/:id', function(req, res, next){
-  var id = req.params.id;
-  CategoriasModel.find({codigo:id},{}, function(err, categorias){
-    if(err){return next(err);}
-    res.json(categorias);
-  });
-});
-
-router.get('/commodities/:id', function(req, res, next){
-  var id = req.params.id;
-  CommodityModel.find({codigo:id},{}, function(err, commodities){
-    if(err){return next(err);}
-    res.json(commodities);
-  });
-});
-
-router.get('/toolstechnology/:id', function(req, res, next){
-  var id = req.params.id;
-  toolsTechnologyModel.aggregate([
-  {$match:{commodity_code:id}},
-  {$group:{_id:{code_onet:"$code_onet", title:"$title"}}}],
-  function(err, tools){
-    if(err){return next(err);}
-    res.json(tools);
-  });
-});
-/* END Consolidado */
-
-/* START ProfilesDetail */
-router.get('/profilesdetail/all/:offset',function(req,res,next){
-  var offset = req.params.offset;
-  ProfilesDetailModel.find({enable:true,homologado:false},
-  function(err, profilesdetail){
-    if(err){return next(err);}
-    res.json(profilesdetail);
-  }).skip(parseInt).limit(100);
-});
-
-router.get('/profilesdetail/:id', function(req,res,next){
-  var id = req.params.id;
-  ProfilesDetailModel.find({id_candidato:id},{},function(err,profilesdetail){
-    if(err){return next(err);}
-    res.json(profilesdetail);
+router.post('/pedido', function(req, res, next){
+  var Pedido = new PedidoModel(req.body);
+  Pedido.save(function(err, pedido){
+    if(err){ return next(err);}
+    res.json(pedido);
   })
 });
 
-router.put('/profilesdetail/:id', function(req,res,next){
-  var id = req.params.id;
-  ProfilesDetailModel.findOne({id_candidato:id}, function(err,profilesdetail){
-    if(err){return next(err);}
-    profilesdetail.homologado = true;
-    profilesdetail.save(function(err){
-      if(err){return next(err);}
-      res.json({success:true,error:null});
+router.put('/pedido', function(req, res, next){
+
+});
+
+router.delete('/pedido/:id', function(req, res, next){
+    var id = req.params.id;
+    PedidoModel.update({_id: new ObjectId(id)},
+    {$set: {enable: false}},
+    function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
     })
+});
+
+router.delete('/pedido/remove/:id', function(req, res, next){
+    var id = req.params.id;
+    PedidoModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
+    })
+});
+/* END Pedidos */
+
+/* START Productos */
+router.get('/productos', function(req, res, next){
+  ProductoModel.find({enable:true},function(err,productos){
+    if(err){return next(err);}
+    res.json(productos);
+  });
+});
+
+router.get('/producto/:id', function(req, res, next){
+  var id = req.params.id;
+  ProductoModel.findOne({_id: new ObjectId(id), enable: true},function(err, producto){
+    if(err){return next(err);}
+    res.json(producto);
+  });
+});
+
+router.post('/producto', function(req, res, next){
+    var prod = req.body;
+    var fotos = [];
+    var descuentos = [];
+
+    for(var f in prod.fotos){
+        fotos.push({
+              url: prod.fotos[f].url,
+              orden: parseInt(prod.fotos[f].orden)
+        });
+    }
+
+    for(var t in prod.descuentos){
+        descuentos.push({
+              grupo: parseInt(prod.descuentos[t].grupo),
+              cantidad: parseInt(prod.descuentos[t].cantidad),
+              descuento: parseFloat(prod.descuentos[t].descuento),
+              date_start: new Date(),
+              date_end: new Date()
+        });
+    }
+
+    var producto = {
+        nombre_producto: prod.nombre,
+        precio: parseFloat(prod.precio),
+        cantidad: parseInt(prod.cantidad),
+        estado: parseInt(prod.estado),
+        desc_producto: prod.desc_producto,
+        fotos: fotos,
+        meta_tag_title: prod.tag_title,
+        meta_tag_desc: prod.tag_desc,
+        meta_tag_keywords: prod.tag_keywords,
+        modelo: prod.modelo,
+        codigo: prod.codigo,
+        clase: prod.clase,
+        cantidad_min: parseInt(prod.cantidad_min),
+        prioridad: parseInt(prod.prioridad),
+        direccion: prod.direccion,
+        descuentos: descuentos
+    };
+
+    var Producto = new ProductoModel(producto);
+    Producto.save(function(err, producto){
+        if(err){ return next(err);}
+        res.json(producto);
+    });
+});
+
+router.put('/producto/:id', function(req, res, next){
+    var id = req.params.id;
+    var prod = req.body;
+    var fotos = [];
+    var descuentos = [];
+
+    for(var f in prod.fotos){
+        fotos.push({
+              url: prod.fotos[f].url,
+              orden: parseInt(prod.fotos[f].orden)
+        });
+    }
+
+    for(var t in prod.descuentos){
+        descuentos.push({
+              grupo: parseInt(prod.descuentos[t].grupo),
+              cantidad: parseInt(prod.descuentos[t].cantidad),
+              descuento: parseFloat(prod.descuentos[t].descuento),
+              date_start: new Date(),
+              date_end: new Date()
+        });
+    }
+
+    ProductoModel.update(
+        {_id: new ObjectId(id)},
+        {
+            $set: {
+                nombre_producto: prod.nombre,
+                precio: parseFloat(prod.precio),
+                cantidad: parseInt(prod.cantidad),
+                estado: parseInt(prod.estado),
+                desc_producto: prod.desc_producto,
+                fotos: fotos,
+                meta_tag_title: prod.tag_title,
+                meta_tag_desc: prod.tag_desc,
+                meta_tag_keywords: prod.tag_keywords,
+                modelo: prod.modelo,
+                codigo: prod.codigo,
+                clase: prod.clase,
+                cantidad_min: parseInt(prod.cantidad_min),
+                prioridad: parseInt(prod.prioridad),
+                direccion: prod.direccion,
+                descuentos: descuentos
+            }
+        },
+        function(err, rowsAffected){
+            if(err){ return next(err);}
+            res.json(rowsAffected);
+        }
+    );
+});
+
+router.delete('/producto/:id', function(req, res, next){
+    var id = req.params.id;
+    ProductoModel.update({_id: new ObjectId(id)},
+    {$set: {enable: false}},
+    function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
+    })
+});
+
+router.delete('/producto/remove/:id', function(req, res, next){
+    var id = req.params.id;
+    ProductoModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
+    })
+});
+/* END Carros */
+
+/* START Carros */
+router.get('/ventas', function(req, res, next){
+  VentaModel.find({enable:true},function(err,ventas){
+    if(err){return next(err);}
+    res.json(ventas);
+  });
+});
+
+router.get('/venta/:id', function(req, res, next){
+  var id = req.params.id;
+  VentaModel.findOne({_id: new ObjectId(id)},function(err, venta){
+    if(err){return next(err);}
+    res.json(venta);
+  });
+});
+
+router.post('/venta', function(req, res, next){
+  var Venta = new VentaModel(req.body);
+  Venta.save(function(err, venta){
+    if(err){ return next(err);}
+    res.json(venta);
   })
 });
 
-router.get('/profilesdetail/candidates/search', function(req,res,next){
-  var search = req.query.candidates;
-  var offset = req.query.offset;
-  var searchArr = search.split(",");
-  var queryOR = [];
-  var queryIN = [];
+router.put('/venta', function(req, res, next){
 
-  if(search!=null && search.trim()!=''){
-    for(var x in searchArr){
-      if(!isNaN(searchArr[x]) && searchArr[x].trim()!=''){
-        queryIN.push(searchArr[x].trim());
-      }else if(searchArr[x].trim()!=''){
-        var like = new RegExp(searchArr[x].trim(), "i");
-        queryOR.push({nombre_candidato:like});
-      }
-    }
-  }
-
-  if(queryIN.length>0){
-    queryOR.push({id_candidato:{$in:queryIN}});
-  }
-
-  when.all([
-    ProfilesDetailModel.find({$or:queryOR}).skip(
-      parseInt(offset)
-    ).limit(30).exec(),
-    ProfilesDetailModel.find({$or:queryOR}).count().exec()
-  ]).spread(function(results,count){
-    res.json({success:true,data:results,count:count});
-  }).otherwise(function(err){
-    if(err){return next(err);}
-  });
 });
-/* END ProfilesDetail */
 
-/* START Onets */
-router.get('/onets/:id', function(req,res,next){
+router.delete('/venta/:id', function(req, res, next){
   var id = req.params.id;
-  OnetsModel.findOne({id_onet:id},function(err,results){
-    if(err){return next(err);}
-    res.json(results);
-  });
+  VentaModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+    if(err) { return next(err); }
+    res.json(numAffected)
+  })
 });
-/* END Onets */
+/* END Carros */
 
 /*START Log*/
 router.post('/log',function(req,res,next){

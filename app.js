@@ -7,22 +7,28 @@ var mongoose = require('mongoose');
 //var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var passport = require('passport'); // Passport: Middleware de Node que facilita la autenticación de usuarios
 require('./passport')(passport);
+
 var cnt= utils.connection.getConnection(process.env.MONGODB);
 mongoose.Promise = global.Promise;
-mongoose.connect(cnt.driver+'://'+cnt.host+':'+cnt.port+'/'+cnt.database,{user:cnt.user,pass:cnt.pwd});
+if(process.env.MLAB){
+  var mongodbUri = cnt.driver+'://'+cnt.user+':'+cnt.pwd+'@'+cnt.host+':'+cnt.port+'/'+cnt.database;
+  var dboptions = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+                    replset:{ socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } } };
+}else{
+  var mongodbURI = cnt.driver+'://'+cnt.host+':'+cnt.port+'/'+cnt.database;
+  var dboptions = {user:cnt.user,pass:cnt.pwd};
+}
+mongoose.connect(mongodbUri,dboptions);
 
-require('./models/data');
-require('./models/top');
-require('./models/actividades');
-require('./models/categorias');
-require('./models/commodity');
-require('./models/consolidado');
-require('./models/toolsTechnology');
-require('./models/profilesDetail');
-require('./models/onets');
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
+conn.once('open', function() {
+  // Wait for the database connection to establish, then start the app.
+  console.log("<======= MONGODB CONNECTION OPEN ==========>");
+});
+
 require('./models/log');
 require('./models/users');
 require('./models/userProfile');
@@ -61,7 +67,7 @@ app.use(passport.session());
 
 app.use('/',route);
 app.use('/escritorio', middleware.shouldLogged, escritorio);
-app.use('/api/v1', middleware.shouldLogged, api);
+app.use('/api/v1', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,13 +1,13 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').directive('gridProduct',function(){
+    angular.module('tiendaexclusiva').directive('footer',function(){
         return {
             required: 'field',
             restrict : 'E',
             scope: {
-              producto: '='
+
             },
-            templateUrl:'scripts/app/modules/grid/views/partials/grid-product.html',
+            templateUrl:'scripts/app/partials/footer.html',
             link: function ($scope, $element, $args) {
 
 

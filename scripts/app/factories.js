@@ -1,43 +1,312 @@
 (function () {
-  'use strict';
-  angular.module('tiendaexclusiva').
-  factory('onets',function($http){
-    var onets = {};
-    onets.value = {};
-    onets.valueModal = {};
+    'use strict';
 
-    onets.getById = function(id_onet,modal){
-      return $http.get('/api/v1/onets/'+id_onet)
-      .success(function(response){
-        if(modal){
-          angular.copy(response,onets.valueModal);
-        }else{
-          angular.copy(response,onets.value);
+    function carrosFactory( $http ){
+        var carro = {};
+        carro.values = [];
+        carro.carData = {};
+
+        carro.list = function(){
+            return $http
+            .get('/api/v1/carros')
+            .success( function(carros) {
+                angular.copy(carros, carro.values);
+            })
+            .error( function(err) {
+                console.log("List Cars Error: ", err);
+            });
         }
-      }).error(function(err){
-        console.error("Error en onets.getById: ", err);
-      })
+
+        carro.getById = function(id){
+            return $http
+            .get('/api/v1/carro/'+id)
+            .success( function(carro) {
+                return carro;
+            })
+            .error( function(err) {
+                console.log("Get Car By Id Error: ", err);
+            });
+        }
+
+        carro.getByIdProfile = function(id){
+            return $http
+            .get('/api/v1/carro/profile/'+id)
+            .success( function(response) {
+                if(response !== null){
+                    var car = response;
+                    car.edit = true;
+                    angular.copy(car,carro.carData);
+                }
+            })
+            .error( function(err) {
+                console.log("Get Car By id Profile Error: ", err);
+            });
+        }
+
+        carro.save = function(row){
+            return $http
+            .post('/api/v1/carro', row)
+            .success( function(response) {
+                console.log("Car Saved: ", response);
+            })
+            .error( function(err) {
+                console.log("Save Car Error: ", err);
+            });
+        }
+
+        carro.update = function(id, row){
+            return $http
+            .put('/api/v1/carro/'+id, row)
+            .success( function(response) {
+                console.log("Car Updated: ", response);
+            })
+            .error( function(err) {
+                console.log("Update Car Error: ", err);
+            });
+        }
+
+        carro.updateByProfile = function(id, row){
+            return $http
+            .put('/api/v1/carro/profile/'+id, row)
+            .success( function(response) {
+                console.log("Car Updated: ", response);
+            })
+            .error( function(err) {
+                console.log("Update Car Error: ", err);
+            });
+        }
+
+        carro.delete = function(id){
+            return $http
+            .delete('/api/v1/carro/'+id)
+            .success( function(carro) {
+                console.log("Car Deleted: ", carro);
+            })
+            .error( function(err) {
+                console.log("Deleted Car Error: ", err);
+            });
+        }
+
+        return carro;
     }
 
-    return onets;
-  }).
-  factory('jobzone', function($http){
-    var jobzone = {};
-    jobzone.value = {};
-    jobzone.valueModal = {};
+    function pedidosFactory( $http ){
+        var pedido = {};
+        pedido.dataOrder = [];
 
-    jobzone.getById = function(id,modal){
-      return $http.get('/api/info/jobzone/'+id).success(function(response){
-        if(modal){
-          angular.copy(response, jobzone.valueModal);
-        }else{
-          angular.copy(response, jobzone.value);
+        pedido.list = function(){
+            return $http
+            .get('/api/v1/pedidos')
+            .success( function(response) {
+                angular.copy(response, pedido.dataOrder);
+            })
+            .error( function(err) {
+                console.log("List Pedidos Error: ", err);
+            });
         }
-      }).error(function(err){
-        console.error("Error en jobzone.getById: ", err);
-      })
+
+        pedido.getById = function(id){
+            return $http
+            .get('/api/v1/pedido/'+id)
+            .success( function(pedido) {
+                return pedido;
+            })
+            .error( function(err) {
+                console.log("Get Pedido By Id Error: ", err);
+            });
+        }
+
+        pedido.save = function(row){
+            return $http
+            .post('/api/v1/pedido', row)
+            .success( function(response) {
+                console.log("Pedido Saved: ", response);
+            })
+            .error( function(err) {
+                console.log("Save Pedido Error: ", err);
+            });
+        }
+
+        pedido.update = function(id, row){
+            return $http
+            .put('/api/v1/pedido/'+id)
+            .success( function(pedido) {
+                console.log("Pedido Updated: ", pedido);
+            })
+            .error( function(err) {
+                console.log("Update Pedido Error: ", err);
+            });
+        }
+
+        pedido.delete = function(id){
+            return $http
+            .delete('/api/v1/pedido/'+id)
+            .success( function(response) {
+                console.log("Pedido Deleted: ", response);
+            })
+            .error( function(err) {
+                console.log("Deleted Pedido Error: ", err);
+            });
+        }
+
+        return pedido;
     }
 
-    return jobzone;
-  })
+    function productosFactory( $http ){
+        var producto = {};
+        producto.dataList = [];
+        producto.edit = {};
+
+        producto.list = function(){
+            return $http
+            .get('/api/v1/productos')
+            .success( function(response) {
+                console.log("response: list: ", response);
+                angular.copy(response, producto.dataList);
+            })
+            .error( function(err) {
+                console.log("List Products Error: ", err);
+            });
+        }
+
+        producto.getById = function(id){
+            return $http
+            .get('/api/v1/producto/'+id)
+            .success( function(response) {
+                var p = response;
+                var prod = {
+                    _id: p._id,
+                    edit: true,
+                    nombre: p.nombre_producto,
+                    precio: p.precio,
+                    cantidad: p.cantidad,
+                    desc_producto: p.desc_producto,
+                    fotos: p.fotos,
+                    tag_title: p.meta_tag_title,
+                    tag_desc: p.meta_tag_desc,
+                    tag_keywords: p.meta_tag_keywords,
+                    modelo: p.modelo,
+                    codigo: p.codigo,
+                    clase: p.clase,
+                    cantidad_min: p.cantidad_min,
+                    prioridad: p.prioridad,
+                    direccion: p.direccion,
+                    estado: p.estado,
+                    descuentos: p.descuentos
+                }
+                console.log("PROD: ", prod);
+                angular.copy(prod, producto.edit);
+            })
+            .error( function(err) {
+                console.log("Get Product By Id Error: ", err);
+            });
+        }
+
+        producto.save = function(row){
+            console.log("row: ", row);
+            return $http
+            .post('/api/v1/producto', row)
+            .success( function(response) {
+                console.log("Product Saved: ", response);
+            })
+            .error( function(err) {
+                console.log("Save Product Error: ", err);
+            });
+        }
+
+        producto.update = function(id, row){
+            console.log("row: ", id, row);
+            return $http
+            .put('/api/v1/producto/'+id, row)
+            .success( function(response) {
+                console.log("Product Updated: ", response);
+            })
+            .error( function(err) {
+                console.log("Update Product Error: ", err);
+            });
+        }
+
+        producto.delete = function(id){
+            return $http
+            .delete('/api/v1/producto/'+id)
+            .success( function(response) {
+                console.log("Product Deleted: ", response);
+            })
+            .error( function(err) {
+                console.log("Deleted Product Error: ", err);
+            });
+        }
+
+        return producto;
+    }
+
+    function ventasFactory( $http ){
+        var venta = {};
+        venta.values = [];
+
+        venta.list = function(){
+            return $http
+            .get('/api/v1/ventas')
+            .success( function(ventas) {
+                angular.copy(ventas, venta.values);
+            })
+            .error( function(err) {
+                console.log("List Ventas Error: ", err);
+            });
+        }
+
+        venta.getById = function(id){
+            return $http
+            .get('/api/v1/venta/'+id)
+            .success( function(venta) {
+                return venta;
+            })
+            .error( function(err) {
+                console.log("Get Venta By Id Error: ", err);
+            });
+        }
+
+        venta.save = function(row){
+            return $http
+            .post('/api/v1/venta', row)
+            .success( function(venta) {
+                console.log("Venta Saved: ", venta);
+            })
+            .error( function(err) {
+                console.log("Save Venta Error: ", err);
+            });
+        }
+
+        venta.update = function(id, row){
+            return $http
+            .put('/api/v1/venta/'+id)
+            .success( function(venta) {
+                console.log("Venta Updated: ", venta);
+            })
+            .error( function(err) {
+                console.log("Update Venta Error: ", err);
+            });
+        }
+
+        venta.delete = function(id){
+            return $http
+            .delete('/api/v1/venta/'+id)
+            .success( function(venta) {
+                console.log("Venta Deleted: ", venta);
+            })
+            .error( function(err) {
+                console.log("Deleted Venta Error: ", err);
+            });
+        }
+
+        return venta;
+    }
+
+    angular
+    .module('tiendaexclusiva')
+    .factory('carro',     carrosFactory)
+    .factory('pedido',    pedidosFactory)
+    .factory('producto',  productosFactory)
+    .factory('venta',     ventasFactory);
+
 })();

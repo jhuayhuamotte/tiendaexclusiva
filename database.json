@@ -1,47 +1,4 @@
 {
-  "local-pg": {
-    "driver": "pg",
-    "user": "deybeepg",
-    "password": "123456",
-    "host": "localhost",
-    "database": "kroudy",
-    "schema": "public",
-    "dialect": "postgres",
-    "max":50,
-    "idleTimeoutMillis": 35000
-  },
-  "dev-pg": {
-    "driver": "pg",
-    "user": "kroudyui",
-    "password": "kroudy,,123",
-    "host": "52.37.142.63",
-    "database": "kroudydev",
-    "schema": "public",
-    "max":60,
-    "idleTimeoutMillis": 35000
-  },
-  "dev-pg-lnk": {
-    "driver": "pg",
-    "user": "kmaster",
-    "password": "oos2EiguSh2ahL",
-    "host": "krwd-psql01.c3wpbtbfotl9.us-west-2.rds.amazonaws.com",
-    "database": "linkedin_04",
-    "schema": "krowdy_DB",
-    "port" : 5439,
-    "max":200,
-    "idleTimeoutMillis": 5000
-  },
-  "dev-pg-jobs": {
-    "driver": "pg",
-    "user": "kmaster",
-    "password": "oos2EiguSh2ahL",
-    "host": "krwd-psql01.c3wpbtbfotl9.us-west-2.rds.amazonaws.com",
-    "database": "job_boards_04",
-    "schema": "public",
-    "port" : 5439,
-    "max":60,
-    "idleTimeoutMillis": 35000
-  },
   "local-mongo": {
     "driver": "mongodb",
     "database": "kroudy",
@@ -50,28 +7,12 @@
     "user":"",
     "pwd":""
   },
-  "local-mongo-dev": {
+  "public-mongo": {
     "driver": "mongodb",
-    "database": "krowdyHelp",
-    "host": "localhost",
-    "port":2000,
-    "user":"helpKrowdy",
-    "pwd":"123,,krowdy"
-  },
-  "public-dev-mongo": {
-    "driver": "mongodb",
-    "database": "krowdy",
-    "host": "52.88.96.241",
-    "port":27025,
-    "user":"krowdyAdmin",
-    "pwd":"123,,krowdy"
-  },
-  "dev-mongo": {
-    "driver": "mongodb",
-    "database": "krowdyHelp",
-    "host": "172.31.30.40",
-    "port":27025,
-    "user":"helpKrowdy",
-    "pwd":"123,,krowdy"
+    "database": "mitiendaexclusiva",
+    "host": "ds143181.mlab.com",
+    "port":43181,
+    "user":"jaime",
+    "pwd":"jhayme1995"
   }
 }
