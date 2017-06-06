@@ -5,6 +5,7 @@
     "ui.bootstrap",
     'ui.router',
     'angular.filter',
-    'ngDragDrop'
+    'ngDragDrop',
+    'ngFileUpload'
   ]);
 })();

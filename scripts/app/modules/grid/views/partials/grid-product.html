@@ -1,8 +1,9 @@
 <div class="ibox">
     <div class="ibox-content product-box active">
 
-        <div class="product-imitation">
-            [ INFO ]
+        <div ng-class="{'product-imitation':producto.fotos.length==0}">
+            <span ng-hide="producto.fotos.length>0">[INFO]</span>
+            <img ng-src="{{producto.fotos[0].url}}" class="img-resp" height="180" width="240">
         </div>
         <div class="product-desc">
             <span class="product-price">

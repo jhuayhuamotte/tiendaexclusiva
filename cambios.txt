@@ -1,0 +1,30 @@
+
+PRODUCTO
+nombre
+marca
+modelo
+precio compra, venta
+
+
+LISTAR PRODUCTO
+nombre
+marca
+modelo
+precio de venta
+
+PEDIDOS:
+precio:
+nombre_nombre
+cantidad
+modelo
+marca
+
+VENTAS:
+nombre_producto
+marca
+modelo
+precio_total
+cantidad
+
+IMPRESION
+imprimir lista

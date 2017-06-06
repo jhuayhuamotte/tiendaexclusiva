@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs-extra');
+var path = require('path');
 var ObjectId = require('mongoose').Types.ObjectId;
 var mongoose = require('mongoose');
 var when = require('when');
@@ -291,6 +293,25 @@ router.delete('/venta/:id', function(req, res, next){
   })
 });
 /* END Carros */
+
+/* START Media */
+router.post('/media/upload', function (req, res, next) {
+    console.log("value: ", req.body);
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("Uploading: " + filename, fieldname);
+
+        //Path where image will be uploaded
+        fstream = fs.createWriteStream(path.join(__dirname, '../dist/assets/img/' + filename));
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            console.log("Upload Finished of " + filename);
+            res.redirect('back');           //where to go next
+        });
+    });
+});
+/* END Media */
 
 /*START Log*/
 router.post('/log',function(req,res,next){

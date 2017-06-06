@@ -16,7 +16,7 @@ var DescuentosSchema = new Schema({
 
 var ProductosShema = new Schema({
   nombre_producto:String,
-  precio:Number,
+  precio: {compra: Number, venta: Number},
   cantidad:Number,
   estado:{type:Number,default:0},
   desc_producto:String,
@@ -26,6 +26,7 @@ var ProductosShema = new Schema({
   meta_tag_desc:String,
   meta_tag_keywords:String,
   modelo:String,
+  marca: String,
   codigo:String,
   clase:String,
   cantidad_min:Number,

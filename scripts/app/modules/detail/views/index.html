@@ -17,32 +17,15 @@
 
                 <div class="ibox product-detail">
                     <div class="ibox-content">
-
                         <div class="row">
                             <div class="col-md-5">
-
-
                                 <div class="product-images">
-
-                                    <div>
-                                        <div class="image-imitation">
-                                            [IMAGE 1]
+                                    <div ng-repeat="foto in $ctrl.product.fotos">
+                                        <div>
+                                            <img ng-src="{{foto.url}}" class="img-resp" height="180" width="240">
                                         </div>
                                     </div>
-                                    <div>
-                                        <div class="image-imitation">
-                                            [IMAGE 2]
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="image-imitation">
-                                            [IMAGE 3]
-                                        </div>
-                                    </div>
-
-
                                 </div>
-
                             </div>
                             <div class="col-md-7">
 

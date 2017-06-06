@@ -17,34 +17,31 @@
                     <uib-tabset active="active">
                         <uib-tab index="0" select="alertMe()">
                           <uib-tab-heading>
-                            <i class="glyphicon glyphicon-bell"></i> Info. Producto
+                            <i class="glyphicon glyphicon-list-alt"></i> Datos Producto
                           </uib-tab-heading>
                           <div class="panel-body">
 
                               <fieldset class="form-horizontal">
-                                  <div class="form-group"><label class="col-sm-2 control-label">Nombre:</label>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Nombre:</label>
                                       <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.nombre" class="form-control" placeholder="Nombre Producto"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Precio:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.precio" class="form-control" placeholder="S/. 160.00"></div>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Marca:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.marca" class="form-control" placeholder="Marca"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Descripción:</label>
-                                      <div class="col-sm-10">
-                                          <div id="summernote" class="summernote">
-                                              <h3>Titulo</h3>
-                                              Descripcion
-                                              <br/>
-                                          </div>
-                                      </div>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Modelo:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.modelo" class="form-control" placeholder="..."></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Título Etiqueta:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.tag_title" class="form-control" placeholder="..."></div>
+                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Precio Compra:</label>
+                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.precio.compra" class="form-control" placeholder="S/. 120.00"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Descripción Etiqueta:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.tag_desc" class="form-control" placeholder="..."></div>
+                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Precio Venta:</label>
+                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.precio.venta" class="form-control" placeholder="S/. 160.00"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Palabras clave Etiqueta:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.tag_keywords" class="form-control" placeholder="Galaxy, iPhone, Samsung"></div>
+                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Cantidad:</label>
+                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.cantidad" class="form-control" placeholder="5"></div>
+                                  </div>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Descripción:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.descripcion" class="form-control" placeholder="..."></div>
                                   </div>
                               </fieldset>
 
@@ -54,43 +51,55 @@
 
                         <uib-tab index="1" select="alertMe()">
                           <uib-tab-heading>
-                            <i class="glyphicon glyphicon-bell"></i> Data Producto
+                            <i class="glyphicon glyphicon-info-sign"></i> Info. Producto
                           </uib-tab-heading>
                           <div class="panel-body">
 
                               <fieldset class="form-horizontal">
-                                  <div class="form-group"><label class="col-sm-2 control-label">ID:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.codigo" class="form-control" placeholder="HCSK-FKL93-DKSL-OS543"></div>
+                                  <div class="form-group"><label class="col-sm-3">ID:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.codigo" class="form-control" placeholder="HCSK-FKL93-DKSL-OS543"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Modelo:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.modelo" class="form-control" placeholder="..."></div>
+                                  <div class="form-group"><label class="col-sm-3">Cantidad Mínima:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.cantidad_min" class="form-control" placeholder="2"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Direccíon:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.direccion" class="form-control" placeholder="Dirección"></div>
+                                  <div class="form-group"><label class="col-sm-3">Prioridad - Orden:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.prioridad" class="form-control" placeholder="1"></div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Clasificación:</label>
-                                      <div class="col-sm-10">
+                                  <div class="form-group"><label class="col-sm-3">Direccíon:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.direccion" class="form-control" placeholder="Dirección"></div>
+                                  </div>
+                                  <div class="form-group"><label class="col-sm-3">Clasificación:</label>
+                                      <div class="col-sm-9">
                                           <select ng-model="$ctrl.product.clase" class="form-control">
                                               <option>option 1</option>
                                               <option>option 2</option>
                                           </select>
                                       </div>
                                   </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Cantidad:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.cantidad" class="form-control" placeholder="5"></div>
-                                  </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Cantidad Mínima:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.cantidad_min" class="form-control" placeholder="2"></div>
-                                  </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Prioridad - Orden:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.prioridad" class="form-control" placeholder="1"></div>
-                                  </div>
-                                  <div class="form-group"><label class="col-sm-2 control-label">Estado:</label>
-                                      <div class="col-sm-10">
+                                  <div class="form-group"><label class="col-sm-3">Estado:</label>
+                                      <div class="col-sm-9">
                                           <select ng-model="$ctrl.product.estado" class="form-control">
                                               <option value="1">option 1</option>
                                               <option value="2">option 2</option>
                                           </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group"><label class="col-sm-3">Título Etiqueta:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.tag_title" class="form-control" placeholder="..."></div>
+                                  </div>
+                                  <div class="form-group"><label class="col-sm-3">Descripción Etiqueta:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.tag_desc" class="form-control" placeholder="..."></div>
+                                  </div>
+                                  <div class="form-group"><label class="col-sm-3">Palabras clave Etiqueta:</label>
+                                      <div class="col-sm-9"><input type="text" ng-model="$ctrl.product.tag_keywords" class="form-control" placeholder="Galaxy, iPhone, Samsung"></div>
+                                  </div>
+                                  <div class="form-group"><label class="col-sm-3">Descripción Prod. Tienda:</label>
+                                      <div class="col-sm-9">
+                                          <div id="summernote" class="summernote">
+                                              <h3>Titulo</h3>
+                                              Descripcion
+                                              <br/>
+                                          </div>
                                       </div>
                                   </div>
                               </fieldset>
@@ -101,10 +110,12 @@
 
                         <uib-tab index="2" select="alertMe()">
                           <uib-tab-heading>
-                            <i class="glyphicon glyphicon-bell"></i> Descuentos
+                            <i class="fa fa-percent"></i> Descuentos
                           </uib-tab-heading>
                           <div class="panel-body">
-
+                              <button type="button" ng-click="$ctrl.saveProduct()" class="btn btn-primary btn-md">
+                                  <i class="glyphicon glyphicon-plus-sign" aria-hidden="true"></i> Descuento
+                              </button>
                               <div class="table-responsive">
                                   <table class="table table-stripped table-bordered">
 
@@ -134,7 +145,7 @@
                                       <tr ng-repeat="descuento in $ctrl.product.descuentos">
                                           <td>
                                               <select ng-model="descuento.grupo" class="form-control">
-                                                  <option selected value="1">Group 1</option>
+                                                  <option ng-selected="1">Group 1</option>
                                                   <option value="2">Group 2</option>
                                                   <option value="3">Group 3</option>
                                                   <option value="4">Group 4</option>
@@ -159,7 +170,7 @@
                                               </div>
                                           </td>
                                           <td>
-                                                  <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                  <button class="btn btn-danger"><i class="fa fa-trash"></i> </button>
                                           </td>
                                       </tr>
 
@@ -174,15 +185,46 @@
 
                         <uib-tab index="3" select="alertMe()">
                           <uib-tab-heading>
-                            <i class="glyphicon glyphicon-bell"></i> Imágenes
+                            <i class="glyphicon glyphicon-picture"></i> Imágenes
                           </uib-tab-heading>
                           <div class="panel-body">
 
+                              <form method="post" name="myForm">
+                                  <fieldset>
+                                      <div ng-show="picFile.progress >= 0" class="progress progress-striped active">
+                                          <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-danger">
+                                              <span class="sr-only">40% Complete (success)</span>
+                                          </div>
+                                      </div>
+                                      <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                          <div class="form-control" data-trigger="fileinput">
+                                              <i class="glyphicon glyphicon-picture fileinput-exists"></i>
+                                              <span class="fileinput-filename"></span>
+                                          </div>
+                                          <span class="input-group-addon btn btn-primary btn-file">
+                                              <span class="fileinput-new"><i class="glyphicon glyphicon-plus"></i> Selecione Imagen</span>
+                                              <span class="fileinput-exists">
+                                                  <i class="glyphicon glyphicon-repeat" tooltip-placement="top" uib-tooltip="Cambiar" tooltip-append-to-body="true"></i>
+                                              </span>
+                                              <input type="file" type="file" ngf-select ng-model="picFile" name="file"
+                                                     accept="image/*" ngf-max-size="2MB" required
+                                                     ngf-model-invalid="errorFile"/>
+                                          </span>
+                                          <a class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput">
+                                               <i class="glyphicon glyphicon-remove" tooltip-placement="top" uib-tooltip="Eliminar"></i>
+                                           </a>
+                                          <a ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" href data-dismiss="fileinput" class="input-group-addon btn btn-success fileinput-exists">
+                                              <i class="glyphicon glyphicon-plus" tooltip-placement="top" uib-tooltip="Agregar"></i>
+                                          </a>
+                                      </div>
+                                      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                                  </fieldset>
+                              </form>
                               <div class="table-responsive">
                                   <table class="table table-bordered table-stripped">
                                       <thead>
                                       <tr>
-                                          <th>
+                                          <th width="22%">
                                               Vista Previa
                                           </th>
                                           <th>
@@ -199,7 +241,7 @@
                                       <tbody>
                                       <tr ng-repeat="foto in $ctrl.product.fotos">
                                           <td>
-                                              <img src="dist/assets/img/gallery/2s.jpg">
+                                              <img ng-src="{{foto.url}}" widht="200" height="250" class="img-resp">
                                           </td>
                                           <td>
                                               <input type="text" ng-model="foto.url" class="form-control" disabled>
@@ -208,7 +250,7 @@
                                               <input type="text" ng-model="foto.orden" class="form-control">
                                           </td>
                                           <td>
-                                              <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                              <button class="btn btn-danger" ng-click="$ctrl.deleteFotos($index)"><i class="fa fa-trash"></i> </button>
                                           </td>
                                       </tr>
                                       </tbody>
@@ -218,7 +260,17 @@
                           </div>
                         </uib-tab>
                     </uib-tabset>
-                    <button type="button" ng-click="$ctrl.saveProduct()" class="btn btn-primary btn-lg">Guardar Producto</button>
+                    <div class="panel-body" align="center">
+                        <button type="button" ng-click="$ctrl.saveProduct()" class="btn btn-primary btn-md">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Producto
+                        </button>
+                        <button type="button" ng-click="$ctrl.saveProduct()" class="btn btn-danger btn-md">
+                            <span class="glyphicon glyphicon-remove"></span> Cancelar
+                        </button>
+                        <button type="button" ng-click="$ctrl.saveProduct()" class="btn btn-success btn-md">
+                            <span class="glyphicon glyphicon-ok"></span> Actualizar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,5 +279,4 @@
     <div class="footer">
         <footer></footer>
     </div>
-
 </div>

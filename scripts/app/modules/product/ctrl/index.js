@@ -1,8 +1,10 @@
 (function () {
     'use strict';
 
-    function productController(userinfo, producto, $stateParams){
-        var $ctrl = this;
+    function productController(userinfo, producto, $stateParams, $scope, Upload, $timeout){
+        var $ctrl = this,
+            uploadUrl = "dist/assets/img/";
+
         $ctrl.userinfo = userinfo;
         $ctrl.product = {};
         $ctrl.idProducto = $stateParams.id;
@@ -40,10 +42,7 @@
                 precio: 0,
                 cantidad: 0,
                 desc_producto: null,
-                fotos: [
-                    {url: "www.google.com", orden: 1},
-                    {url: "www.youtube.com", orden: 2}
-                ],
+                fotos: [],
                 tag_title: null,
                 tag_desc: null,
                 tag_keywords: null,
@@ -81,6 +80,33 @@
                 producto.save($ctrl.product);
                 initProduct();
             }
+        }
+
+        $ctrl.deleteFotos = function(index){
+            $ctrl.product.fotos.splice(index, 1);
+        }
+
+        $scope.uploadPic = function(file) {
+            var date = new Date();
+            var time = date.getTime();
+            file.upload = Upload.rename(file, time+'-'+file.name);
+            file.upload = Upload.upload({
+                url: 'api/v1/media/upload',
+                data: {time: time, file: file}
+            });
+
+            file.upload.then(function (response) {
+                var image = {url: uploadUrl+response.config.data.file.ngfName, orden: 1};
+                console.log("image: ", image);
+                $ctrl.product.fotos.push(image);
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (err) {
+              if (err.status > 0) $scope.errorMsg = err.status + ': ' + err.data;
+            }, function (evt) {
+              file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
         }
 
 

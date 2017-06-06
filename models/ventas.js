@@ -1,18 +1,21 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var VentasSchema = new Schema({
-  id_vendedor:{type:mongoose.Schema.Types.ObjectId,ref:'Profiles'},
-  id_cliente:{type:mongoose.Schema.Types.ObjectId,ref:'Profiles'},
-  id_pedido:{type:mongoose.Schema.Types.ObjectId,ref:'Pedidos'},
-  numero_tarjeta:String,
-  cv_code:String,
-  fecha_expiracion:String,
-  nombre_tarjeta:String,
-  precio_total:Number,
-  enable: {type:Boolean, default:true},
-  createAt:{ type: Date, default: Date.now },
-  updateAt:{ type: Date, default: Date.now }
+var ProductosSchema = new Schema({
+    id_producto: {type: mongoose.Schema.Types.ObjectId, ref: 'Productos'},
+    nombre_producto: String,
+    cantidad: Number
 });
 
-mongoose.model('Ventas',VentasSchema);
+var VentasSchema = new Schema({
+    id_venta:String,
+    productos: [ProductosSchema],
+    estado:Number,
+    profile:{id:{ type: mongoose.Schema.Types.ObjectId, ref: 'Profiles' }, displayName: String},
+    costo_total:Number,
+    enable:{type:Boolean, default: true},
+    createAt:{ type: Date, default: Date.now },
+    updateAt:{ type: Date, default: Date.now }
+});
+
+mongoose.model('Ventas', VentasSchema);
