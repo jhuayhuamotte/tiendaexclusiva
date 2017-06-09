@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('prodListCtrl', function (userinfo, producto){
+    angular.module('tiendaexclusiva').controller('prodListCtrl', function (userinfo, producto, $timeout){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         producto.list();
@@ -19,8 +19,8 @@
             $ctrl.productos.splice(index, 1);
         }
 
-        $(document).ready(function() {
-            $('.footable').footable();
-        });
+        $timeout(function(){
+            $('.table').trigger('footable_redraw');
+        }, 100);
     });
 })();

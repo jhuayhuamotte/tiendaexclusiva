@@ -30,16 +30,16 @@
                             <div class="col-md-7">
 
                                 <h2 class="font-bold m-b-xs">
-                                    {{$ctrl.product.nombre}}
+                                    {{$ctrl.product.nombre_producto}}
                                 </h2>
-                                <small>Many desktop publishing packages and web page editors now.</small>
+                                <small>{{$ctrl.product.descripcion}}</small>
                                 <hr>
                                 <div>
-                                    <button ng-click="$ctrl.addToCar()" class="btn btn-primary pull-right">Add to cart</button>
-                                    <h1 class="product-main-price">${{$ctrl.product.precio}} <small class="text-muted">Exclude Tax</small> </h1>
+                                    <button ng-click="$ctrl.addToCar()" class="btn btn-primary pull-right">Añadir al carro</button>
+                                    <h1 class="product-main-price">{{$ctrl.product.precio.venta | currency:"S/. "}} <small class="text-muted">Exclude Tax</small> </h1>
                                 </div>
                                 <hr>
-                                <h4>Product description</h4>
+                                <h4>Descripción del producto</h4>
 
                                 <div class="small text-muted">
                                     It is a long established fact that a reader will be distracted by the readable
@@ -47,21 +47,12 @@
                                     that it has a more-or-less normal distribution of letters, as opposed to using
                                     'Content here, content here', making it look like readable English.
                                     <br/>
-                                    <br/>
-                                    There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have suffered alteration in some form, by injected humour, or randomised words
-                                    which don't look even slightly believable.
                                 </div>
                                 <dl class="dl-horizontal m-t-md small">
-                                    <dt>Description lists</dt>
-                                    <dd>A description list is perfect for defining terms.</dd>
-                                    <dt>Euismod</dt>
-                                    <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-                                    <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-                                    <dt>Malesuada porta</dt>
-                                    <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-                                    <dt>Felis euismod semper eget</dt>
-                                    <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+                                    <dt>Marca :</dt>
+                                    <dd>{{$ctrl.product.marca}}</dd>
+                                    <dt>Modelo :</dt>
+                                    <dd>{{$ctrl.product.modelo}}</dd>
                                 </dl>
                                 <div class="text-right">
                                     <div class="btn-group">

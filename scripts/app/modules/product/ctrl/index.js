@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function productController(userinfo, producto, $stateParams, $scope, Upload, $timeout){
+    function productController(userinfo, producto, $stateParams, $scope, Upload, $timeout, $location){
         var $ctrl = this,
             uploadUrl = "dist/assets/img/";
 
@@ -35,40 +35,25 @@
         }
 
         function initProduct(){
-            console.log("log: ", userinfo);
             $ctrl.product = {
                 edit: false,
-                nombre: null,
-                precio: 0,
+                nombre_producto: null,
+                precio: {compra: 0, venta: 0},
                 cantidad: 0,
                 desc_producto: null,
+                descripcion: null,
                 fotos: [],
-                tag_title: null,
-                tag_desc: null,
-                tag_keywords: null,
+                meta_tag_title: null,
+                meta_tag_desc: null,
+                meta_tag_keywords: null,
                 modelo: null,
+                marca: null,
                 codigo: null,
                 clase: null,
                 cantidad_min: 0,
                 prioridad: 1,
                 direccion:null,
-                estado: 0,
-                descuentos: [
-                    {
-                        grupo: "Grupo 1",
-                        cantidad: 10,
-                        descuento: 10,
-                        date_start: "07/09/2014",
-                        date_end: "07/01/2014"
-                    },
-                    {
-                        grupo: "Grupo 2",
-                        cantidad: 20,
-                        descuento: 30,
-                        date_start: "08/09/2014",
-                        date_end: "08/01/2014"
-                    }
-                ]
+                descuentos: []
             }
         }
 
@@ -77,13 +62,29 @@
             if($ctrl.product.edit){
                 producto.update($ctrl.idProducto, $ctrl.product);
             }else{
+                console.log("productoSave: ", $ctrl.product);
                 producto.save($ctrl.product);
                 initProduct();
             }
+            $location.path("/grid");
         }
 
         $ctrl.deleteFotos = function(index){
             $ctrl.product.fotos.splice(index, 1);
+        }
+
+        $ctrl.deleteDescuentos = function(index){
+            $ctrl.product.descuentos.splice(index, 1);
+        }
+
+        $ctrl.addDescuentos = function(){
+            $ctrl.product.descuentos.push({
+                grupo: 1,
+                cantidad: 1,
+                descuento: 0,
+                date_start: new Date(),
+                date_end: new Date()
+            });
         }
 
         $scope.uploadPic = function(file) {

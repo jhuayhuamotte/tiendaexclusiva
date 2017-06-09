@@ -8,6 +8,8 @@ var CarroDetalleSchema = new Schema({
     descuento: Number,
     nombre_producto: String,
     descripcion: String,
+    marca: String,
+    modelo: String,
     descripcion_list: String,
     img_url: String
 });

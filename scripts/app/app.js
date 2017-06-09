@@ -6,6 +6,7 @@
     'ui.router',
     'angular.filter',
     'ngDragDrop',
-    'ngFileUpload'
+    'ngFileUpload',
+    "ui.footable"
   ]);
 })();

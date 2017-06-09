@@ -18,25 +18,25 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="product_name">Nombre Producto</label>
-                        <input type="text" id="product_name" name="product_name" value="" placeholder="Nombre Producto" class="form-control">
+                        <input type="text" id="product_name" ng-model="search.nombre_producto" placeholder="Nombre Producto" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label class="control-label" for="price">Precio</label>
-                        <input type="text" id="price" name="price" value="" placeholder="Precio" class="form-control">
+                        <label class="control-label" for="marca">Marca</label>
+                        <input type="text" id="marca" ng-model="search.marca" placeholder="Marca" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="control-label" for="quantity">Cantidad</label>
-                        <input type="text" id="quantity" name="quantity" value="" placeholder="Cantidad" class="form-control">
+                        <input type="text" id="quantity" ng-model="search.cantidad" placeholder="Cantidad" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="status">Estado</label>
-                        <select name="status" id="status" class="form-control">
+                        <select name="status" id="status" ng-model="search.estado" class="form-control">
                             <option value="1" selected>Enabled</option>
                             <option value="0">Disabled</option>
                         </select>
@@ -56,8 +56,8 @@
                             <tr>
 
                                 <th data-toggle="true">Nombre Producto</th>
-                                <th data-hide="phone">Modelo</th>
-                                <th data-hide="all">Descripcíon</th>
+                                <th data-hide="phone">Marca</th>
+                                <th data-hide="all">Modelo</th>
                                 <th data-hide="phone">Precio</th>
                                 <th data-hide="phone,tablet">Cantidad</th>
                                 <th data-hide="phone">Estado</th>
@@ -66,18 +66,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="producto in $ctrl.productos">
+                            <tr ng-repeat="producto in $ctrl.productos | filter:search">
                                 <td>
                                    {{producto.nombre_producto}}
+                                </td>
+                                <td>
+                                    {{producto.marca}}
                                 </td>
                                 <td>
                                     {{producto.modelo}}
                                 </td>
                                 <td>
-                                    {{producto.meta_tag_keywords}}
-                                </td>
-                                <td>
-                                    ${{producto.precio}}
+                                    {{producto.precio.venta | currency: "S/. "}}
                                 </td>
                                 <td>
                                     {{producto.cantidad}}
@@ -87,9 +87,15 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="escritorio#/product/detail/{{producto._id}}" class="btn-white btn btn-xs">Ver</a>
-                                        <a href="escritorio#/product/edit/{{producto._id}}" class="btn-white btn btn-xs">Editar</a>
-                                        <button ng-click="$ctrl.deleteProduct($index, producto)" class="btn-white btn btn-xs">Eliminar</button>
+                                        <a href="escritorio#/product/detail/{{producto._id}}" tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </a>
+                                        <a href="escritorio#/product/edit/{{producto._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a>
+                                        <button ng-click="$ctrl.deleteProduct($index, producto)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

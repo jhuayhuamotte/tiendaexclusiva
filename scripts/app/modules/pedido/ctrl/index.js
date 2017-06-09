@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('orderCtrl', function (userinfo, pedido){
+    angular.module('tiendaexclusiva').controller('orderCtrl', function (userinfo, pedido, $timeout){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         pedido.list();
@@ -19,9 +19,11 @@
             $ctrl.pedidos.splice(index, 1);
         }
 
-        $(document).ready(function() {
+        $timeout(function(){
+            $('.table').trigger('footable_redraw');
+        }, 100);
 
-            $('.footable').footable();
+        $(document).ready(function() {
 
             $('#date_added').datepicker({
                 todayBtn: "linked",

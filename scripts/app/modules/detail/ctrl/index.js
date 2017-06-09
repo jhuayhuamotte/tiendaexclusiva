@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('productDetailCtrl', function (userinfo, producto, carro, $stateParams){
+    angular.module('tiendaexclusiva').controller('productDetailCtrl', function (userinfo, producto, carro, $stateParams, $location){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         $ctrl.product = {};
@@ -30,6 +30,7 @@
                 initCarro();
                 carro.save($ctrl.carro);
             }
+            $location.path("/grid");
         }
 
         function initCarro(){
@@ -40,12 +41,14 @@
                     {
                         id_producto: $ctrl.idProducto,
                         cantidad: 1,
-                        precio: $ctrl.product.precio,
+                        precio: $ctrl.product.precio.venta,
                         descuento: 0,
-                        nombre_producto: $ctrl.product.nombre,
+                        nombre_producto: $ctrl.product.nombre_producto,
                         descripcion: $ctrl.product.descripcion,
                         descripcion_list: "",
-                        img_url: "www.google.com"
+                        marca: $ctrl.product.marca,
+                        modelo: $ctrl.product.modelo,
+                        img_url: $ctrl.product.fotos[0].url
                     }
                 ]
             }

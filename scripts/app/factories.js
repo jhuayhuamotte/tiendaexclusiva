@@ -47,6 +47,7 @@
             return $http
             .post('/api/v1/carro', row)
             .success( function(response) {
+                carro.carData.edit = true;
                 console.log("Car Saved: ", response);
             })
             .error( function(err) {
@@ -79,8 +80,9 @@
         carro.delete = function(id){
             return $http
             .delete('/api/v1/carro/'+id)
-            .success( function(carro) {
-                console.log("Car Deleted: ", carro);
+            .success( function(response) {
+                carro.carData.edit = false;
+                console.log("Car Deleted: ", response);
             })
             .error( function(err) {
                 console.log("Deleted Car Error: ", err);
@@ -173,28 +175,9 @@
             return $http
             .get('/api/v1/producto/'+id)
             .success( function(response) {
-                var p = response;
-                var prod = {
-                    _id: p._id,
-                    edit: true,
-                    nombre: p.nombre_producto,
-                    precio: p.precio,
-                    cantidad: p.cantidad,
-                    desc_producto: p.desc_producto,
-                    fotos: p.fotos,
-                    tag_title: p.meta_tag_title,
-                    tag_desc: p.meta_tag_desc,
-                    tag_keywords: p.meta_tag_keywords,
-                    modelo: p.modelo,
-                    codigo: p.codigo,
-                    clase: p.clase,
-                    cantidad_min: p.cantidad_min,
-                    prioridad: p.prioridad,
-                    direccion: p.direccion,
-                    estado: p.estado,
-                    descuentos: p.descuentos
-                }
-                console.log("PROD: ", prod);
+                var prod = response;
+                prod.edit = true;
+                console.log("producto.getById: ", prod);
                 angular.copy(prod, producto.edit);
             })
             .error( function(err) {
@@ -203,7 +186,6 @@
         }
 
         producto.save = function(row){
-            console.log("row: ", row);
             return $http
             .post('/api/v1/producto', row)
             .success( function(response) {

@@ -20,6 +20,7 @@
     "angular-websocket": "^2.0.0",
     "angular-filter": "^0.5.14",
     "angular-dragdrop": "^1.0.13",
-    "ng-file-upload-shim": "^12.2.13"
+    "ng-file-upload-shim": "^12.2.13",
+    "angular-footable": "^1.0.3"
   }
 }

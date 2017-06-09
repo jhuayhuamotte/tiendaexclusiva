@@ -140,46 +140,7 @@ router.get('/producto/:id', function(req, res, next){
 
 router.post('/producto', function(req, res, next){
     var prod = req.body;
-    var fotos = [];
-    var descuentos = [];
-
-    for(var f in prod.fotos){
-        fotos.push({
-              url: prod.fotos[f].url,
-              orden: parseInt(prod.fotos[f].orden)
-        });
-    }
-
-    for(var t in prod.descuentos){
-        descuentos.push({
-              grupo: parseInt(prod.descuentos[t].grupo),
-              cantidad: parseInt(prod.descuentos[t].cantidad),
-              descuento: parseFloat(prod.descuentos[t].descuento),
-              date_start: new Date(),
-              date_end: new Date()
-        });
-    }
-
-    var producto = {
-        nombre_producto: prod.nombre,
-        precio: parseFloat(prod.precio),
-        cantidad: parseInt(prod.cantidad),
-        estado: parseInt(prod.estado),
-        desc_producto: prod.desc_producto,
-        fotos: fotos,
-        meta_tag_title: prod.tag_title,
-        meta_tag_desc: prod.tag_desc,
-        meta_tag_keywords: prod.tag_keywords,
-        modelo: prod.modelo,
-        codigo: prod.codigo,
-        clase: prod.clase,
-        cantidad_min: parseInt(prod.cantidad_min),
-        prioridad: parseInt(prod.prioridad),
-        direccion: prod.direccion,
-        descuentos: descuentos
-    };
-
-    var Producto = new ProductoModel(producto);
+    var Producto = new ProductoModel(prod);
     Producto.save(function(err, producto){
         if(err){ return next(err);}
         res.json(producto);
@@ -189,46 +150,29 @@ router.post('/producto', function(req, res, next){
 router.put('/producto/:id', function(req, res, next){
     var id = req.params.id;
     var prod = req.body;
-    var fotos = [];
-    var descuentos = [];
-
-    for(var f in prod.fotos){
-        fotos.push({
-              url: prod.fotos[f].url,
-              orden: parseInt(prod.fotos[f].orden)
-        });
-    }
-
-    for(var t in prod.descuentos){
-        descuentos.push({
-              grupo: parseInt(prod.descuentos[t].grupo),
-              cantidad: parseInt(prod.descuentos[t].cantidad),
-              descuento: parseFloat(prod.descuentos[t].descuento),
-              date_start: new Date(),
-              date_end: new Date()
-        });
-    }
 
     ProductoModel.update(
         {_id: new ObjectId(id)},
         {
             $set: {
-                nombre_producto: prod.nombre,
-                precio: parseFloat(prod.precio),
-                cantidad: parseInt(prod.cantidad),
-                estado: parseInt(prod.estado),
+                nombre_producto: prod.nombre_producto,
+                precio: prod.precio,
+                cantidad: prod.cantidad,
+                estado: prod.estado,
                 desc_producto: prod.desc_producto,
-                fotos: fotos,
+                descripcion: prod.descripcion,
+                fotos: prod.fotos,
                 meta_tag_title: prod.tag_title,
                 meta_tag_desc: prod.tag_desc,
                 meta_tag_keywords: prod.tag_keywords,
                 modelo: prod.modelo,
+                marca: prod.marca,
                 codigo: prod.codigo,
                 clase: prod.clase,
-                cantidad_min: parseInt(prod.cantidad_min),
-                prioridad: parseInt(prod.prioridad),
+                cantidad_min: prod.cantidad_min,
+                prioridad: prod.prioridad,
                 direccion: prod.direccion,
-                descuentos: descuentos
+                descuentos: prod.descuentos
             }
         },
         function(err, rowsAffected){

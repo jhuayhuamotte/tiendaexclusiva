@@ -17,20 +17,20 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label class="control-label" for="order_id">ID Pedido</label>
-                        <input type="text" id="order_id" name="order_id" value="" placeholder="ID Pedido" class="form-control">
+                        <label class="control-label" for="order_id">ID Venta</label>
+                        <input type="text" id="order_id" ng-model="search.id_pedido" name="order_id" placeholder="ID Pedido" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label class="control-label" for="status">Estado Pedido</label>
-                        <input type="text" id="status" name="status" value="" placeholder="Estado" class="form-control">
+                        <label class="control-label" for="status">Estado Venta</label>
+                        <input type="text" id="status" ng-model="search.estado" name="status" placeholder="Estado" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="customer">Vendedor</label>
-                        <input type="text" id="customer" name="customer" value="" placeholder="Vendedor" class="form-control">
+                        <input type="text" id="customer" ng-model="search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control">
                     </div>
                 </div>
             </div>
@@ -39,7 +39,8 @@
                     <div class="form-group">
                         <label class="control-label" for="date_added">Fecha Pedido</label>
                         <div class="input-group date">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_added" type="text" class="form-control" value="03/04/2017">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input id="date_added" type="text" ng-model="search.createAt" class="form-control" value="03/04/2017">
                         </div>
                     </div>
                 </div>
@@ -47,14 +48,15 @@
                     <div class="form-group">
                         <label class="control-label" for="date_modified">Fecha Modificado</label>
                         <div class="input-group date">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_modified" type="text" class="form-control" value="03/06/2017">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input id="date_modified" type="text" ng-model="search.updateAt" class="form-control" value="03/06/2017">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label" for="amount">Costo Final</label>
-                        <input type="text" id="amount" name="amount" value="" placeholder="Costo" class="form-control">
+                        <input type="text" id="amount" ng-model="search.costo_total" name="amount" placeholder="Costo" class="form-control">
                     </div>
                 </div>
             </div>
@@ -81,7 +83,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="pedido in $ctrl.pedidos">
+                            <tr ng-repeat="pedido in $ctrl.pedidos | filter:search">
                                 <td>
                                    {{pedido.id_pedido}}
                                 </td>
@@ -89,22 +91,28 @@
                                     {{pedido.profile.displayName}}
                                 </td>
                                 <td>
-                                    ${{pedido.costo_total}}
+                                    {{pedido.costo_total | currency:"S/. "}}
                                 </td>
                                 <td>
-                                    {{pedido.createAt}}
+                                    {{pedido.createAt | date:"dd/MM/yyyy '-' h:mma"}}
                                 </td>
                                 <td>
-                                    {{pedido.updateAt}}
+                                    {{pedido.updateAt | date:"dd/MM/yyyy '-' h:mma"}}
                                 </td>
                                 <td>
                                     <span class="label label-primary">{{pedido.estado}}</span>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <button class="btn-white btn btn-xs">Ver</button>
-                                        <button class="btn-white btn btn-xs">Editar</button>
-                                        <button ng-click="$ctrl.deletePedido($index, pedido)" class="btn-white btn btn-xs">Eliminar</button>
+                                        <button tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
+                                        </button>
+                                        <button tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                        <button ng-click="$ctrl.deletePedido($index, pedido)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
