@@ -1,0 +1,122 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <tienda-menu user="$ctrl.userinfo"></tienda-menu>
+</nav>
+
+<div id="page-wrapper" class="gray-bg">
+    <div class="row border-bottom">
+        <top-navbar></top-navbar>
+    </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <location location="$ctrl.location" user="$ctrl.userinfo"></location>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tabs-container">
+                    <uib-tabset active="active">
+                        <uib-tab index="0" select="alertMe()">
+                          <uib-tab-heading>
+                            <i class="glyphicon glyphicon-list-alt"></i> Datos Cliente
+                          </uib-tab-heading>
+                          <div class="panel-body">
+
+                              <fieldset class="form-horizontal">
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Nombre cliente:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.nombre" class="form-control" placeholder="Nombre Pedido"></div>
+                                  </div>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Correo:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.email" class="form-control" placeholder="Correo"></div>
+                                  </div>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Telefono:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.telefono" class="form-control" placeholder="..."></div>
+                                  </div>
+                                  <div class="form-group col-md-12"><label class="col-sm-2">Celular:</label>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.celular" class="form-control" placeholder="+51 000 000 000"></div>
+                                  </div>
+                              </fieldset>
+                          </div>
+                        </uib-tab>
+
+                        <uib-tab index="1">
+                          <uib-tab-heading>
+                            <i class="fa fa-shopping-cart"></i> Productos
+                          </uib-tab-heading>
+                          <div class="panel-body">
+                              <button type="button" ng-click="$ctrl.addProductos()" class="btn btn-primary btn-md">
+                                  <i class="glyphicon glyphicon-plus-sign" aria-hidden="true"></i> Producto
+                              </button>
+                              <div class="table-responsive" ng-show="$ctrl.pedido.productos.length>0">
+                                  <table class="table table-stripped table-bordered">
+
+                                      <thead>
+                                      <tr>
+                                          <th>
+                                              Cantidad
+                                          </th>
+                                          <th>
+                                              Nombre
+                                          </th>
+                                          <th>
+                                              Marca
+                                          </th>
+                                          <th style="width: 20%">
+                                              Modelo
+                                          </th>
+                                          <th style="width: 20%">
+                                              Precio
+                                          </th>
+                                          <th>
+                                              Accíon
+                                          </th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr ng-repeat="producto in $ctrl.pedido.productos">
+                                          <td>
+                                              <input type="text" ng-model="producto.cantidad" class="form-control" placeholder="10">
+                                          </td>
+                                          <td>
+                                              <input type="text" ng-model="producto.nombre_producto" class="form-control" placeholder="10">
+                                          </td>
+                                          <td>
+                                              <input type="text" ng-model="producto.marca" class="form-control" placeholder="$10.00">
+                                          </td>
+                                          <td>
+                                              <input type="text" ng-model="producto.modelo" class="form-control" placeholder="$10.00">
+                                          </td>
+                                          <td>
+                                              <input type="text" ng-model="producto.precio" class="form-control" placeholder="$10.00">
+                                          </td>
+                                          <td>
+                                                  <button ng-click="$ctrl.deleteProductos($index)" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
+                                          </td>
+                                      </tr>
+                                      </tbody>
+
+                                  </table>
+                              </div>
+
+                          </div>
+                        </uib-tab>
+                    </uib-tabset>
+                    <div class="panel-body" align="center">
+                        <button type="button" ng-hide="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-primary btn-md">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Pedido
+                        </button>
+                        <a href="escritorio#/list" ng-show="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-danger btn-md">
+                            <span class="glyphicon glyphicon-remove"></span> Cancelar
+                        </a>
+                        <button type="button" ng-show="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-success btn-md">
+                            <span class="glyphicon glyphicon-ok"></span> Actualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <footer></footer>
+    </div>
+</div>

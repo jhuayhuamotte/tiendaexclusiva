@@ -7,7 +7,7 @@
             scope: {
               producto: '='
             },
-            templateUrl:'scripts/app/modules/grid/views/partials/grid-product.html',
+            templateUrl:'scripts/app/modules/views/partials/grid-product.html',
             link: function ($scope, $element, $args) {
 
 

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('carroCtrl', function (userinfo, carro, producto, pedido, $stateParams, $location){
+    angular.module('tiendaexclusiva').controller('carroCtrl', function (userinfo, carro, producto, venta, $stateParams, $location){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         $ctrl.idProfile = $stateParams.id;
@@ -43,9 +43,10 @@
             $ctrl.carro.productos.splice(index, 1);
         }
 
-        $ctrl.savePedido = function(){
+        $ctrl.saveVenta = function(){
             var row = {
-                id_pedido: "834932",
+                id_venta: "834932",
+                productos: $ctrl.carro.productos,
                 estado: 0,
                 profile: {
                     id: $ctrl.idProfile,
@@ -54,7 +55,7 @@
                 },
                 costo_total: $ctrl.cuentaTotal
             }
-            pedido.save(row);
+            venta.save(row);
             $location.path("/grid");
         }
 

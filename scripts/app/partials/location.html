@@ -6,9 +6,12 @@
         </li>
     </ol>
 </div>
-<div class="col-lg-2">
-    <a ng-show="carro.edit" href="escritorio#/car/{{user._id}}" style="margin-top:28px" class="btn btn-primary pull-right">
+<div class="col-lg-2 btn-cart">
+    <a ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary pull-right hidden-xs">
         <i class="fa fa fa-shopping-cart"></i> Carro
+    </a>
+    <a ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary btn-circle btn-md btn-outline pull-right visible-xs">
+        <i class="fa fa fa-shopping-cart"></i>
     </a>
 </div>
 <style media="screen">

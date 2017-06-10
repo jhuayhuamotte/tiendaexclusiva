@@ -8,9 +8,9 @@ var when = require('when');
 var moment = require('moment');
 var LogModel = mongoose.model('Log');
 var CarroModel = mongoose.model('Carros');
-var PedidoModel = mongoose.model('Pedidos');
-var ProductoModel = mongoose.model('Productos');
 var VentaModel = mongoose.model('Ventas');
+var ProductoModel = mongoose.model('Productos');
+var PedidoModel = mongoose.model('Pedidos');
 
 /* START Carros */
 router.get('/carros', function(req, res, next){
@@ -75,37 +75,37 @@ router.delete('/carro/:id', function(req, res, next){
 });
 /* END Carros */
 
-/* START Pedidos */
-router.get('/pedidos', function(req, res, next){
-  PedidoModel.find({enable:true},function(err,pedidos){
+/* START Ventas */
+router.get('/ventas', function(req, res, next){
+  VentaModel.find({enable:true},function(err,ventas){
     if(err){return next(err);}
-    res.json(pedidos);
+    res.json(ventas);
   });
 });
 
-router.get('/pedido/:id', function(req, res, next){
+router.get('/venta/:id', function(req, res, next){
   var id = req.params.id;
-  PedidoModel.findOne({_id: new ObjectId(id)},function(err, pedido){
+  VentaModel.findOne({_id: new ObjectId(id)},function(err, venta){
     if(err){return next(err);}
-    res.json(pedido);
+    res.json(venta);
   });
 });
 
-router.post('/pedido', function(req, res, next){
-  var Pedido = new PedidoModel(req.body);
-  Pedido.save(function(err, pedido){
+router.post('/venta', function(req, res, next){
+  var Venta = new VentaModel(req.body);
+  Venta.save(function(err, venta){
     if(err){ return next(err);}
-    res.json(pedido);
+    res.json(venta);
   })
 });
 
-router.put('/pedido', function(req, res, next){
+router.put('/venta', function(req, res, next){
 
 });
 
-router.delete('/pedido/:id', function(req, res, next){
+router.delete('/venta/:id', function(req, res, next){
     var id = req.params.id;
-    PedidoModel.update({_id: new ObjectId(id)},
+    VentaModel.update({_id: new ObjectId(id)},
     {$set: {enable: false}},
     function (err, numAffected){
         if(err) { return next(err); }
@@ -113,14 +113,14 @@ router.delete('/pedido/:id', function(req, res, next){
     })
 });
 
-router.delete('/pedido/remove/:id', function(req, res, next){
+router.delete('/venta/remove/:id', function(req, res, next){
     var id = req.params.id;
-    PedidoModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+    VentaModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
         if(err) { return next(err); }
         res.json(numAffected)
     })
 });
-/* END Pedidos */
+/* END Ventas */
 
 /* START Productos */
 router.get('/productos', function(req, res, next){
@@ -202,36 +202,53 @@ router.delete('/producto/remove/:id', function(req, res, next){
 /* END Carros */
 
 /* START Carros */
-router.get('/ventas', function(req, res, next){
-  VentaModel.find({enable:true},function(err,ventas){
+router.get('/pedidos', function(req, res, next){
+  PedidoModel.find({enable:true},function(err,pedidos){
     if(err){return next(err);}
-    res.json(ventas);
+    res.json(pedidos);
   });
 });
 
-router.get('/venta/:id', function(req, res, next){
+router.get('/pedido/:id', function(req, res, next){
   var id = req.params.id;
-  VentaModel.findOne({_id: new ObjectId(id)},function(err, venta){
+  PedidoModel.findOne({_id: new ObjectId(id)},function(err, pedido){
     if(err){return next(err);}
-    res.json(venta);
+    res.json(pedido);
   });
 });
 
-router.post('/venta', function(req, res, next){
-  var Venta = new VentaModel(req.body);
-  Venta.save(function(err, venta){
+router.post('/pedido', function(req, res, next){
+  var Pedido = new PedidoModel(req.body);
+  Pedido.save(function(err, pedido){
     if(err){ return next(err);}
-    res.json(venta);
+    res.json(pedido);
   })
 });
 
-router.put('/venta', function(req, res, next){
+router.put('/pedido/:id', function(req, res, next){
+    var id = req.params.id;
+    var pedido = req.body;
 
+    PedidoModel.update(
+        {_id: new ObjectId(id)},
+        {
+            $set: {
+                id_pedido: pedido.id_pedido,
+                cliente: pedido.cliente,
+                productos: pedido.productos,
+                estado: pedido.estado
+            }
+        },
+        function(err, rowsAffected){
+            if(err){ return next(err);}
+            res.json(rowsAffected);
+        }
+    );
 });
 
-router.delete('/venta/:id', function(req, res, next){
+router.delete('/pedido/:id', function(req, res, next){
   var id = req.params.id;
-  VentaModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+  PedidoModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
     if(err) { return next(err); }
     res.json(numAffected)
   })

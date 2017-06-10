@@ -1,22 +1,22 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('orderCtrl', function (userinfo, pedido, $timeout){
+    angular.module('tiendaexclusiva').controller('ventaCtrl', function (userinfo, venta, $timeout){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
-        pedido.list();
-        $ctrl.pedidos = pedido.dataOrder;
+        venta.list();
+        $ctrl.ventas = venta.dataVenta;
 
         $ctrl.location = {
-            page: "Lista Pedidos",
+            page: "Lista Ventas",
             list: [
                 {name: "Escritorio",      url: "/"},
-                {name: "Lista Pedidos",   url: "/orders"}
+                {name: "Lista Ventas",   url: "/ventas"}
             ]
         };
 
-        $ctrl.deletePedido = function(index, order){
-            pedido.delete(order._id);
-            $ctrl.pedidos.splice(index, 1);
+        $ctrl.deleteVenta = function(index, venta){
+            venta.delete(venta._id);
+            $ctrl.ventas.splice(index, 1);
         }
 
         $timeout(function(){

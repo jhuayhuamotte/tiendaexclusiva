@@ -3630,7 +3630,8 @@ video {
   padding: 0 20px;
 }
 .wrapper-content {
-  padding: 20px 10px 40px;
+  /*padding: 20px 10px 40px;*/
+  padding: 10px 0 40px;
 }
 #page-wrapper {
   padding: 0 15px;
@@ -3718,6 +3719,7 @@ body.body-small .footer.fixed {
 .page-heading {
   border-top: 0;
   padding: 0 10px 20px 10px;
+  position: relative;
 }
 .panel-heading h1,
 .panel-heading h2 {
@@ -5484,9 +5486,9 @@ del {
 .product-box:hover,
 .product-box.active {
   border: 1px solid transparent;
-  -webkit-box-shadow: 0 3px 7px 0 #a8a8a8;
+  /*-webkit-box-shadow: 0 3px 7px 0 #a8a8a8;
   -moz-box-shadow: 0 3px 7px 0 #a8a8a8;
-  box-shadow: 0 3px 7px 0 #a8a8a8;
+  box-shadow: 0 3px 7px 0 #a8a8a8;*/
 }
 .product-imitation {
   text-align: center;
