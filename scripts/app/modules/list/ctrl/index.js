@@ -21,6 +21,6 @@
 
         $timeout(function(){
             $('.table').trigger('footable_redraw');
-        }, 100);
+        }, 500);
     });
 })();

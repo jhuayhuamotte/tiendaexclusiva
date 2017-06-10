@@ -1,6 +1,8 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('productDetailCtrl', function (userinfo, producto, carro, $stateParams, $location){
+    angular.module('tiendaexclusiva').controller('productDetailCtrl', function (
+        userinfo, producto, carro, $stateParams, $location, $timeout){
+
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         $ctrl.product = {};
@@ -61,12 +63,10 @@
             $ctrl.carro = carro.carData;
         }
 
-        $(document).ready(function(){
-
+        $timeout(function(){
             $('.product-images').slick({
                 dots: true
             });
-
-        });
+        }, 500);
     });
 })();
