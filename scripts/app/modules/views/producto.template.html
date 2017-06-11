@@ -23,22 +23,22 @@
 
                               <fieldset class="form-horizontal">
                                   <div class="form-group col-md-12"><label class="col-sm-2">Nombre:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.nombre_producto" class="form-control" placeholder="Nombre Producto"></div>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.nombre_producto" class="form-control" placeholder="Nombre del producto"></div>
                                   </div>
                                   <div class="form-group col-md-12"><label class="col-sm-2">Marca:</label>
                                       <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.marca" class="form-control" placeholder="Marca"></div>
                                   </div>
                                   <div class="form-group col-md-12"><label class="col-sm-2">Modelo:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.modelo" class="form-control" placeholder="..."></div>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.modelo" class="form-control" placeholder="Modelo"></div>
                                   </div>
-                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Precio Compra:</label>
-                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.precio.compra" class="form-control" placeholder="S/. 120.00"></div>
+                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Precio Compra (S/.):</label>
+                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.precio.compra" class="form-control" placeholder="S/. 0.00"></div>
                                   </div>
-                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Precio Venta:</label>
-                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.precio.venta" class="form-control" placeholder="S/. 160.00"></div>
+                                  <div class="form-group col-md-4"><label class="col-sm-6 control-label">Precio Venta ( S/. ):</label>
+                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.precio.venta" class="form-control" placeholder="S/. 0.00"></div>
                                   </div>
                                   <div class="form-group col-md-4"><label class="col-sm-6 control-label">Cantidad:</label>
-                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.cantidad" class="form-control" placeholder="5"></div>
+                                      <div class="col-sm-6"><input type="text" ng-model="$ctrl.product.cantidad" class="form-control" placeholder="0"></div>
                                   </div>
                                   <div class="form-group col-md-12"><label class="col-sm-2">Descripción:</label>
                                       <div class="col-sm-10"><input type="text" ng-model="$ctrl.product.descripcion" class="form-control" placeholder="..."></div>
@@ -71,16 +71,16 @@
                                   <div class="form-group"><label class="col-sm-3">Clasificación:</label>
                                       <div class="col-sm-9">
                                           <select ng-model="$ctrl.product.clase" class="form-control">
-                                              <option>option 1</option>
-                                              <option>option 2</option>
+                                              <option value="">- Selecione clasificacion -</option>
+                                              <option ng-repeat="clase in $ctrl.clasificacion" value="{{clase}}">{{clase}}</option>
                                           </select>
                                       </div>
                                   </div>
                                   <div class="form-group"><label class="col-sm-3">Estado:</label>
                                       <div class="col-sm-9">
-                                          <select ng-model="$ctrl.product.estado" class="form-control">
-                                              <option value="1">option 1</option>
-                                              <option value="2">option 2</option>
+                                          <select ng-model="$ctrl.product.estado" class="form-control" convert-to-number>
+                                              <option value="0" ng-selected="!$ctrl.product">En stock</option>
+                                              <option value="1">Stock deshabilitado</option>
                                           </select>
                                       </div>
                                   </div>
@@ -95,11 +95,7 @@
                                   </div>
                                   <div class="form-group"><label class="col-sm-3">Descripción Prod. Tienda:</label>
                                       <div class="col-sm-9">
-                                          <div id="summernote" class="summernote">
-                                              <h3>Titulo</h3>
-                                              Descripcion
-                                              <br/>
-                                          </div>
+                                          <summernote ng-model="$ctrl.product.desc_producto"></summernote>
                                       </div>
                                   </div>
                               </fieldset>
@@ -114,7 +110,7 @@
                           </uib-tab-heading>
                           <div class="panel-body">
                               <button type="button" ng-click="$ctrl.addDescuentos()" class="btn btn-primary btn-md">
-                                  <i class="glyphicon glyphicon-plus-sign" aria-hidden="true"></i> Descuento
+                                  <i class="glyphicon glyphicon-plus"></i> Descuento
                               </button>
                               <div class="table-responsive" ng-show="$ctrl.product.descuentos.length>0">
                                   <table class="table table-stripped table-bordered">
@@ -192,7 +188,7 @@
                               <form method="post" name="myForm">
                                   <fieldset>
                                       <div ng-show="picFile.progress >= 0" class="progress progress-striped active">
-                                          <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-danger">
+                                          <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-success">
                                               <span class="sr-only">40% Complete (success)</span>
                                           </div>
                                       </div>
@@ -210,11 +206,11 @@
                                                      accept="image/*" ngf-max-size="2MB" required
                                                      ngf-model-invalid="errorFile"/>
                                           </span>
-                                          <a class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput">
+                                          <a class="input-group-addon btn btn-danger btn-outline fileinput-exists" data-dismiss="fileinput">
                                                <i class="glyphicon glyphicon-remove" tooltip-placement="top" uib-tooltip="Eliminar"></i>
                                            </a>
-                                          <a ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" href data-dismiss="fileinput" class="input-group-addon btn btn-success fileinput-exists">
-                                              <i class="glyphicon glyphicon-plus" tooltip-placement="top" uib-tooltip="Agregar"></i>
+                                          <a ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" href data-dismiss="fileinput" class="input-group-addon btn btn-success btn-outline fileinput-exists">
+                                              <i class="glyphicon glyphicon-open" tooltip-placement="top" uib-tooltip="Subir"></i>
                                           </a>
                                       </div>
                                       <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
@@ -264,10 +260,10 @@
                         <button type="button" ng-hide="$ctrl.product.edit" ng-click="$ctrl.saveProduct()" class="btn btn-primary btn-md">
                             <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Producto
                         </button>
-                        <a href="escritorio#/list" ng-show="$ctrl.product.edit" ng-click="$ctrl.saveProduct()" class="btn btn-danger btn-md">
+                        <a href="escritorio#/list" ng-show="$ctrl.product.edit" ng-click="$ctrl.saveProduct()" class="btn btn-danger btn-outline btn-md">
                             <span class="glyphicon glyphicon-remove"></span> Cancelar
                         </a>
-                        <button type="button" ng-show="$ctrl.product.edit" ng-click="$ctrl.saveProduct()" class="btn btn-success btn-md">
+                        <button type="button" ng-show="$ctrl.product.edit" ng-click="$ctrl.saveProduct()" class="btn btn-success btn-outline btn-md">
                             <span class="glyphicon glyphicon-ok"></span> Actualizar
                         </button>
                     </div>

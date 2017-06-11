@@ -7,10 +7,10 @@
         $ctrl.ventas = venta.dataVenta;
 
         $ctrl.location = {
-            page: "Lista Ventas",
+            page: "Vista Previa Descarga",
             list: [
                 {name: "Escritorio",      url: "/"},
-                {name: "Lista Ventas",   url: "/ventas"}
+                {name: "Vista Previa Descarga",   url: "/export"}
             ]
         };
 

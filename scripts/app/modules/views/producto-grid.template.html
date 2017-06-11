@@ -12,7 +12,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div ng-repeat="producto in $ctrl.productos" class="col-md-3">
+            <div ng-repeat="producto in $ctrl.productos | orderBy:'prioridad' | filter:{estado:0}" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <grid-product producto="producto"></grid-product>
             </div>
         </div>

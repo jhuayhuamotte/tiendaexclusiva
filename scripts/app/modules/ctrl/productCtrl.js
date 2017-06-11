@@ -16,6 +16,11 @@
                 {name: "Nuevo Producto", url: "/product"}
             ]
         };
+        $ctrl.clasificacion = [
+                "Baja gama", "Media gama", "Alta gama", "Smartphone",
+                "Primera generacion", "Segunda generacion", "Tercera generacion",
+                "Cuarta generacion"
+        ];
 
         initProduct();
         if("undefined" !== typeof $ctrl.idProducto){
@@ -58,7 +63,6 @@
         }
 
         $ctrl.saveProduct = function(){
-            $ctrl.product.desc_producto = $('#summernote').summernote('code');
             if($ctrl.product.edit){
                 producto.update($ctrl.idProducto, $ctrl.product);
             }else{
@@ -66,7 +70,7 @@
                 producto.save($ctrl.product);
                 initProduct();
             }
-            $location.path("/grid");
+            $location.path("/list");
         }
 
         $ctrl.deleteFotos = function(index){
@@ -112,7 +116,6 @@
 
 
         $(document).ready(function(){
-            $('.summernote').summernote();
             $('.input-group.date').datepicker(
                 {
                     todayBtn: "linked",
