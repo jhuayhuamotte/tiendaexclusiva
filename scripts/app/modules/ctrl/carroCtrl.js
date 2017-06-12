@@ -1,6 +1,7 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('carroCtrl', function (userinfo, carro, producto, venta, $stateParams, $location){
+    angular.module('tiendaexclusiva').controller('carroCtrl', function (userinfo,
+        carro, producto, venta, $stateParams, $location, $timeout){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         $ctrl.idProfile = $stateParams.id;
@@ -13,6 +14,9 @@
         if("undefined" !== typeof $ctrl.idProfile){
             if($ctrl.idProfile.trim().length>0){
                 loadCarro();
+                $timeout(function(){
+                    $ctrl.calculateTotal();
+                }, 1000);
             }
         }
 
@@ -43,6 +47,11 @@
             $ctrl.carro.productos.splice(index, 1);
         }
 
+        $ctrl.deleteCarro = function(){
+            carro.delete($ctrl.carro._id);
+            $location.path("/grid");
+        }
+
         $ctrl.saveVenta = function(){
             var row = {
                 id_venta: "834932",
@@ -56,6 +65,7 @@
                 costo_total: $ctrl.cuentaTotal
             }
             venta.save(row);
+            $ctrl.carro.edit = false;
             $location.path("/grid");
         }
 
@@ -64,5 +74,6 @@
             $ctrl.carro = carro.carData;
             console.log("carro: ", $ctrl.carro);
         }
+
     });
 })();

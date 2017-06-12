@@ -22,7 +22,7 @@ router.get('/carros', function(req, res, next){
 
 router.get('/carro/:id', function(req, res, next){
   var id = req.params.id;
-  CarroModel.findOne({_id: new ObjectId(id)},function(err, carro){
+  CarroModel.findOne({_id: new ObjectId(id), enable:true},function(err, carro){
     if(err){return next(err);}
     res.json(carro);
   });
@@ -52,7 +52,7 @@ router.put('/carro/profile/:id', function(req, res, next){
     var id = req.params.id;
     var producto = req.body;
     console.log("producto", producto);
-    CarroModel.findOne({id_profile: new ObjectId(id)},function(err, carro){
+    CarroModel.findOne({id_profile: new ObjectId(id), enable:true},function(err, carro){
         if(err){return next(err);}
         var productos = carro.productos;
         if(!productos){productos=[];}
@@ -68,7 +68,7 @@ router.put('/carro/profile/:id', function(req, res, next){
 
 router.delete('/carro/:id', function(req, res, next){
   var id = req.params.id;
-  CarroModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+  CarroModel.remove({_id: new ObjectId(id), enable:true}, function (err, numAffected){
     if(err) { return next(err); }
     res.json(numAffected)
   })
@@ -85,7 +85,7 @@ router.get('/ventas', function(req, res, next){
 
 router.get('/venta/:id', function(req, res, next){
   var id = req.params.id;
-  VentaModel.findOne({_id: new ObjectId(id)},function(err, venta){
+  VentaModel.findOne({_id: new ObjectId(id), enable:true},function(err, venta){
     if(err){return next(err);}
     res.json(venta);
   });
@@ -95,7 +95,12 @@ router.post('/venta', function(req, res, next){
   var Venta = new VentaModel(req.body);
   Venta.save(function(err, venta){
     if(err){ return next(err);}
-    res.json(venta);
+    CarroModel.update({id_profile: new ObjectId(req.body.profile.id), enable:true},
+    {$set: {enable: false}},
+    function (err, numAffected){
+        if(err) { return next(err); }
+        res.json({numAffected: numAffected, venta: venta})
+    })
   })
 });
 

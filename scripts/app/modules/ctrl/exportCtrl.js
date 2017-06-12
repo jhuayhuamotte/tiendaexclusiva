@@ -1,11 +1,18 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('exportCtrl', function (userinfo, venta, $timeout){
+    angular.module('tiendaexclusiva').controller('exportCtrl', function (userinfo,
+        venta, producto, pedido, $timeout, $location){
         var $ctrl = this;
+        var tableTitle = "";
         $ctrl.userinfo = userinfo;
         venta.list();
-        $ctrl.ventas = venta.dataVenta;
-
+        $ctrl.search = $location.search();
+        $ctrl.showVentas = false;
+        $ctrl.showPedidos = false;
+        $ctrl.showProductos = false;
+        $ctrl.ventas = [];
+        $ctrl.pedidos = [];
+        $ctrl.productos = [];
         $ctrl.location = {
             page: "Vista Previa Descarga",
             list: [
@@ -14,9 +21,29 @@
             ]
         };
 
-        $ctrl.deleteVenta = function(index, venta){
-            venta.delete(venta._id);
-            $ctrl.ventas.splice(index, 1);
+        if(angular.equals({}, $location.search())){
+            $location.path("/");
+        }
+
+        switch ($ctrl.search.module) {
+            case "productolist":
+                producto.list();
+                $ctrl.productos = producto.dataList;
+                $ctrl.showProductos = true;
+                tableTitle = "Lista de productos";
+                break;
+            case "pedidolist":
+                pedido.list();
+                $ctrl.pedidos = pedido.dataPedido;
+                $ctrl.showPedidos = true;
+                tableTitle = "Lista de pedidos";
+                break;
+            case "ventalist":
+                venta.list();
+                $ctrl.ventas = venta.dataVenta;
+                $ctrl.showVentas = true;
+                tableTitle = "Lista de ventas";
+                break;
         }
 
         $timeout(function(){
@@ -27,8 +54,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: tableTitle},
+                    {extend: 'pdf', title: tableTitle},
 
                     {extend: 'print',
                      customize: function (win){

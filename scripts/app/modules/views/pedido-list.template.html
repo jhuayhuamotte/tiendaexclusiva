@@ -18,7 +18,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="order_id" ng-model="search.id_pedido" name="order_id" placeholder="ID Pedido" class="form-control">
+                            <input type="text" id="order_id" ng-model="$ctrl.$ctrl.search.id_pedido" name="order_id" placeholder="ID Pedido" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="customer" ng-model="search.cliente.nombre" name="customer" placeholder="Cliente" class="form-control">
+                            <input type="text" id="customer" ng-model="$ctrl.$ctrl.search.cliente.nombre" name="customer" placeholder="Cliente" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="status" ng-model="search.estado" name="status" placeholder="Estado" class="form-control">
+                            <input type="text" id="status" ng-model="$ctrl.$ctrl.search.estado" name="status" placeholder="Estado" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
@@ -47,6 +47,9 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <a href="escritorio#/order/" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i>  Añadir pedido</a>
+                        <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline">
+                            <i class="glyphicon glyphicon-save"></i> Descargar
+                        </button>
                         <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                             <thead>
                             <tr>
@@ -62,7 +65,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="pedido in $ctrl.pedidos | filter:search">
+                            <tr ng-repeat="pedido in $ctrl.pedidos | filter:$ctrl.search">
                                 <td>
                                    {{pedido.id_pedido}}
                                 </td>
@@ -79,7 +82,8 @@
                                     {{pedido.createAt | date:"dd/MM/yyyy '-' h:mma"}}
                                 </td>
                                 <td>
-                                    <span class="label label-primary">{{pedido.estado}}</span>
+                                    <span class="label label-primary" ng-show="pedido.estado == 0">Pendiente</span>
+                                    <span class="label label-warning" ng-show="pedido.estado == 1">Entregado</span>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">

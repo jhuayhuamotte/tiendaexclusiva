@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('pedidoListCtrl', function (userinfo, pedido, $timeout){
+    angular.module('tiendaexclusiva').controller('pedidoListCtrl', function (userinfo, pedido, $timeout, $location){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         pedido.list();
@@ -17,6 +17,12 @@
         $ctrl.deletePedido = function(index, order){
             pedido.delete(order._id);
             $ctrl.pedidos.splice(index, 1);
+        }
+
+        $ctrl.goToExport = function(){
+            $ctrl.search = {module:"pedidolist"};
+            $location.path('/export').search($ctrl.search);
+            console.log("$location", $location.search());
         }
 
         $timeout(function(){

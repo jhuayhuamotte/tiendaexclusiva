@@ -15,67 +15,47 @@
 
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="order_id" ng-model="search.id_venta" name="order_id" placeholder="ID Venta" class="form-control">
+                            <input type="text" id="order_id" ng-model="$ctrl.search.id_venta" name="order_id" placeholder="ID Venta" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="status" ng-model="search.estado" name="status" placeholder="Estado" class="form-control">
+                            <input type="text" id="status" ng-model="$ctrl.search.estado" name="status" placeholder="Estado" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="customer" ng-model="search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control">
+                            <input type="text" id="customer" ng-model="$ctrl.search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" id="amount" ng-model="$ctrl.search.costo_total" name="amount" placeholder="Costo" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="input-group date">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input id="date_added" type="text" ng-model="search.createAt" class="form-control" placeholder="Fecha Venta" value="03/04/2017">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="input-group date">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input id="date_modified" type="text" ng-model="search.updateAt" class="form-control" placeholder="Fecha Modificacion" value="03/06/2017">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" id="amount" ng-model="search.costo_total" name="amount" placeholder="Costo" class="form-control">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
-
+                        <a class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Hacer nueva venta</a>
+                        <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
                         <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                             <thead>
                             <tr>
@@ -91,7 +71,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="venta in $ctrl.ventas | filter:search">
+                            <tr ng-repeat="venta in $ctrl.ventas | filter:$ctrl.search">
                                 <td>
                                    {{venta.id_venta}}
                                 </td>
@@ -108,7 +88,8 @@
                                     {{venta.updateAt | date:"dd/MM/yyyy '-' h:mma"}}
                                 </td>
                                 <td>
-                                    <span class="label label-primary">{{venta.estado}}</span>
+                                    <span class="label label-primary" ng-show="venta.estado == 0">Realizado</span>
+                                    <span class="label label-danger" ng-show="venta.estado == 1">Cancelado</span>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
@@ -135,12 +116,30 @@
                             </tfoot>
                         </table>
 
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="date_added" type="text" ng-model="search.createAt" class="form-control" placeholder="Fecha Venta" value="03/04/2017">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="date_modified" type="text" ng-model="search.updateAt" class="form-control" placeholder="Fecha Modificacion" value="03/06/2017">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="footer">
         <footer></footer>

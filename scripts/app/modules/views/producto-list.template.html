@@ -18,7 +18,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="product_name" ng-model="search.nombre_producto" placeholder="Nombre Producto" class="form-control">
+                            <input type="text" id="product_name" ng-model="$ctrl.search.nombre_producto" placeholder="Nombre Producto" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="col-sm-3">
                     <div class="form-group addon-input">
                         <div class="input-group">
-                            <input type="text" id="marca" ng-model="search.marca" placeholder="Marca" class="form-control">
+                            <input type="text" id="marca" ng-model="$ctrl.search.marca" placeholder="Marca" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
@@ -34,14 +34,14 @@
                 <div class="col-sm-3">
                     <div class="form-group addon-input">
                         <div class="input-group">
-                            <input type="text" id="quantity" ng-model="search.cantidad" placeholder="Cantidad" class="form-control">
+                            <input type="text" id="quantity" ng-model="$ctrl.search.cantidad" placeholder="Cantidad" class="form-control">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <select name="status" id="status" ng-model="search.estado" class="form-control">
+                        <select name="status" id="status" ng-model="$ctrl.search.estado" class="form-control">
                             <option value="">- Seleccione estado -</option>
                             <option value="1">En stock</option>
                             <option value="0">Stock deshabilitado</option>
@@ -58,7 +58,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <a href="escritorio#/product" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i>  Añadir producto</a>
-                        <button type="button" name="button" ng-click="$ctrl.gotToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
+                        <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
                         <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                             <thead>
                             <tr>
@@ -74,7 +74,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="producto in $ctrl.productos | filter:search">
+                            <tr ng-repeat="producto in $ctrl.productos | filter:$ctrl.search">
                                 <td>
                                    {{producto.nombre_producto}}
                                 </td>

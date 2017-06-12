@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('tiendaexclusiva').controller('ventaCtrl', function (userinfo, venta, $timeout){
+    angular.module('tiendaexclusiva').controller('ventaCtrl', function (userinfo, venta, $timeout, $location){
         var $ctrl = this;
         $ctrl.userinfo = userinfo;
         venta.list();
@@ -14,9 +14,15 @@
             ]
         };
 
-        $ctrl.deleteVenta = function(index, venta){
-            venta.delete(venta._id);
+        $ctrl.deleteVenta = function(index, sales){
+            venta.delete(sales._id);
             $ctrl.ventas.splice(index, 1);
+        }
+
+        $ctrl.goToExport = function(){
+            $ctrl.search = {module:"ventalist"};
+            $location.path('/export').search($ctrl.search);
+            console.log("$location", $location.search());
         }
 
         $timeout(function(){
