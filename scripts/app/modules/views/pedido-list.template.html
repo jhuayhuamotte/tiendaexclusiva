@@ -1,5 +1,6 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
-  <tienda-menu user="$ctrl.userinfo"></tienda-menu>
+    <div class="leftmenu"></div>
+    <tienda-menu user="$ctrl.userinfo"></tienda-menu>
 </nav>
 
     <div id="page-wrapper" class="gray-bg">
@@ -50,66 +51,67 @@
                         <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline">
                             <i class="glyphicon glyphicon-save"></i> Descargar
                         </button>
-                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
-                            <thead>
-                            <tr>
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                                <thead>
+                                <tr>
 
-                                <th>ID Pedido</th>
-                                <th data-hide="phone">Cliente</th>
-                                <th data-hide="phone">Celular</th>
-                                <th data-hide="phone">Productos</th>
-                                <th data-hide="phone,tablet">Fecha</th>
-                                <th data-hide="phone">Estado</th>
-                                <th class="text-right">Acción</th>
+                                    <th>ID Pedido</th>
+                                    <th data-hide="phone">Cliente</th>
+                                    <th data-hide="phone">Celular</th>
+                                    <th data-hide="phone">Productos</th>
+                                    <th data-hide="phone,tablet">Fecha</th>
+                                    <th data-hide="phone">Estado</th>
+                                    <th class="text-right">Acción</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="pedido in $ctrl.pedidos | filter:$ctrl.search">
-                                <td>
-                                   {{pedido.id_pedido}}
-                                </td>
-                                <td>
-                                    {{pedido.cliente.nombre}}
-                                </td>
-                                <td>
-                                    {{pedido.cliente.celular}}
-                                </td>
-                                <td>
-                                    <span ng-repeat="producto in pedido.productos" class="badge">{{producto.nombre_producto}}</span>
-                                </td>
-                                <td>
-                                    {{pedido.createAt | date:"dd/MM/yyyy '-' h:mma"}}
-                                </td>
-                                <td>
-                                    <span class="label label-primary" ng-show="pedido.estado == 0">Pendiente</span>
-                                    <span class="label label-warning" ng-show="pedido.estado == 1">Entregado</span>
-                                </td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <button tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
-                                            <i class="glyphicon glyphicon-eye-open"></i>
-                                        </button>
-                                        <a href="escritorio#/order/edit/{{pedido._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </a>
-                                        <button ng-click="$ctrl.deletePedido($index, pedido)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="pedido in $ctrl.pedidos | filter:$ctrl.search">
+                                    <td>
+                                       {{pedido.id_pedido}}
+                                    </td>
+                                    <td>
+                                        {{pedido.cliente.nombre}}
+                                    </td>
+                                    <td>
+                                        {{pedido.cliente.celular}}
+                                    </td>
+                                    <td>
+                                        <span ng-repeat="producto in pedido.productos" class="badge">{{producto.nombre_producto}}</span>
+                                    </td>
+                                    <td>
+                                        {{pedido.createAt | date:"dd/MM/yyyy '-' h:mma"}}
+                                    </td>
+                                    <td>
+                                        <span class="label label-primary" ng-show="pedido.estado == 0">Pendiente</span>
+                                        <span class="label label-warning" ng-show="pedido.estado == 1">Entregado</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group">
+                                            <button tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </button>
+                                            <a href="escritorio#/order/edit/{{pedido._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <button ng-click="$ctrl.deletePedido($index, pedido)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="7">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

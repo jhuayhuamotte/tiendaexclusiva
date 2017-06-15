@@ -57,7 +57,8 @@ router.put('/carro/profile/:id', function(req, res, next){
         var productos = carro.productos;
         if(!productos){productos=[];}
         productos.push(producto);
-        CarroModel.update({id_profile: new ObjectId(id)},
+        console.log("YYY", productos);
+        CarroModel.update({id_profile: new ObjectId(id), enable:true},
         {$set: {productos:productos}},
         function(err, rowsAffected){
             if(err){return next(err);}

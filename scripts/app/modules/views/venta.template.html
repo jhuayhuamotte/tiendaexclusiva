@@ -1,5 +1,6 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
-  <tienda-menu user="$ctrl.userinfo"></tienda-menu>
+    <div class="leftmenu"></div>
+    <tienda-menu user="$ctrl.userinfo"></tienda-menu>
 </nav>
 
     <div id="page-wrapper" class="gray-bg">
@@ -56,65 +57,67 @@
                     <div class="ibox-content">
                         <a class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Hacer nueva venta</a>
                         <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
-                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
-                            <thead>
-                            <tr>
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                                <thead>
+                                <tr>
 
-                                <th>ID Venta</th>
-                                <th data-hide="phone">Vendedor</th>
-                                <th data-hide="phone">Costo Final</th>
-                                <th data-hide="phone">Fecha Venta</th>
-                                <th data-hide="phone,tablet" >Fecha Modificado</th>
-                                <th data-hide="phone">Estado</th>
-                                <th class="text-right">Acción</th>
+                                    <th>ID Venta</th>
+                                    <th data-hide="phone">Vendedor</th>
+                                    <th data-hide="phone">Costo Final</th>
+                                    <th data-hide="phone">Fecha Venta</th>
+                                    <th data-hide="phone,tablet" >Fecha Modificado</th>
+                                    <th data-hide="phone">Estado</th>
+                                    <th class="text-right">Acción</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="venta in $ctrl.ventas | filter:$ctrl.search">
-                                <td>
-                                   {{venta.id_venta}}
-                                </td>
-                                <td>
-                                    {{venta.profile.displayName}}
-                                </td>
-                                <td>
-                                    {{venta.costo_total | currency:"S/. "}}
-                                </td>
-                                <td>
-                                    {{venta.createAt | date:"dd/MM/yyyy '-' h:mma"}}
-                                </td>
-                                <td>
-                                    {{venta.updateAt | date:"dd/MM/yyyy '-' h:mma"}}
-                                </td>
-                                <td>
-                                    <span class="label label-primary" ng-show="venta.estado == 0">Realizado</span>
-                                    <span class="label label-danger" ng-show="venta.estado == 1">Cancelado</span>
-                                </td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <button tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
-                                            <i class="glyphicon glyphicon-eye-open"></i>
-                                        </button>
-                                        <button tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </button>
-                                        <button ng-click="$ctrl.deleteVenta($index, venta)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="venta in $ctrl.ventas | filter:$ctrl.search">
+                                    <td>
+                                       {{venta.id_venta}}
+                                    </td>
+                                    <td>
+                                        {{venta.profile.displayName}}
+                                    </td>
+                                    <td>
+                                        {{venta.costo_total | currency:"S/. "}}
+                                    </td>
+                                    <td>
+                                        {{venta.createAt | date:"dd/MM/yyyy '-' h:mma"}}
+                                    </td>
+                                    <td>
+                                        {{venta.updateAt | date:"dd/MM/yyyy '-' h:mma"}}
+                                    </td>
+                                    <td>
+                                        <span class="label label-primary" ng-show="venta.estado == 0">Realizado</span>
+                                        <span class="label label-danger" ng-show="venta.estado == 1">Cancelado</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group">
+                                            <button tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </button>
+                                            <button tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </button>
+                                            <button ng-click="$ctrl.deleteVenta($index, venta)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="7">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-4">

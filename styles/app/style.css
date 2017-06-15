@@ -15,6 +15,30 @@ body{
 select option {
     color: black;
 }
+.leftmenu{
+    background: #233646;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+@media (min-width: 768px) {
+    .navbar-static-side {
+        height: 100%;
+    }
+    #page-wrapper {
+      min-height: 100% !important;
+    }
+}
+@media (max-width: 768px) {
+  .body-small .navbar-static-side {
+    height: 100%;
+  }
+}
+
+.footable-odd{
+    background-color: transparent !important;
+}
 .ui-helper-hidden-accessible{
     display: none !important;
 }

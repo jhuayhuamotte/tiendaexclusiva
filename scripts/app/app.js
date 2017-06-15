@@ -7,7 +7,6 @@
     'angular.filter',
     'ngDragDrop',
     'ngFileUpload',
-    "ui.footable",
     "summernote"
   ]);
 })();

@@ -24,9 +24,10 @@
         }
 
         $ctrl.addToCar = function(){
-            console.log("$ctrl.carro: ", $ctrl.carro);
+            console.log("$ctrl.carro1: ", $ctrl.carro);
             if($ctrl.carro.edit){
                 initCarro();
+                console.log("$ctrl.carro2: ", $ctrl.carro);
                 carro.updateByProfile($ctrl.userinfo._id, $ctrl.carro.productos[0]);
             }else{
                 initCarro();

@@ -26,7 +26,9 @@
         }
 
         $timeout(function(){
-            $('.table').trigger('footable_redraw');
+            $(document).ready(function() {
+                $('.footable').footable();
+            });
         }, 500);
 
         $(document).ready(function() {
