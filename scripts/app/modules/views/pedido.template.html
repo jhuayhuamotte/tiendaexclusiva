@@ -30,7 +30,7 @@
                                       <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.email" class="form-control" placeholder="Correo"></div>
                                   </div>
                                   <div class="form-group col-md-12"><label class="col-sm-2">Telefono:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.telefono" class="form-control" placeholder="..."></div>
+                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.telefono" class="form-control" placeholder="01 00 00 00"></div>
                                   </div>
                                   <div class="form-group col-md-12"><label class="col-sm-2">Celular:</label>
                                       <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.celular" class="form-control" placeholder="+51 000 000 000"></div>
@@ -78,16 +78,16 @@
                                               <input type="text" ng-model="producto.cantidad" class="form-control" placeholder="10">
                                           </td>
                                           <td>
-                                              <input type="text" ng-model="producto.nombre_producto" class="form-control" placeholder="10">
+                                              <input type="text" ng-model="producto.nombre_producto" class="form-control" placeholder="Nombre producto">
                                           </td>
                                           <td>
-                                              <input type="text" ng-model="producto.marca" class="form-control" placeholder="$10.00">
+                                              <input type="text" ng-model="producto.marca" class="form-control" placeholder="Marca">
                                           </td>
                                           <td>
-                                              <input type="text" ng-model="producto.modelo" class="form-control" placeholder="$10.00">
+                                              <input type="text" ng-model="producto.modelo" class="form-control" placeholder="Modelo">
                                           </td>
                                           <td>
-                                              <input type="text" ng-model="producto.precio" class="form-control" placeholder="$10.00">
+                                              <input type="text" ng-model="producto.precio" class="form-control" placeholder="S/. 0.00">
                                           </td>
                                           <td>
                                                   <button ng-click="$ctrl.deleteProductos($index)" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
