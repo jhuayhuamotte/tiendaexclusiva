@@ -1,0 +1,112 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="leftmenu"></div>
+    <tienda-menu user="$ctrl.userinfo"></tienda-menu>
+</nav>
+
+    <div id="page-wrapper" class="gray-bg">
+    <div class="row border-bottom">
+        <top-navbar></top-navbar>
+    </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <location location="$ctrl.location" user="$ctrl.userinfo"></location>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+
+        <div class="ibox-content m-b-sm border-bottom" ng-show="showFilter">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" ng-model="$ctrl.search.nombre_categoria" placeholder="Nombre Categoria" class="form-control input-sm">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <select name="status" ng-model="$ctrl.search.estado" class="form-control">
+                            <option value="">- Seleccione estado -</option>
+                            <option value="0">Habilitado</option>
+                            <option value="1">Deshabilitado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="escritorio#/category" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Categoria</a>
+                        <!-- <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button> -->
+                        <button type="button" name="button" ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                        <div class="table-responsive">
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                                <thead>
+                                <tr>
+
+                                    <th>N°</th>
+                                    <th>Nombre Categoria</th>
+                                    <th>Descripcion</th>
+                                    <th>Estado</th>
+                                    <th class="text-right action-row" data-sort-ignore="true">Acción</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="categoria in $ctrl.categorias | filter:$ctrl.search">
+                                    <td>
+                                        {{$index + 1}}
+                                    </td>
+                                    <td>
+                                       {{categoria.nombre_categoria}}
+                                    </td>
+                                    <td>
+                                        {{categoria.descripcion}}
+                                    </td>
+                                    <td>
+                                        <span class="label label-primary" ng-show="categoria.estado == 0">Habilitado</span>
+                                        <span class="label label-warning" ng-show="categoria.estado == 1">Deshabilitado</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span class="threepoints" ng-hide="categoria.action" ng-click="categoria.action = !categoria.action"><b>. . .</b></span>
+                                        <div class="btn-group" ng-show="categoria.action">
+                                            <a href="escritorio#/category/detail/{{categoria._id}}" tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </a>
+                                            <a href="escritorio#/category/edit/{{categoria._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <button ng-click="$ctrl.deleteCategoria($index, categoria)" tooltip-placement="top-right" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="footer">
+        <footer></footer>
+    </div>
+</div>

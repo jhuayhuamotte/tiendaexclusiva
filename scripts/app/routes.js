@@ -3,7 +3,7 @@
   angular.module('tiendaexclusiva').config(function ($stateProvider,
   $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/grid');
+    $urlRouterProvider.otherwise('/category/grid');
 
     $stateProvider
     .state('productgrid', {
@@ -29,7 +29,21 @@
          });
        }
       },
-      url: '/list',
+      url: '/product/list',
+      templateUrl: 'scripts/app/modules/views/producto-list.template.html',
+      controller: 'prodListCtrl',
+      controllerAs: '$ctrl'
+    })
+    .state('productCategorylist', {
+      resolve:{
+        userinfo:function($http){
+          return $http({ method: 'GET', url:'/session-user'})
+         .then(function (response) {
+           return response.data.user;
+         });
+       }
+      },
+      url: '/product/list/category/:categoryid',
       templateUrl: 'scripts/app/modules/views/producto-list.template.html',
       controller: 'prodListCtrl',
       controllerAs: '$ctrl'
@@ -158,6 +172,62 @@
       url: '/export',
       templateUrl: 'scripts/app/modules/views/export.template.html',
       controller: 'exportCtrl',
+      controllerAs: '$ctrl'
+    })
+    .state('categoriagrid', {
+      resolve: {
+        userinfo: function($http){
+          return $http({ method: 'GET', url:'/session-user'})
+         .then ( function (response) {
+           return response.data.user;
+         });
+       }
+      },
+      url: '/category/grid',
+      templateUrl: "scripts/app/modules/views/categoria-grid.template.html",
+      controller: 'categoriaGridCtrl',
+      controllerAs: '$ctrl'
+    })
+    .state('categorialist', {
+      resolve:{
+        userinfo:function($http){
+          return $http({ method: 'GET', url:'/session-user'})
+         .then(function (response) {
+           return response.data.user;
+         });
+       }
+      },
+      url: '/category/list',
+      templateUrl: 'scripts/app/modules/views/categoria-list.template.html',
+      controller: 'categoriaListCtrl',
+      controllerAs: '$ctrl'
+    })
+    .state('addCategoria', {
+      resolve:{
+        userinfo:function($http){
+          return $http({ method: 'GET', url:'/session-user'})
+         .then(function (response) {
+           return response.data.user;
+         });
+       }
+      },
+      url: '/category',
+      templateUrl: 'scripts/app/modules/views/categoria.template.html',
+      controller: 'categoriaCtrl',
+      controllerAs: '$ctrl'
+    })
+    .state('editCategoria', {
+      resolve:{
+        userinfo:function($http){
+          return $http({ method: 'GET', url:'/session-user'})
+         .then(function (response) {
+           return response.data.user;
+         });
+       }
+      },
+      url: '/category/edit/:id',
+      templateUrl: 'scripts/app/modules/views/categoria.template.html',
+      controller: 'categoriaCtrl',
       controllerAs: '$ctrl'
     })
   })

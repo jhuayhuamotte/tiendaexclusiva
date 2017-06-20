@@ -15,6 +15,10 @@ body{
 select option {
     color: black;
 }
+.threepoints{
+    color: white;
+    cursor: pointer;
+}
 .leftmenu{
     background: #233646;
     height: 100%;
@@ -37,7 +41,7 @@ select option {
 }
 
 .footable-odd{
-    background-color: transparent !important;
+    background: none;
 }
 .ui-helper-hidden-accessible{
     display: none !important;
@@ -52,10 +56,10 @@ select option {
     background-color: rgb(0, 0, 0);
 }
 .border-bottom {
-    border-bottom: 0px solid #e7eaec !important;
+    border-bottom: 0 !important;
 }
-.ibox-content{
-    border-color: #00ab25 !important;
+.action-row{
+    min-width: 90px;
 }
 .white-bg{
     background: transparent !important;
@@ -91,7 +95,7 @@ ul.nav-second-level {
     color: #ababab !important;
 }
 .product-box {
-    border: 0px solid #e7eaec !important;
+    border: 0px !important;
 }
 .btn-primary:hover{
     background-color: #00ab25;
@@ -118,6 +122,24 @@ ul.nav-second-level {
 }
 .ibox-content {
     background-color: rgba(0, 0, 0, 0.55) !important;
+    border-color: #00ab25 !important;
+    border-width: 3px 0 !important;
+}
+.table>tbody>tr>td,
+.table>tfoot>tr>td{
+    border-top: 0 !important;
+}
+.table>tbody>tr:hover{
+    background: rgb(0, 0, 0);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.row-active{
+    background: rgba(86, 13, 15, 0.87);
+    color: white;
+    font-weight: bold;
+    font-style: italic;
 }
 .gray-bg{
     background-color: transparent !important;

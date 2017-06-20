@@ -42,14 +42,14 @@
         $ctrl.deleteProducto = function(index){
             if($ctrl.carro.productos.length==1){
                 carro.delete($ctrl.carro._id);
-                $location.path("/grid");
+                $location.path("/category/grid");
             }
             $ctrl.carro.productos.splice(index, 1);
         }
 
         $ctrl.deleteCarro = function(){
             carro.delete($ctrl.carro._id);
-            $location.path("/grid");
+            $location.path("/category/grid");
         }
 
         $ctrl.saveVenta = function(){
@@ -66,7 +66,7 @@
             }
             venta.save(row);
             $ctrl.carro.edit = false;
-            $location.path("/grid");
+            $location.path("/category/grid");
         }
 
         function loadCarro(){

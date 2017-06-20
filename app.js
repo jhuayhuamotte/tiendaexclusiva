@@ -37,6 +37,7 @@ require('./models/carros');
 require('./models/pedidos');
 require('./models/productos');
 require('./models/ventas');
+require('./models/categorias');
 
 var route = require('./routes/index');
 var escritorio = require('./routes/escritorio/index');
@@ -68,6 +69,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/',route);
+// app.use('/escritorio', escritorio);
 app.use('/escritorio', middleware.shouldLogged, escritorio);
 app.use('/api/v1', api);
 

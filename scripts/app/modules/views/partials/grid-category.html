@@ -1,0 +1,26 @@
+<div class="ibox">
+    <div class="ibox-content product-box">
+
+        <div ng-class="{'product-imitation':category.fotoUrl==null}" style="position:relative">
+            <!-- <span ng-hide="category.fotoUrl==null">[INFO]</span> -->
+            <div class="image-over"></div>
+            <img ng-src="{{category.fotoUrl}}" class="img-resp" height="180" width="240">
+        </div>
+        <div class="product-desc">
+            <!-- <span class="product-price">
+                {{category.precio.venta | currency:"S/. "}}
+            </span> -->
+            <!-- <small class="text-muted">{{category.marca}} | {{category.modelo}}</small> -->
+            <a ng-click="showProductCategory(category)" class="product-name"> {{category.nombre_categoria}}</a>
+
+            <div class="small m-t-xs">
+                {{category.descripcion}}
+            </div>
+            <div class="m-t text-righ">
+                <button ng-click="showProductCategory(category)" class="btn btn-xs btn-outline btn-primary">
+                    Ver {{category.nombre_categoria}} <i class="fa fa-long-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

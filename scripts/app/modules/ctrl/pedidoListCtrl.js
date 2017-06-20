@@ -28,6 +28,9 @@
         $timeout(function(){
             $(document).ready(function() {
                 $('.footable').footable();
+                $(".table>tbody>tr").click(function(){
+                    $(this).addClass("row-active").siblings().removeClass("row-active");
+                });
             });
         }, 500);
 

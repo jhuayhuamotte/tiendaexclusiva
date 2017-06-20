@@ -1,0 +1,24 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="leftmenu"></div>
+    <tienda-menu user="$ctrl.userinfo"></tienda-menu>
+</nav>
+
+<div id="page-wrapper" class="gray-bg">
+    <div class="row border-bottom">
+        <top-navbar></top-navbar>
+    </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <location location="$ctrl.location" user="$ctrl.userinfo"></location>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div ng-repeat="categoria in $ctrl.categorias | filter:{estado:0}" class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <grid-category category="categoria"></grid-category>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <footer></footer>
+    </div>
+</div>

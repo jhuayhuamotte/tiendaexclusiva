@@ -14,7 +14,7 @@
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
 
-        <div class="ibox-content m-b-sm border-bottom">
+        <div class="ibox-content m-b-sm border-bottom" ng-show="showFilter">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -58,20 +58,26 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <a href="escritorio#/product" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i>  Añadir producto</a>
-                        <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a ng-hide="$ctrl.showCategory" href="escritorio#/product" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Producto</a>
+                                <button ng-hide="$ctrl.showCategory" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
+                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
+                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                                 <thead>
                                 <tr>
 
-                                    <th data-toggle="true">Nombre Producto</th>
-                                    <th data-hide="phone,tablet">Marca</th>
-                                    <th data-hide="all">Modelo</th>
-                                    <th data-hide="phone">Precio</th>
-                                    <th data-hide="phone">Cantidad</th>
-                                    <th data-hide="phone,tablet">Estado</th>
-                                    <th class="text-right" data-sort-ignore="true">Acción</th>
+                                    <th>Nombre Producto</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Estado</th>
+                                    <th class="text-right action-row" data-sort-ignore="true">Acción</th>
 
                                 </tr>
                                 </thead>
@@ -97,15 +103,21 @@
                                         <span class="label label-warning" ng-show="producto.estado == 1">Stock deshabilitado</span>
                                         <span class="label label-success" ng-show="producto.estado == 2">No disponible</span>
                                     </td>
-                                    <td class="text-right">
-                                        <div class="btn-group">
+                                    <td ng-show="$ctrl.showCategory" class="text-right">
+                                        <a ng-click="$ctrl.addToCar(producto)" tooltip-placement="top-right" uib-tooltip="Añadir al carro" class="btn-primary btn btn-xs btn-success btn-outline">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </td>
+                                    <td ng-hide="$ctrl.showCategory" class="text-right">
+                                        <span class="threepoints" ng-hide="producto.action" ng-click="producto.action = !producto.action"><b>. . .</b></span>
+                                        <div class="btn-group" ng-show="producto.action">
                                             <a href="escritorio#/product/detail/{{producto._id}}" tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
                                             <a href="escritorio#/product/edit/{{producto._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
-                                            <button ng-click="$ctrl.deleteProduct($index, producto)" tooltip-placement="top" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
+                                            <button ng-click="$ctrl.deleteProduct($index, producto)" tooltip-placement="top-right" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                             </button>
                                         </div>
@@ -115,7 +127,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

@@ -15,7 +15,8 @@ var DescuentosSchema = new Schema({
 });
 
 var ProductosShema = new Schema({
-  nombre_producto:String,
+  nombre_producto: String,
+  categoria: {_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Categorias' }, nombre_categoria: String},
   precio: {compra: Number, venta: Number},
   cantidad:Number,
   estado:{type:Number,default:0},

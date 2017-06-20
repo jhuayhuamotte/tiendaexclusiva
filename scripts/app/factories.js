@@ -171,6 +171,18 @@
             });
         }
 
+        producto.listByCategory = function(id){
+            return $http
+            .get('/api/v1/productos/category/'+id)
+            .success( function(response) {
+                console.log("response: list gategory: ", response);
+                angular.copy(response, producto.dataList);
+            })
+            .error( function(err) {
+                console.log("List Products Category Error: ", err);
+            });
+        }
+
         producto.getById = function(id){
             return $http
             .get('/api/v1/producto/'+id)
@@ -289,11 +301,80 @@
         return pedido;
     }
 
+    function categoriasFactory( $http ){
+        var categoria = {};
+        categoria.dataList = [];
+        categoria.edit = {};
+
+        categoria.list = function(){
+            return $http
+            .get('/api/v1/categorias')
+            .success( function(response) {
+                console.log("response: list: ", response);
+                angular.copy(response, categoria.dataList);
+            })
+            .error( function(err) {
+                console.log("List Category Error: ", err);
+            });
+        }
+
+        categoria.getById = function(id){
+            return $http
+            .get('/api/v1/categoria/'+id)
+            .success( function(response) {
+                var prod = response;
+                prod.edit = true;
+                console.log("categoria.getById: ", prod);
+                angular.copy(prod, categoria.edit);
+            })
+            .error( function(err) {
+                console.log("Get Category By Id Error: ", err);
+            });
+        }
+
+        categoria.save = function(row){
+            return $http
+            .post('/api/v1/categoria', row)
+            .success( function(response) {
+                console.log("Category Saved: ", response);
+            })
+            .error( function(err) {
+                console.log("Save Category Error: ", err);
+            });
+        }
+
+        categoria.update = function(id, row){
+            console.log("row: ", id, row);
+            return $http
+            .put('/api/v1/categoria/'+id, row)
+            .success( function(response) {
+                console.log("Category Updated: ", response);
+            })
+            .error( function(err) {
+                console.log("Update Category Error: ", err);
+            });
+        }
+
+        categoria.delete = function(id){
+            return $http
+            .delete('/api/v1/categoria/'+id)
+            .success( function(response) {
+                console.log("Category Deleted: ", response);
+            })
+            .error( function(err) {
+                console.log("Deleted Category Error: ", err);
+            });
+        }
+
+        return categoria;
+    }
+
     angular
     .module('tiendaexclusiva')
     .factory('carro',     carrosFactory)
     .factory('venta',     ventasFactory)
     .factory('producto',  productosFactory)
+    .factory('categoria',  categoriasFactory)
     .factory('pedido',    pedidosFactory);
 
 })();

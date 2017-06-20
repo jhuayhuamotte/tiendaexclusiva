@@ -11,6 +11,7 @@ var CarroModel = mongoose.model('Carros');
 var VentaModel = mongoose.model('Ventas');
 var ProductoModel = mongoose.model('Productos');
 var PedidoModel = mongoose.model('Pedidos');
+var CategoriaModel = mongoose.model('Categorias');
 
 /* START Carros */
 router.get('/carros', function(req, res, next){
@@ -136,6 +137,15 @@ router.get('/productos', function(req, res, next){
   });
 });
 
+router.get('/productos/category/:id', function(req, res, next){
+    var id = req.params.id;
+    ProductoModel.find({enable:true, "categoria._id": new ObjectId(id)},
+    function(err, productos){
+        if(err){return next(err);}
+        res.json(productos);
+    });
+});
+
 router.get('/producto/:id', function(req, res, next){
   var id = req.params.id;
   ProductoModel.findOne({_id: new ObjectId(id), enable: true},function(err, producto){
@@ -164,6 +174,7 @@ router.put('/producto/:id', function(req, res, next){
                 nombre_producto: prod.nombre_producto,
                 precio: prod.precio,
                 cantidad: prod.cantidad,
+                categoria: prod.categoria,
                 estado: prod.estado,
                 desc_producto: prod.desc_producto,
                 descripcion: prod.descripcion,
@@ -205,9 +216,9 @@ router.delete('/producto/remove/:id', function(req, res, next){
         res.json(numAffected)
     })
 });
-/* END Carros */
+/* END Productos */
 
-/* START Carros */
+/* START Pedidos */
 router.get('/pedidos', function(req, res, next){
   PedidoModel.find({enable:true},function(err,pedidos){
     if(err){return next(err);}
@@ -259,7 +270,72 @@ router.delete('/pedido/:id', function(req, res, next){
     res.json(numAffected)
   })
 });
-/* END Carros */
+/* END Pedidos */
+
+/* START Categorias */
+router.get('/categorias', function(req, res, next){
+  CategoriaModel.find({enable:true},function(err, categorias){
+    if(err){return next(err);}
+    res.json(categorias);
+  });
+});
+
+router.get('/categoria/:id', function(req, res, next){
+  var id = req.params.id;
+  CategoriaModel.findOne({_id: new ObjectId(id), enable: true},function(err, categoria){
+    if(err){return next(err);}
+    res.json(categoria);
+  });
+});
+
+router.post('/categoria', function(req, res, next){
+    var prod = req.body;
+    var Producto = new CategoriaModel(prod);
+    Producto.save(function(err, categoria){
+        if(err){ return next(err);}
+        res.json(categoria);
+    });
+});
+
+router.put('/categoria/:id', function(req, res, next){
+    var id = req.params.id;
+    var cat = req.body;
+
+    CategoriaModel.update(
+        {_id: new ObjectId(id)},
+        {
+            $set: {
+                nombre_categoria: cat.nombre_categoria,
+                estado: cat.estado,
+                fotoUrl: cat.fotoUrl,
+                descripcion: cat.descripcion
+            }
+        },
+        function(err, rowsAffected){
+            if(err){ return next(err);}
+            res.json(rowsAffected);
+        }
+    );
+});
+
+router.delete('/categoria/:id', function(req, res, next){
+    var id = req.params.id;
+    CategoriaModel.update({_id: new ObjectId(id)},
+    {$set: {enable: false}},
+    function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
+    })
+});
+
+router.delete('/categoria/remove/:id', function(req, res, next){
+    var id = req.params.id;
+    CategoriaModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
+    })
+});
+/* END Categorias */
 
 /* START Media */
 router.post('/media/upload', function (req, res, next) {

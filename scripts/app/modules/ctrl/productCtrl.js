@@ -1,13 +1,15 @@
 (function () {
     'use strict';
 
-    function productController(userinfo, producto, $stateParams, $scope, Upload, $timeout, $location){
+    function productController(userinfo, producto, categoria, $stateParams, $scope, Upload, $timeout, $location){
         var $ctrl = this,
             uploadUrl = "dist/assets/img/";
 
         $ctrl.userinfo = userinfo;
         $ctrl.product = {};
         $ctrl.idProducto = $stateParams.id;
+        categoria.list();
+        $ctrl.categorias = categoria.dataList;
         $ctrl.location = {
             page: "Nuevo Producto",
             list: [
@@ -43,6 +45,7 @@
             $ctrl.product = {
                 edit: false,
                 nombre_producto: null,
+                categoria:{},
                 precio: {compra: 0, venta: 0},
                 cantidad: 0,
                 desc_producto: null,
@@ -64,13 +67,14 @@
 
         $ctrl.saveProduct = function(){
             if($ctrl.product.edit){
+                console.log("productoUpdate: ", $ctrl.product);
                 producto.update($ctrl.idProducto, $ctrl.product);
             }else{
                 console.log("productoSave: ", $ctrl.product);
                 producto.save($ctrl.product);
                 initProduct();
             }
-            $location.path("/list");
+            $location.path("/product/list");
         }
 
         $ctrl.deleteFotos = function(index){
