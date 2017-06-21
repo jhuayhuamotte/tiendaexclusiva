@@ -7,15 +7,24 @@
     </ol>
 </div>
 <div class="col-lg-2 btn-cart">
-    <a ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary pull-right hidden-xs">
+    <a style="position:relative" ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary pull-right hidden-xs">
         <i class="fa fa fa-shopping-cart"></i> Carro
+        <span class="count-car label label-warning">{{carro.productos.length}}</span>
     </a>
-    <a ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary btn-circle btn-md btn-outline pull-right visible-xs">
+    <a style="position:relative" ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary btn-circle btn-md btn-outline pull-right visible-xs">
         <i class="fa fa fa-shopping-cart"></i>
+        <span class="count-car label label-warning">{{carro.productos.length}}</span>
     </a>
 </div>
 <style media="screen">
     .negrita{
         font-weight: bold;
+    }
+    .count-car{
+        line-height: 12px;
+        padding: 2px 5px;
+        position: absolute !important;
+        right: -5px;
+        top: -6px !important;
     }
 </style>

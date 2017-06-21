@@ -104,7 +104,7 @@
                                         <span class="label label-success" ng-show="producto.estado == 2">No disponible</span>
                                     </td>
                                     <td ng-show="$ctrl.showCategory" class="text-right">
-                                        <a ng-click="$ctrl.addToCar(producto)" tooltip-placement="top-right" uib-tooltip="Añadir al carro" class="btn-primary btn btn-xs btn-success btn-outline">
+                                        <a ng-click="$ctrl.addToCar(producto, $index)" tooltip-placement="top-right" uib-tooltip="Añadir al carro" class="btn-primary btn btn-xs btn-success btn-outline">
                                             <i class="fa fa-shopping-cart"></i>
                                         </a>
                                     </td>

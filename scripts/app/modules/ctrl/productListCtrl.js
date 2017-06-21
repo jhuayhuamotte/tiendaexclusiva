@@ -41,20 +41,36 @@
             $ctrl.productos.splice(index, 1);
         }
 
-        $ctrl.addToCar = function(producto){
+        $ctrl.addToCar = function(producto, index){
             console.log("$ctrl.carro1: ", $ctrl.carro);
             if($ctrl.carro.edit){
-                initCarro(producto);
-                console.log("$ctrl.carro2: ", $ctrl.carro);
-                carro.updateByProfile($ctrl.userinfo._id, $ctrl.carro.productos[0]);
+                var addCarro = initCarro(producto);
+                var found = false;
+                for(var i = 0; i < $ctrl.carro.productos.length; i++) {
+                    var prod = $ctrl.carro.productos[i];
+                    if (prod.id_producto == producto._id) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    $ctrl.carro.edit = true;
+                    carro.updateByProfile($ctrl.userinfo._id, addCarro.productos[0]);
+                    $ctrl.carro.productos.push(addCarro.productos[0]);
+                    $ctrl.productos[index].cantidad--;
+                }
+
             }else{
-                initCarro(producto);
-                carro.save($ctrl.carro);
+                var newCarro = initCarro(producto);
+                $ctrl.carro = newCarro;
+                $ctrl.carro.edit = true;
+                carro.save(newCarro);
+                $ctrl.productos[index].cantidad--;
             }
         }
 
         function initCarro(producto){
-            $ctrl.carro = {
+            return {
                 edit:false,
                 id_profile: $ctrl.userinfo._id,
                 productos: [

@@ -47,8 +47,10 @@
             return $http
             .post('/api/v1/carro', row)
             .success( function(response) {
-                carro.carData.edit = true;
-                console.log("Car Saved: ", response);
+                var car = row;
+                car.edit = true;
+                angular.copy(car,carro.carData);
+                console.log("Car Saved: ", response, carro.carData, row);
             })
             .error( function(err) {
                 console.log("Save Car Error: ", err);
@@ -70,6 +72,7 @@
             return $http
             .put('/api/v1/carro/profile/'+id, row)
             .success( function(response) {
+                carro.carData.productos.push(row);
                 console.log("Car Updated: ", response);
             })
             .error( function(err) {
@@ -164,6 +167,18 @@
             .get('/api/v1/productos')
             .success( function(response) {
                 console.log("response: list: ", response);
+                angular.copy(response, producto.dataList);
+            })
+            .error( function(err) {
+                console.log("List Products Error: ", err);
+            });
+        }
+
+        producto.listByIds = function(ids){
+            return $http
+            .get('/api/v1/productos/list/'+ids)
+            .success( function(response) {
+                console.log("response list by ids", response);
                 angular.copy(response, producto.dataList);
             })
             .error( function(err) {

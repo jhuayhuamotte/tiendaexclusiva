@@ -150,6 +150,8 @@
 
                             if (navbarheight < wrapperHeight) {
                                 $('#page-wrapper').css("min-height", $(window).height() + "px");
+                                $('nav.navbar-default').css("min-height", $('#page-wrapper').height() + "px");
+                                console.log("height1: ", $('#page-wrapper').height());
                             }
 
                             if ($('body').hasClass('fixed-nav')) {
@@ -157,6 +159,8 @@
                                     $('#page-wrapper').css("min-height", navbarheight + "px");
                                 } else {
                                     $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
+                                    $('nav.navbar-default').css("min-height", $('#page-wrapper').height() + "px");
+                                    console.log("height2: ", $('#page-wrapper').height());
                                 }
                             }
 

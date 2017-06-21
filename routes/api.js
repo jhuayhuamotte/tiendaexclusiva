@@ -137,9 +137,31 @@ router.get('/productos', function(req, res, next){
   });
 });
 
+router.get('/productos/list/:ids', function(req, res, next){
+    var prod = req.params.ids;
+    console.log("prods", prod);
+    var ids = prod.split('-');
+    var queryIN = [];
+    for (var x in ids){
+        queryIN.push(new mongoose.Types.ObjectId(ids[x]));
+    }
+    console.log("queryIN: ", queryIN);
+    ProductoModel.find({enable:true, _id: {$in: queryIN}},function(err,productos){
+        if(err){return next(err);}
+        console.log("productos: byID; ", productos);
+        res.json(productos);
+    });
+});
+
 router.get('/productos/category/:id', function(req, res, next){
     var id = req.params.id;
-    ProductoModel.find({enable:true, "categoria._id": new ObjectId(id)},
+    ProductoModel.find(
+        {
+            enable: true,
+            "categoria._id": new ObjectId(id),
+            cantidad: {$gt: 0},
+            estado: {$eq: 0}
+        },
     function(err, productos){
         if(err){return next(err);}
         res.json(productos);
