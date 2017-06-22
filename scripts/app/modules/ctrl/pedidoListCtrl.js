@@ -10,7 +10,7 @@
             page: "Lista Pedidos",
             list: [
                 {name: "Escritorio",      url: "/"},
-                {name: "Lista Pedidos",   url: "/pedidos"}
+                {name: "Lista Pedidos",   url: "/orders"}
             ]
         };
 

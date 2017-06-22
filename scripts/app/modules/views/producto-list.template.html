@@ -74,9 +74,11 @@
                                     <th>Nombre Producto</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
-                                    <th>Precio</th>
+                                    <th>Precio Venta</th>
+                                    <th ng-hide="$ctrl.showCategory">Precio Compra</th>
                                     <th>Cantidad</th>
                                     <th>Estado</th>
+                                    <th ng-hide="$ctrl.showCategory">Categoria</th>
                                     <th class="text-right action-row" data-sort-ignore="true">Acción</th>
 
                                 </tr>
@@ -95,6 +97,9 @@
                                     <td>
                                         {{producto.precio.venta | currency: "S/. "}}
                                     </td>
+                                    <td ng-hide="$ctrl.showCategory">
+                                        {{producto.precio.compra | currency: "S/. "}}
+                                    </td>
                                     <td>
                                         {{producto.cantidad}}
                                     </td>
@@ -102,6 +107,9 @@
                                         <span class="label label-primary" ng-show="producto.estado == 0">En stock</span>
                                         <span class="label label-warning" ng-show="producto.estado == 1">Stock deshabilitado</span>
                                         <span class="label label-success" ng-show="producto.estado == 2">No disponible</span>
+                                    </td>
+                                    <td ng-hide="$ctrl.showCategory">
+                                        {{producto.categoria.nombre_categoria}}
                                     </td>
                                     <td ng-show="$ctrl.showCategory" class="text-right">
                                         <a ng-click="$ctrl.addToCar(producto, $index)" tooltip-placement="top-right" uib-tooltip="Añadir al carro" class="btn-primary btn btn-xs btn-success btn-outline">
@@ -127,7 +135,7 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="9">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>

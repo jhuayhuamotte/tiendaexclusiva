@@ -9,7 +9,7 @@
             page: "Lista Categorias",
             list: [
                 {name: "Escritorio",        url: "/"},
-                {name: "Categorias",         url: "/grid"},
+                {name: "Categorias",         url: "/category/grid"},
                 {name: "Lista Categorias",   url: "/category/list"}
             ]
         };

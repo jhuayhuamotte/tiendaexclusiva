@@ -12,8 +12,8 @@
             page: "Nuevo Pedido",
             list: [
                 {name: "Escritorio", url: "/"},
-                {name: "Pedidos", url: "/grid"},
-                {name: "Nuevo Pedido", url: "/pedido"}
+                {name: "Pedidos", url: "/orders"},
+                {name: "Nuevo Pedido", url: "/order/"}
             ]
         };
 

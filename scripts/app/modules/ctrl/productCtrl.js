@@ -14,7 +14,7 @@
             page: "Nuevo Producto",
             list: [
                 {name: "Escritorio", url: "/"},
-                {name: "Productos", url: "/grid"},
+                {name: "Productos", url: "/category/grid"},
                 {name: "Nuevo Producto", url: "/product"}
             ]
         };

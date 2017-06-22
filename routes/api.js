@@ -101,6 +101,21 @@ router.post('/venta', function(req, res, next){
     {$set: {enable: false}},
     function (err, numAffected){
         if(err) { return next(err); }
+
+        var prod = req.body.productos;
+        for (var x in prod){
+            ProductoModel.findOne({_id: new ObjectId(prod[x].id_producto)}, function(err, producto){
+                if(err){ console.log("Error: ", err); return}
+                var pro = producto;
+                var cantidad_actual = pro.cantidad - prod[x].cantidad;
+                console.log("cantidad_actual: ", cantidad_actual);
+
+                ProductoModel.update({_id: new ObjectId(pro._id)},
+                {$set: {cantidad: cantidad_actual}}, function(err, numAffected){
+                    if(err){ console.log("Error: ", err); return}
+                })
+            })
+        }
         res.json({numAffected: numAffected, venta: venta})
     })
   })

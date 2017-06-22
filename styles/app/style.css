@@ -130,7 +130,7 @@ ul.nav-second-level {
     border-top: 0 !important;
 }
 .table>tbody>tr:hover{
-    background: rgb(0, 0, 0);
+    background: rgb(143, 30, 3);
     color: white;
     font-weight: bold;
     cursor: pointer;

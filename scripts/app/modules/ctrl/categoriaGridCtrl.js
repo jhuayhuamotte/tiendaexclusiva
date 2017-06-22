@@ -6,10 +6,10 @@
         categoria.list();
         $ctrl.categorias = categoria.dataList;
         $ctrl.location = {
-            page: "Categorias",
+            page: "Productos Stock",
             list: [
                 {name: "Escritorio", url: "/"},
-                {name: "Categorias",  url: "/grid"}
+                {name: "Productos Stock",  url: "/category/grid"}
             ]
         };
     });

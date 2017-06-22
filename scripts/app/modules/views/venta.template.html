@@ -55,22 +55,25 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <a class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Venta</a>
-                        <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
-                        <button type="button" name="button" ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline pull-right">
-                            <i class="glyphicon glyphicon-search"></i> Buscar
-                        </button>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a href="escritorio#/category/grid" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Venta</a>
+                                <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
+                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
+                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                                 <thead>
                                 <tr>
 
                                     <th>ID Venta</th>
-                                    <th data-hide="phone">Vendedor</th>
-                                    <th data-hide="phone">Costo Final</th>
-                                    <th data-hide="phone">Fecha Venta</th>
-                                    <th data-hide="phone,tablet" >Fecha Modificado</th>
-                                    <th data-hide="phone">Estado</th>
+                                    <th>Vendedor</th>
+                                    <th>Costo Final</th>
+                                    <th>Productos</th>
+                                    <th>Fecha Venta</th>
+                                    <th>Estado</th>
                                     <th class="text-right action-row" data-sort-ignore="true">Acción</th>
 
                                 </tr>
@@ -87,10 +90,13 @@
                                         {{venta.costo_total | currency:"S/. "}}
                                     </td>
                                     <td>
-                                        {{venta.createAt | date:"dd/MM/yyyy '-' h:mma"}}
+                                        <span style="position:relative" ng-repeat="pro in venta.productos">
+                                            <span class="badge">{{pro.nombre_producto}}</span>
+                                            <span class="count-car label label-warning">{{pro.cantidad}}</span>
+                                        </span>
                                     </td>
                                     <td>
-                                        {{venta.updateAt | date:"dd/MM/yyyy '-' h:mma"}}
+                                        {{venta.createAt | date:"dd/MM/yyyy '-' h:mma"}}
                                     </td>
                                     <td>
                                         <span class="label label-primary" ng-show="venta.estado == 0">Realizado</span>
@@ -99,12 +105,12 @@
                                     <td class="text-right">
                                         <span class="threepoints" ng-hide="venta.action" ng-click="venta.action = !venta.action"><b>. . .</b></span>
                                         <div class="btn-group" ng-show="venta.action">
-                                            <button tooltip-placement="top" ng-click="venta.action = !venta.action" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                            <!-- <button tooltip-placement="top" ng-click="venta.action = !venta.action" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </button>
                                             <button tooltip-placement="top" ng-click="venta.action = !venta.action" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
                                                 <i class="glyphicon glyphicon-pencil"></i>
-                                            </button>
+                                            </button> -->
                                             <button ng-click="venta.action = !venta.action; $ctrl.deleteVenta($index, venta)" tooltip-placement="top-right" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                             </button>
@@ -152,3 +158,16 @@
         <footer></footer>
     </div>
 </div>
+<style media="screen">
+    .negrita{
+        font-weight: bold;
+    }
+    .count-car{
+        border-radius: 12px;
+        line-height: 11px;
+        padding: 0px 3px;
+        position: absolute !important;
+        right: 2px;
+        top: -3px !important;
+    }
+</style>

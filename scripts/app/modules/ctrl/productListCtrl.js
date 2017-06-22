@@ -16,7 +16,7 @@
             list: [
                 {name: "Escritorio",        url: "/"},
                 {name: "Productos",         url: "/category/grid"},
-                {name: "Lista Productos",   url: "/list"}
+                {name: "Lista Productos",   url: "/product/list"}
             ]
         };
 

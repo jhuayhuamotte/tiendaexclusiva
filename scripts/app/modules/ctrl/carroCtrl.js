@@ -39,7 +39,7 @@
             $ctrl.cuentaTotal = 0;
             for(var x in $ctrl.carro.productos){
                 var prod = $ctrl.carro.productos[x];
-                prodIDS.push(prod._id);
+                prodIDS.push(prod.id_producto);
                 if(!isNaN(prod.cantidad)){
                     var precio = (parseInt(prod.cantidad) * parseFloat(prod.precio));
                     $ctrl.cuentaTotal = $ctrl.cuentaTotal + precio;

@@ -47,24 +47,29 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <a href="escritorio#/order/" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Pedido</a>
-                        <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline">
-                            <i class="glyphicon glyphicon-save"></i> Descargar
-                        </button>
-                        <button type="button" name="button" ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline pull-right">
-                            <i class="glyphicon glyphicon-search"></i> Buscar
-                        </button>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a href="escritorio#/order/" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Pedido</a>
+                                <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline">
+                                    <i class="glyphicon glyphicon-save"></i> Descargar
+                                </button>
+                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
+                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                                 <thead>
                                 <tr>
 
                                     <th>ID Pedido</th>
-                                    <th data-hide="phone">Cliente</th>
-                                    <th data-hide="phone">Celular</th>
-                                    <th data-hide="phone">Productos</th>
-                                    <th data-hide="phone,tablet">Fecha</th>
-                                    <th data-hide="phone">Estado</th>
+                                    <th>Cliente</th>
+                                    <th>Productos</th>
+                                    <th>Celular</th>
+                                    <th>Teléfono</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
                                     <th class="text-right action-row" data-sort-ignore="true">Acción</th>
 
                                 </tr>
@@ -78,10 +83,15 @@
                                         {{pedido.cliente.nombre}}
                                     </td>
                                     <td>
+                                        <span ng-repeat="producto in pedido.productos"
+                                        uib-tooltip="MARCA: {{producto.marca}} - MODELO: {{producto.modelo}} - CANTIDAD: {{producto.cantidad}} - PRECIO: {{producto.precio | currency: 'S/. '}}" tooltip-trigger="'outsideClick'"
+                                        tooltip-placement="top" class="badge">{{producto.nombre_producto}}</span>
+                                    </td>
+                                    <td>
                                         {{pedido.cliente.celular}}
                                     </td>
                                     <td>
-                                        <span ng-repeat="producto in pedido.productos" class="badge">{{producto.nombre_producto}}</span>
+                                        {{pedido.cliente.telefono}}
                                     </td>
                                     <td>
                                         {{pedido.createAt | date:"dd/MM/yyyy '-' h:mma"}}
