@@ -44,8 +44,8 @@
                     <div class="form-group">
                         <select name="status" id="status" ng-model="$ctrl.search.estado" class="form-control">
                             <option value="">- Estado -</option>
-                            <option value="1">En stock</option>
-                            <option value="0">Stock deshabilitado</option>
+                            <option value="0">En stock</option>
+                            <option value="1">Stock deshabilitado</option>
                             <option value="2">No disponible</option>
                         </select>
                     </div>
@@ -119,9 +119,9 @@
                                     <td ng-hide="$ctrl.showCategory" class="text-right">
                                         <span class="threepoints" ng-hide="producto.action" ng-click="producto.action = !producto.action"><b>. . .</b></span>
                                         <div class="btn-group" ng-show="producto.action">
-                                            <a href="escritorio#/product/detail/{{producto._id}}" tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
+                                            <!-- <a href="escritorio#/product/detail/{{producto._id}}" tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
-                                            </a>
+                                            </a> -->
                                             <a href="escritorio#/product/edit/{{producto._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>

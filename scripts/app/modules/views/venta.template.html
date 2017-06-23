@@ -27,14 +27,6 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" id="status" ng-model="$ctrl.search.estado" name="status" placeholder="Estado" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <div class="input-group">
                             <input type="text" id="customer" ng-model="$ctrl.search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control input-sm">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
@@ -44,6 +36,18 @@
                     <div class="form-group">
                         <div class="input-group">
                             <input type="text" id="amount" ng-model="$ctrl.search.costo_total" name="amount" placeholder="Costo" class="form-control input-sm">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select name="status" ng-model="$ctrl.search.estado" class="form-control">
+                                <option value="">- Seleccione estado -</option>
+                                <option value="0">Habilitado</option>
+                                <option value="1">Deshabilitado</option>
+                            </select>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </div>
@@ -92,7 +96,7 @@
                                     <td>
                                         <span style="position:relative" ng-repeat="pro in venta.productos">
                                             <span class="badge">{{pro.nombre_producto}}</span>
-                                            <span class="count-car label label-warning">{{pro.cantidad}}</span>
+                                            <span class="count-prod label label-warning">{{pro.cantidad}}</span>
                                         </span>
                                     </td>
                                     <td>
@@ -129,7 +133,7 @@
                             </table>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="input-group date">
@@ -148,7 +152,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -162,7 +166,7 @@
     .negrita{
         font-weight: bold;
     }
-    .count-car{
+    .count-prod{
         border-radius: 12px;
         line-height: 11px;
         padding: 0px 3px;

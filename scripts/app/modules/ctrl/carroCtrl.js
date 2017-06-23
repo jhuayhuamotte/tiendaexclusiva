@@ -55,6 +55,7 @@
                 $location.path("/category/grid");
             }
             $ctrl.carro.productos.splice(index, 1);
+            $ctrl.calculateTotal();
         }
 
         $ctrl.deleteCarro = function(){
