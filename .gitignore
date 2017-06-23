@@ -8,3 +8,4 @@ audio
 videos
 test
 assets/*.html
+.env
