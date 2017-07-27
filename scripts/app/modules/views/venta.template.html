@@ -13,58 +13,55 @@
 
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
-
-        <div class="ibox-content m-b-sm border-bottom" ng-show="showFilter">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" id="order_id" ng-model="$ctrl.search.id_venta" name="order_id" placeholder="ID Venta" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" id="customer" ng-model="$ctrl.search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" id="amount" ng-model="$ctrl.search.costo_total" name="amount" placeholder="Costo" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <select name="status" ng-model="$ctrl.search.estado" class="form-control">
-                                <option value="">- Seleccione estado -</option>
-                                <option value="0">Habilitado</option>
-                                <option value="1">Deshabilitado</option>
-                            </select>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
+                        <div class="row" ng-show="showFilter">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" id="order_id" ng-model="$ctrl.search.id_venta" name="order_id" placeholder="ID Venta" class="form-control radius border-left input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" id="customer" ng-model="$ctrl.search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control radius border-left input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" id="amount" ng-model="$ctrl.search.costo_total" name="amount" placeholder="Costo" class="form-control radius border-left input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
+                                        <select name="status" ng-model="$ctrl.search.estado" class="form-control radius border-left">
+                                            <option value="">- Seleccione estado -</option>
+                                            <option value="0">Habilitado</option>
+                                            <option value="1">Deshabilitado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-sm-12">
-                                <a href="escritorio#/category/grid" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Venta</a>
-                                <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
-                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
-                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                                <a href="escritorio#/category/grid" class="btn btn-active radius btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Venta</a>
+                                <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn radius btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
+                                <button ng-click="showFilter = !showFilter" class="btn radius btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
+                                <button ng-click="showFilter = !showFilter" class="btn radius btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -83,7 +80,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="venta in $ctrl.ventas | filter:$ctrl.search">
+                                <tr context-menu="$ctrl.context_menu" ng-repeat="venta in $ctrl.ventas | filter:$ctrl.search">
                                     <td>
                                        {{venta.id_venta}}
                                     </td>
@@ -94,10 +91,10 @@
                                         {{venta.costo_total | currency:"S/. "}}
                                     </td>
                                     <td>
-                                        <span style="position:relative" ng-repeat="pro in venta.productos">
-                                            <span class="badge">{{pro.nombre_producto}}</span>
-                                            <span class="count-prod label label-warning">{{pro.cantidad}}</span>
-                                        </span>
+                                        <a href ng-click="$ctrl.show_venta_detail(venta)">
+                                            <i class="glyphicon glyphicon-new-window"></i>
+                                            <b>Ver productos</b>
+                                        </a>
                                     </td>
                                     <td>
                                         {{venta.createAt | date:"dd/MM/yyyy '-' h:mma"}}
@@ -107,18 +104,8 @@
                                         <span class="label label-danger" ng-show="venta.estado == 1">Cancelado</span>
                                     </td>
                                     <td class="text-right">
-                                        <span class="threepoints" ng-hide="venta.action" ng-click="venta.action = !venta.action"><b>. . .</b></span>
-                                        <div class="btn-group" ng-show="venta.action">
-                                            <!-- <button tooltip-placement="top" ng-click="venta.action = !venta.action" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
-                                                <i class="glyphicon glyphicon-eye-open"></i>
-                                            </button>
-                                            <button tooltip-placement="top" ng-click="venta.action = !venta.action" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
-                                                <i class="glyphicon glyphicon-pencil"></i>
-                                            </button> -->
-                                            <button ng-click="venta.action = !venta.action; $ctrl.deleteVenta($index, venta)" tooltip-placement="top-right" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                        </div>
+                                        <span context-menu="$ctrl.context_menu" context-menu-on="click"
+                                        class="threepoints glyphicon glyphicon-option-horizontal"></span>
                                     </td>
                                 </tr>
 
@@ -162,6 +149,55 @@
         <footer></footer>
     </div>
 </div>
+
+
+<div class="modal inmodal fade" id="venta_detail" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="close-modal glyphicon glyphicon-remove"></span></button>
+                <h3>PRODUCTOS VENDIDOS</h3>
+                <small class="font-bold" style="text-transform:uppercase;">{{$ctrl.pedido_detail.cliente.nombre}}</small>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                        <thead>
+                        <tr>
+                            <th>Nombre producto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="producto in $ctrl.venta_detail.productos">
+                            <td>
+                                {{producto.nombre_producto}}
+                            </td>
+                            <td>
+                                {{producto.cantidad}}
+                            </td>
+                        </tr>
+                        <tr style="border-top: 2px solid;">
+                            <td><b>Precio Total</b></td>
+                            <td><b>{{$ctrl.venta_detail.costo_total | currency:"S/. "}}</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-9">
+                        <button type="button" class="btn btn-danger radius btn-block" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>  Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style media="screen">
     .negrita{
         font-weight: bold;

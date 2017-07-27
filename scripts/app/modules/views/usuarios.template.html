@@ -13,60 +13,66 @@
 
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row" ng-show="showFilter">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
-                                        <input type="text" id="order_id" ng-model="$ctrl.$ctrl.search.id_pedido" name="order_id" placeholder="ID Pedido" class="form-control radius border-left input-sm">
+                                        <input type="text" id="order_id" ng-model="$ctrl.search.id_venta" name="order_id" placeholder="ID Venta" class="form-control radius border-left input-sm">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
-                                        <input type="text" id="customer" ng-model="$ctrl.$ctrl.search.cliente.nombre" name="customer" placeholder="Cliente" class="form-control radius border-left input-sm">
+                                        <input type="text" id="customer" ng-model="$ctrl.search.profile.displayName" name="customer" placeholder="Vendedor" class="form-control radius border-left input-sm">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
-                                        <input type="text" id="status" ng-model="$ctrl.$ctrl.search.estado" name="status" placeholder="Estado" class="form-control radius border-left input-sm">
+                                        <input type="text" id="amount" ng-model="$ctrl.search.costo_total" name="amount" placeholder="Costo" class="form-control radius border-left input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
+                                        <select name="status" ng-model="$ctrl.search.estado" class="form-control radius border-left">
+                                            <option value="">- Seleccione estado -</option>
+                                            <option value="0">Habilitado</option>
+                                            <option value="1">Deshabilitado</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="col-sm-12">
-                                <a href="escritorio#/order/" class="btn btn-active radius btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Pedido</a>
-                                <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn radius btn-primary btn-outline">
-                                    <i class="glyphicon glyphicon-save"></i> Descargar
-                                </button>
+                                <a href="escritorio#/category/grid" class="btn btn-active radius btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Usuario</a>
+                                <button type="button" name="button" ng-click="$ctrl.goToExport()" class="btn radius btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
                                 <button ng-click="showFilter = !showFilter" class="btn radius btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
                                 <button ng-click="showFilter = !showFilter" class="btn radius btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
                             </div>
                         </div>
-
                         <div class="table-responsive">
                             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                                 <thead>
                                 <tr>
 
-                                    <th>ID Pedido</th>
-                                    <th>Cliente</th>
-                                    <th>Productos</th>
-                                    <th>Celular</th>
-                                    <th>Teléfono</th>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
                                     <th>Fecha</th>
                                     <th>Estado</th>
                                     <th class="text-right action-row" data-sort-ignore="true">Acción</th>
@@ -74,65 +80,60 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr context-menu="$ctrl.context_menu" ng-repeat="pedido in $ctrl.pedidos | filter:$ctrl.search">
+                                <tr context-menu="$ctrl.context_menu" ng-repeat="usuario in $ctrl.usuarios | filter:$ctrl.search">
                                     <td>
-                                       {{pedido.id_pedido}}
+                                       {{usuario.username}}
                                     </td>
                                     <td>
-                                        {{pedido.cliente.nombre}}
+                                        {{usuario.email}}
                                     </td>
                                     <td>
-                                        <a href ng-click="$ctrl.show_modal_productos(pedido)">
-                                            <i class="glyphicon glyphicon-new-window"></i>
-                                            <b> Ver productos</b>
-                                        </a>
+                                        {{usuario.profiles[0].name}} {{usuario.profiles[0].lastName}}
                                     </td>
                                     <td>
-                                        {{pedido.cliente.celular}}
+                                        <span class="label label-primary" ng-show="usuario.rol == 0">Usuario</span>
+                                        <span class="label label-danger" ng-show="usuario.rol == 1">Administrador</span>
                                     </td>
                                     <td>
-                                        {{pedido.cliente.telefono}}
+                                        {{usuario.createAt}}
                                     </td>
                                     <td>
-                                        {{pedido.createAt | date:"dd/MM/yyyy '-' h:mma"}}
-                                    </td>
-                                    <td>
-                                        <span class="label label-primary" ng-show="pedido.estado == 0">Pendiente</span>
-                                        <span class="label label-warning" ng-show="pedido.estado == 1">Entregado</span>
+                                        {{usuario.enabled}}
                                     </td>
                                     <td class="text-right">
                                         <span context-menu="$ctrl.context_menu" context-menu-on="click"
-                                             class="threepoints glyphicon glyphicon-option-horizontal"></span>
+                                        class="threepoints glyphicon glyphicon-option-horizontal"></span>
                                     </td>
                                 </tr>
 
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="7">
                                         <ul class="pagination pull-right"></ul>
                                     </td>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="footer">
         <footer></footer>
     </div>
 </div>
 
-<div class="modal inmodal fade" id="pedido_detail" tabindex="-1" role="dialog"  aria-hidden="true">
+
+<div class="modal inmodal fade" id="venta_detail" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span class="close-modal glyphicon glyphicon-remove"></span></button>
-                <h3>PEDIDO DE PRODUCTOS</h3>
+                <h3>PRODUCTOS VENDIDOS</h3>
                 <small class="font-bold" style="text-transform:uppercase;">{{$ctrl.pedido_detail.cliente.nombre}}</small>
             </div>
             <div class="modal-body">
@@ -141,29 +142,21 @@
                         <thead>
                         <tr>
                             <th>Nombre producto</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Precio</th>
                             <th>Cantidad</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="producto in $ctrl.pedido_detail.productos">
+                        <tr ng-repeat="producto in $ctrl.venta_detail.productos">
                             <td>
                                 {{producto.nombre_producto}}
                             </td>
                             <td>
-                                {{producto.marca}}
-                            </td>
-                            <td>
-                                {{producto.modelo}}
-                            </td>
-                            <td>
-                                {{producto.precio | currency:"S/. "}}
-                            </td>
-                            <td>
                                 {{producto.cantidad}}
                             </td>
+                        </tr>
+                        <tr style="border-top: 2px solid;">
+                            <td><b>Precio Total</b></td>
+                            <td><b>{{$ctrl.venta_detail.costo_total | currency:"S/. "}}</b></td>
                         </tr>
                         </tbody>
                     </table>

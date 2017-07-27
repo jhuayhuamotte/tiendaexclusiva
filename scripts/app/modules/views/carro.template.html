@@ -64,10 +64,12 @@
                                     <td width="100">
                                         <input type="number" min="1" style="min-width: 60px;" ng-change="$ctrl.calculateTotal()" ng-model="producto.cantidad" class="form-control" placeholder="1">
                                     </td>
-                                    <td>
-                                        <h4>
-                                            {{producto.precio | currency:"S/."}}
+                                    <td width="200">
+                                        <h4 ng-show="!producto.price.status">
+                                            {{producto.precio | currency:"S/."}} <span ng-click="producto.price.status = !producto.price.status" class="glyphicon glyphicon-pencil"></span>
                                         </h4>
+                                        <input type="number" ng-show="producto.price.status" style="min-width: 100px;" ng-change="$ctrl.calculateTotal()" ng-model="producto.precio" class="form-control" placeholder="S/. 00.00">
+                                        <span class="glyphicon glyphicon-ok" ng-show="producto.price.status" ng-click="producto.price.status = !producto.price.status"></span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -76,10 +78,15 @@
 
                     </div>
                     <div class="ibox-content">
-
-                        <button ng-click="$ctrl.saveVenta()" class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Validar venta</button>
-                        <a href="escritorio#/category/grid" class="btn btn-success btn-outline"><i class="fa fa-arrow-left"></i> Continuar <i class="fa fa fa-shopping-cart"></i></a>
-
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="escritorio#/category/grid" class="btn radius btn-block btn-success btn-outline"><i class="fa fa-arrow-left"></i> Continuar <i class="fa fa fa-shopping-cart"></i></a>
+                            </div>
+                            <br class="visible-xs">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <button ng-click="$ctrl.saveVenta()" class="btn btn-active radius btn-block btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Validar venta</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -108,9 +115,11 @@
                             Verificar bien los productos y los precios antes de validar la venta.
                         </span>
                         <div class="m-t-sm">
-                            <div class="btn-group">
-                            <button ng-click="$ctrl.saveVenta()" class="btn btn-primary btn-lg btn-block"><i class="fa fa-shopping-cart"></i> Validar venta </button>
-                            <button ng-click="$ctrl.deleteCarro()" class="btn btn-danger btn-outline btn-lg btn-block pull-right"><i class="glyphicon glyphicon-remove"></i> Cancelar venta </button>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button ng-click="$ctrl.saveVenta()" class="btn radius btn-primary btn-active btn-lg btn-block"><i class="fa fa-shopping-cart"></i> Validar venta </button>
+                                    <button ng-click="$ctrl.deleteCarro()" class="btn radius btn-danger btn-outline btn-lg btn-block pull-right"><i class="glyphicon glyphicon-remove"></i> Cancelar venta </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,3 +151,15 @@
         <footer></footer>
     </div>
 </div>
+<style media="screen">
+    .ibox-title{
+        background: rgb(50, 154, 73);
+        color: white;
+        border: none;
+    }
+    .alert-warning {
+        color: #f5dfda;
+        background-color: #f35406;
+        border-color: #faebcc;
+    }
+</style>

@@ -14,6 +14,25 @@
             ]
         };
 
+        $ctrl.context_menu = [
+            {
+                text: 'Opciones'
+            },
+            null,
+            {
+                text: 'Editar',
+                click: function ($itemScope, $event, modelValue, text, $li) {
+                    $location.path('/category/edit/' + $itemScope.categoria._id);
+                }
+            },
+            {
+                text: 'Eliminar',
+                click: function ($itemScope, $event, modelValue, text, $li) {
+                    $ctrl.deleteCategoria($itemScope.$index, $itemScope.categoria);
+                }
+            }
+        ];
+
         $ctrl.deleteCategoria = function(index, cat){
             categoria.delete(cat._id);
             $ctrl.categorias.splice(index, 1);

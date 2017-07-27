@@ -1,7 +1,10 @@
 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
-        <button class="navbar-minimalize minimalize-styl-2 btn btn-primary hidden-xs"><i class="fa fa-bars"></i> </button>
-
+        <!-- <button class="navbar-minimalize minimalize-styl-2 btn btn-primary hidden-xs"></button> -->
+        <div class="navbar-minimalize minimalize-styl-2 btn  hidden-xs" ng-click="menu.toggle = !menu.toggle">
+            <b><i style="font-size: 20px;" class="glyphicon glyphicon-menu-left" ng-show="!menu.toggle"></i></b>
+            <b><i style="font-size: 20px;" class="glyphicon glyphicon-menu-right" ng-show="menu.toggle"></i></b>
+        </div>
         <form role="search" class="navbar-form-custom" action="search_results.html">
             <div class="form-group">
                 <input type="text" placeholder="Buscar..." class="form-control" name="top-search" id="top-search">
@@ -11,11 +14,12 @@
     <ul class="nav navbar-top-links navbar-right">
         <li>
             <span class="m-r-sm text-muted welcome-message">Bienvenido a Import KT.</span>
+            <!-- <h3 class="m-r-sm welcome-message"><b>Bienvenido a Import KT.</b></h3> -->
         </li>
         <li uib-dropdown class="visible-xs" style="float: left;">
-            <button uib-dropdown-toggle class="dropdown-toggle count-info btn btn-primary" style="margin: 10px 15px 16px 15px;">
+            <div class="count-info btn" uib-dropdown-toggle style="margin: 13px 5px 0 10px;">
                 <i class="fa fa-bars"></i>
-            </button>
+            </div>
           <ul class="dropdown-menu nav nav-second-level" uib-dropdown-menu aria-labelledby="simple-dropdown" style="background: rgb(2, 0, 0) !important;">
               <li class="active">
                   <a href="escritorio#/category/grid">Stock</a>
@@ -140,3 +144,11 @@
     </ul>
 
 </nav>
+
+<style media="screen">
+    .welcome-message{
+        font-size: 15px;
+        font-weight: bold;
+        color: #46ad5d !important;
+    }
+</style>

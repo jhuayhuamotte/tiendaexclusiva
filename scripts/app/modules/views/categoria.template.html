@@ -1,4 +1,4 @@
-<nav class="navbar-default navbar-static-side" role="navigation">
+ btn-active<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="leftmenu"></div>
     <tienda-menu user="$ctrl.userinfo"></tienda-menu>
 </nav>
@@ -20,84 +20,94 @@
                           <uib-tab-heading>
                             <i class="glyphicon glyphicon-list-alt"></i> Datos Categoria
                           </uib-tab-heading>
-                          <div class="panel-body">
-
-                              <fieldset class="form-horizontal">
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Nombre Categoria:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.categoria.nombre_categoria" class="form-control" placeholder="Nombre categoria"></div>
-                                  </div>
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Estado: </label>
-                                      <div class="col-sm-10">
-                                          <select ng-model="$ctrl.categoria.estado" class="form-control">
-                                              <option value="">- Selecione estado -</option>
-                                              <option value="0">Habilitado</option>
-                                              <option value="1">Deshabilitado</option>
-                                          </select>
+                          <div class="ibox" style="margin:0">
+                              <div class="ibox-content">
+                                  <fieldset class="form-horizontal">
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Nombre Categoria:</label>
+                                          <div class="col-sm-10"><input type="text" ng-model="$ctrl.categoria.nombre_categoria" class="form-control radius" placeholder="Nombre categoria"></div>
                                       </div>
-                                  </div>
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Descripción: </label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.categoria.descripcion" class="form-control" placeholder="..."></div>
-                                  </div>
-                                  <div class="form-group col-md-12"><label class="col-sm-2"><i class="glyphicon glyphicon-picture"></i> Imagen: </label>
-                                      <div class="col-sm-10">
-                                          <form method="post" name="myForm">
-                                              <fieldset>
-                                                  <div ng-show="picFile.progress >= 0" class="progress progress-striped active">
-                                                      <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-success">
-                                                          <span class="sr-only">40% Complete (success)</span>
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Estado: </label>
+                                          <div class="col-sm-10">
+                                              <select ng-model="$ctrl.categoria.estado" class="form-control radius">
+                                                  <option value="">- Selecione estado -</option>
+                                                  <option value="0">Habilitado</option>
+                                                  <option value="1">Deshabilitado</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Descripción: </label>
+                                          <div class="col-sm-10"><input type="text" ng-model="$ctrl.categoria.descripcion" class="form-control radius" placeholder="..."></div>
+                                      </div>
+                                      <div class="form-group col-md-12"><label class="col-sm-2"><i class="glyphicon glyphicon-picture"></i> Imagen: </label>
+                                          <div class="col-sm-10">
+                                              <form method="post" name="myForm">
+                                                  <fieldset>
+                                                      <div ng-show="picFile.progress >= 0" class="progress progress-striped active">
+                                                          <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-success">
+                                                              <span class="sr-only">40% Complete (success)</span>
+                                                          </div>
                                                       </div>
-                                                  </div>
-                                                  <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                      <div class="form-control" data-trigger="fileinput">
-                                                          <i class="glyphicon glyphicon-picture fileinput-exists"></i>
-                                                          <span class="fileinput-filename"></span>
-                                                      </div>
-                                                      <span class="input-group-addon btn btn-primary btn-file">
-                                                          <span class="fileinput-new"><i class="glyphicon glyphicon-plus"></i> Selecione Imagen</span>
-                                                          <span class="fileinput-exists">
-                                                              <i class="glyphicon glyphicon-repeat" tooltip-placement="top" uib-tooltip="Cambiar" tooltip-append-to-body="true"></i>
+                                                      <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                          <div class="form-control radius" data-trigger="fileinput">
+                                                              <i class="glyphicon glyphicon-picture fileinput-exists"></i>
+                                                              <span class="fileinput-filename"></span>
+                                                          </div>
+                                                          <span class="input-group-addon btn radius btn-primary btn-file">
+                                                              <span class="fileinput-new"><i class="glyphicon glyphicon-plus"></i> Selecione Imagen</span>
+                                                              <span class="fileinput-exists">
+                                                                  <i class="glyphicon glyphicon-repeat" tooltip-placement="top" uib-tooltip="Cambiar" tooltip-append-to-body="true"></i>
+                                                              </span>
+                                                              <input type="file" type="file" ngf-select ng-model="picFile" name="file"
+                                                                     accept="image/*" ngf-max-size="2MB" required
+                                                                     ngf-model-invalid="errorFile"/>
                                                           </span>
-                                                          <input type="file" type="file" ngf-select ng-model="picFile" name="file"
-                                                                 accept="image/*" ngf-max-size="2MB" required
-                                                                 ngf-model-invalid="errorFile"/>
-                                                      </span>
-                                                      <a class="input-group-addon btn btn-danger btn-outline fileinput-exists" data-dismiss="fileinput">
-                                                           <i class="glyphicon glyphicon-remove" tooltip-placement="top" uib-tooltip="Eliminar"></i>
-                                                       </a>
-                                                      <a ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" href data-dismiss="fileinput" class="input-group-addon btn btn-success btn-outline fileinput-exists">
-                                                          <i class="glyphicon glyphicon-open" tooltip-placement="top" uib-tooltip="Subir"></i>
-                                                      </a>
-                                                  </div>
-                                                  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-                                              </fieldset>
-                                          </form>
+                                                          <a class="input-group-addon btn btn-danger btn-outline fileinput-exists" data-dismiss="fileinput">
+                                                               <i class="glyphicon glyphicon-remove" tooltip-placement="top" uib-tooltip="Eliminar"></i>
+                                                           </a>
+                                                          <a ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)" href data-dismiss="fileinput" class="input-group-addon btn btn-success btn-outline fileinput-exists">
+                                                              <i class="glyphicon glyphicon-open" tooltip-placement="top" uib-tooltip="Subir"></i>
+                                                          </a>
+                                                      </div>
+                                                      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                                                  </fieldset>
+                                              </form>
+                                          </div>
                                       </div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-sm-4 col-sm-offset-2">
-                                          <img ng-src="{{$ctrl.categoria.fotoUrl}}" widht="200" height="250" class="img-resp">
+                                      <div class="row">
+                                          <div class="col-sm-4 col-sm-offset-2">
+                                              <img ng-src="{{$ctrl.categoria.fotoUrl}}" widht="200" height="250" class="img-resp">
+                                          </div>
+                                          <div class="col-sm-2">
+                                              <button class="btn btn-danger radius" ng-show="$ctrl.categoria.fotoUrl" ng-click="$ctrl.deleteFotos($index)"><i class="fa fa-trash"></i> </button>
+                                          </div>
                                       </div>
-                                      <div class="col-sm-2">
-                                          <button class="btn btn-danger" ng-show="$ctrl.categoria.fotoUrl" ng-click="$ctrl.deleteFotos($index)"><i class="fa fa-trash"></i> </button>
-                                      </div>
-                                  </div>
-                              </fieldset>
-
+                                  </fieldset>
+                              </div>
                           </div>
                         </uib-tab>
 
                     </uib-tabset>
-                    <div class="panel-body" align="center">
-                        <button type="button" ng-hide="$ctrl.categoria.edit" ng-click="$ctrl.saveCategoria()" class="btn btn-primary btn-md">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Categoria
-                        </button>
-                        <a href="escritorio#/category/list" class="btn btn-danger btn-outline btn-md">
-                            <span class="glyphicon glyphicon-remove"></span> Cancelar
-                        </a>
-                        <button type="button" ng-show="$ctrl.categoria.edit" ng-click="$ctrl.saveCategoria()" class="btn btn-success btn-outline btn-md">
-                            <span class="glyphicon glyphicon-ok"></span> Actualizar
-                        </button>
+                    <div class="ibox" style="margin:0">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <button type="button" ng-hide="$ctrl.categoria.edit" ng-click="$ctrl.saveCategoria()" class="btn btn-active btn-block radius btn-primary btn-md">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Categoria
+                                    </button>
+                                    <button type="button" ng-show="$ctrl.categoria.edit" ng-click="$ctrl.saveCategoria()" class="btn btn-active-blue btn-block radius btn-success btn-outline btn-md">
+                                        <span class="glyphicon glyphicon-ok"></span> Actualizar
+                                    </button>
+                                </div>
+                                <br class="visible-xs">
+                                <div class="col-sm-3">
+                                    <a href="escritorio#/category/list" class="btn btn-block radius btn-danger btn-outline btn-md">
+                                        <span class="glyphicon glyphicon-remove"></span> Cancelar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <br class="visible-xs">
                 </div>
             </div>
         </div>

@@ -20,21 +20,19 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example" >
                         <thead>
                         <tr>
-                            <th>Nombre producto</th>
+                            <th>Producto</th>
                             <th>Marca</th>
                             <th>Modelo</th>
-                            <th>Precio compra</th>
-                            <th>Precio venta</th>
+                            <th>Precio</th>
                             <th>Estado</th>
                             <th>Cantidad</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="producto in $ctrl.productos" class="gradeX">
+                        <tr ng-repeat="producto in $ctrl.productos " class="gradeX">
                             <td>{{producto.nombre_producto}}</td>
                             <td>{{producto.marca}}</td>
                             <td>{{producto.modelo}}</td>
-                            <td class="center">{{producto.precio.compra | currency:"S/. "}}</td>
                             <td class="center">{{producto.precio.venta | currency:"S/. "}}</td>
                             <td class="center">
                                 {{producto.estado == 0?"En stock":""}}
@@ -46,11 +44,10 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Nombre producto</th>
+                            <th>Producto</th>
                             <th>Marca</th>
                             <th>Modelo</th>
-                            <th>Precio compra</th>
-                            <th>Precio venta</th>
+                            <th>Precio</th>
                             <th>Estado</th>
                             <th>Cantidad</th>
                         </tr>
@@ -71,7 +68,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="gradeX" ng-repeat="pedido in $ctrl.pedidos">
+                        <tr class="gradeX" ng-repeat="pedido in $ctrl.pedidos ">
                             <td>{{pedido.id_pedido}}</td>
                             <td>{{pedido.cliente.nombre}}</td>
                             <td>{{pedido.cliente.celular}}</td>
@@ -108,7 +105,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="gradeX" ng-repeat="venta in $ctrl.ventas">
+                        <tr class="gradeX" ng-repeat="venta in $ctrl.ventas ">
                             <td>{{venta.id_venta}}</td>
                             <td>{{venta.profile.displayName}}</td>
                             <td class="center">{{venta.costo_total | currency:"S/. "}}</td>
@@ -140,3 +137,12 @@
         <footer></footer>
     </div>
 </div>
+<style media="screen">
+.table > thead > tr > th, .table > tfoot > tr > th, .table-bordered,
+.table-bordered > thead > tr > th, td, .table-bordered > tbody > tr > td {
+    border: 1px solid rgba(221, 221, 221, 0.27) !important;
+}
+div.dataTables_wrapper div.dataTables_length select, div.dataTables_wrapper div.dataTables_filter input {
+    border-radius: 44px !important;
+}
+</style>

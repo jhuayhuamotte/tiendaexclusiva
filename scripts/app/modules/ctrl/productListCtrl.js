@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('tiendaexclusiva').controller('prodListCtrl', function (userinfo,
-        producto, carro, $timeout, $location, $stateParams){
+        producto, carro, $timeout, $location, $stateParams, $scope){
 
         var $ctrl = this;
         $ctrl.carro = {};
@@ -10,6 +10,26 @@
         $ctrl.showCategory = false;
         $ctrl.params = $location.search();
         $ctrl.idCategoria = $stateParams.categoryid;
+
+        $ctrl.context_menu = [
+            {
+                text: 'Opciones'
+            },
+            null,
+            {
+                text: 'Editar',
+                click: function ($itemScope, $event, modelValue, text, $li) {
+                    $location.path('/product/edit/' + $itemScope.producto._id);
+                }
+            },
+            {
+                text: 'Eliminar',
+                click: function ($itemScope, $event, modelValue, text, $li) {
+                    $ctrl.deleteProduct($itemScope.$index, $itemScope.producto);
+                }
+            }
+        ];
+
 
         $ctrl.location = {
             page: "Lista Productos",

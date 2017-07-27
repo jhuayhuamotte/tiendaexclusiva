@@ -13,58 +13,69 @@
 
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
-
-        <div class="ibox-content m-b-sm border-bottom" ng-show="showFilter">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" id="product_name" ng-model="$ctrl.search.nombre_producto" placeholder="Nombre Producto" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group addon-input">
-                        <div class="input-group">
-                            <input type="text" id="marca" ng-model="$ctrl.search.marca" placeholder="Marca" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group addon-input">
-                        <div class="input-group">
-                            <input type="text" id="quantity" ng-model="$ctrl.search.cantidad" placeholder="Cantidad" class="form-control input-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <select name="status" id="status" ng-model="$ctrl.search.estado" class="form-control">
-                            <option value="">- Estado -</option>
-                            <option value="0">En stock</option>
-                            <option value="1">Stock deshabilitado</option>
-                            <option value="2">No disponible</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
+                        <div class="row" ng-show="showFilter">
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon addon-search radius"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" ng-model="$ctrl.search" placeholder="Busqueda rápida" class="form-control input-sm radius border-left">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <button ng-click="filterAdvanced = !filterAdvanced" class="btn btn-primary radius btn-sm btn-block">Búsqueda avanzada</button>
+                            </div>
+                            <br class="visible-xs">
+                        </div>
+                        <div class="row" ng-show="filterAdvanced">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon radius addon-search"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" ng-model="$ctrl.search.nombre_producto" placeholder="Nombre producto" class="form-control input-sm radius border-left">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group addon-input">
+                                    <div class="input-group">
+                                        <span class="input-group-addon radius addon-search"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" ng-model="$ctrl.search.marca" placeholder="Marca" class="form-control radius border-left input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group addon-input">
+                                    <div class="input-group">
+                                        <span class="input-group-addon radius addon-search"><i class="glyphicon glyphicon-search"></i></span>
+                                        <input type="text" ng-model="$ctrl.search.modelo" placeholder="Modelo" class="form-control border-left radius input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <select name="status" ng-model="$ctrl.search.estado" class="form-control radius input-sm">
+                                        <option value="">- Estado -</option>
+                                        <option value="0">En stock</option>
+                                        <option value="1">Stock deshabilitado</option>
+                                        <option value="2">No disponible</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-sm-12">
-                                <a ng-hide="$ctrl.showCategory" href="escritorio#/product" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-plus"></i> Producto</a>
-                                <button ng-hide="$ctrl.showCategory" ng-click="$ctrl.goToExport()" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
-                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
-                                <button ng-click="showFilter = !showFilter" class="btn btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+                                <a ng-hide="$ctrl.showCategory" href="escritorio#/product" class="btn btn-primary btn-active radius btn-outline"><i class="glyphicon glyphicon-plus"></i> Producto</a>
+                                <button ng-hide="$ctrl.showCategory" ng-click="$ctrl.goToExport()" class="btn radius btn-primary btn-outline"><i class="glyphicon glyphicon-save"></i> Descargar</button>
+                                <button ng-click="showFilter = !showFilter" class="btn radius btn-primary btn-outline visible-xs" style="float:right"><i class="glyphicon glyphicon-search"></i></button>
+                                <button ng-click="showFilter = !showFilter" class="btn radius btn-primary btn-outline hidden-xs pull-right"><i class="glyphicon glyphicon-search"></i> Buscar</button>
                             </div>
+                            <br class="visible-xs">
                         </div>
                         <div class="table-responsive">
                             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
@@ -84,7 +95,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="producto in $ctrl.productos | filter:$ctrl.search">
+                                <tr context-menu="$ctrl.context_menu" ng-repeat="producto in $ctrl.productos | filter:$ctrl.search">
                                     <td>
                                        {{producto.nombre_producto}}
                                     </td>
@@ -117,18 +128,9 @@
                                         </a>
                                     </td>
                                     <td ng-hide="$ctrl.showCategory" class="text-right">
-                                        <span class="threepoints" ng-hide="producto.action" ng-click="producto.action = !producto.action"><b>. . .</b></span>
-                                        <div class="btn-group" ng-show="producto.action">
-                                            <!-- <a href="escritorio#/product/detail/{{producto._id}}" tooltip-placement="top" uib-tooltip="Ver" class="btn-white btn btn-xs btn-success btn-outline">
-                                                <i class="glyphicon glyphicon-eye-open"></i>
-                                            </a> -->
-                                            <a href="escritorio#/product/edit/{{producto._id}}" tooltip-placement="top" uib-tooltip="Editar" class="btn-white btn btn-xs btn-warning btn-outline">
-                                                <i class="glyphicon glyphicon-pencil"></i>
-                                            </a>
-                                            <button ng-click="$ctrl.deleteProduct($index, producto)" tooltip-placement="top-right" uib-tooltip="Eliminar" class="btn-white btn btn-xs btn-danger btn-outline">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                        </div>
+                                        <span class="threepoints glyphicon glyphicon-option-horizontal"
+                                              context-menu="$ctrl.context_menu" context-menu-on="click">
+                                         </span>
                                     </td>
                                 </tr>
 
@@ -141,6 +143,7 @@
                                 </tr>
                                 </tfoot>
                             </table>
+
                         </div>
 
                     </div>

@@ -7,6 +7,7 @@
     'angular.filter',
     'ngDragDrop',
     'ngFileUpload',
-    "summernote"
+    "summernote",
+    "ui.bootstrap.contextMenu"
   ]);
 })();

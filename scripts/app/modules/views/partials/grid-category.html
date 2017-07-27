@@ -1,7 +1,7 @@
 <div class="ibox">
     <div class="ibox-content product-box">
 
-        <div ng-class="{'product-imitation':category.fotoUrl==null}" style="position:relative">
+        <div ng-class="{'product-imitation':category.fotoUrl==null}" style="position:relative; cursor:pointer" ng-click="showProductCategory(category)">
             <!-- <span ng-hide="category.fotoUrl==null">[INFO]</span> -->
             <div class="image-over"></div>
             <img ng-src="{{category.fotoUrl}}" class="img-resp" height="180" width="240">
@@ -17,7 +17,7 @@
                 {{category.descripcion}}
             </div>
             <div class="m-t text-righ">
-                <button ng-click="showProductCategory(category)" class="btn btn-xs btn-outline btn-primary">
+                <button ng-click="showProductCategory(category)" class="btn btn-block btn-active radius btn-xs btn-outline btn-primary">
                     Ver {{category.nombre_categoria}} <i class="fa fa-long-arrow-right"></i>
                 </button>
             </div>

@@ -104,6 +104,7 @@
             .get('/api/v1/ventas')
             .success( function(response) {
                 angular.copy(response, venta.dataVenta);
+                console.log("response ventas: ", response);
             })
             .error( function(err) {
                 console.log("List Ventas Error: ", err);
@@ -384,8 +385,31 @@
         return categoria;
     }
 
+    function usuarioFactory($http){
+        var usuario = {};
+
+        usuario.session_info = function(){
+            return $http
+            .get('/session-user')
+            .error(function(err){
+                console.error("Session Info: ", err);
+            })
+        }
+
+        usuario.list = function(){
+            return $http
+            .get('/api/v1/usuarios')
+            .error(function(err){
+                console.error("Get users error: ", err);
+            })
+        }
+
+        return usuario;
+    }
+
     angular
     .module('tiendaexclusiva')
+    .factory('usuario',     usuarioFactory)
     .factory('carro',     carrosFactory)
     .factory('venta',     ventasFactory)
     .factory('producto',  productosFactory)

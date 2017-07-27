@@ -5,6 +5,7 @@
         $ctrl.userinfo = userinfo;
         venta.list();
         $ctrl.ventas = venta.dataVenta;
+        $ctrl.venta_detail = {};
 
         $ctrl.location = {
             page: "Lista Ventas",
@@ -13,6 +14,19 @@
                 {name: "Lista Ventas",   url: "/ventas"}
             ]
         };
+
+        $ctrl.context_menu = [
+            {
+                text: 'Opciones'
+            },
+            null,
+            {
+                text: 'Eliminar',
+                click: function ($itemScope, $event, modelValue, text, $li) {
+                    $ctrl.deleteVenta($itemScope.$index, $itemScope.venta);
+                }
+            }
+        ];
 
         $ctrl.deleteVenta = function(index, sales){
             venta.delete(sales._id);
@@ -23,6 +37,11 @@
             $ctrl.search = {module:"ventalist"};
             $location.path('/export').search($ctrl.search);
             console.log("$location", $location.search());
+        }
+
+        $ctrl.show_venta_detail = function(venta_detail){
+            $ctrl.venta_detail = venta_detail;
+            $('#venta_detail').modal();
         }
 
         $timeout(function(){

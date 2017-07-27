@@ -20,22 +20,23 @@
                           <uib-tab-heading>
                             <i class="glyphicon glyphicon-list-alt"></i> Datos Cliente
                           </uib-tab-heading>
-                          <div class="panel-body">
-
-                              <fieldset class="form-horizontal">
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Nombre cliente:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.nombre" class="form-control" placeholder="Nombre Pedido"></div>
-                                  </div>
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Correo:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.email" class="form-control" placeholder="Correo"></div>
-                                  </div>
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Telefono:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.telefono" class="form-control" placeholder="01 00 00 00"></div>
-                                  </div>
-                                  <div class="form-group col-md-12"><label class="col-sm-2">Celular:</label>
-                                      <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.celular" class="form-control" placeholder="+51 000 000 000"></div>
-                                  </div>
-                              </fieldset>
+                          <div class="ibox" style="margin:0">
+                              <div class="ibox-content">
+                                  <fieldset class="form-horizontal">
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Nombre cliente:</label>
+                                          <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.nombre" class="form-control radius" placeholder="Nombre Pedido"></div>
+                                      </div>
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Correo:</label>
+                                          <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.email" class="form-control radius" placeholder="Correo"></div>
+                                      </div>
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Telefono:</label>
+                                          <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.telefono" class="form-control radius" placeholder="01 00 00 00"></div>
+                                      </div>
+                                      <div class="form-group col-md-12"><label class="col-sm-2">Celular:</label>
+                                          <div class="col-sm-10"><input type="text" ng-model="$ctrl.pedido.cliente.celular" class="form-control radius" placeholder="+51 000 000 000"></div>
+                                      </div>
+                                  </fieldset>
+                              </div>
                           </div>
                         </uib-tab>
 
@@ -43,74 +44,85 @@
                           <uib-tab-heading>
                             <i class="fa fa-shopping-cart"></i> Productos
                           </uib-tab-heading>
-                          <div class="panel-body">
-                              <button type="button" ng-click="$ctrl.addProductos()" class="btn btn-primary btn-md">
-                                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>Producto
-                              </button>
-                              <div class="table-responsive" ng-show="$ctrl.pedido.productos.length>0">
-                                  <table class="table table-stripped table-bordered">
+                          <div class="ibox" style="margin:0">
+                              <div class="ibox-content">
+                                  <button type="button" ng-click="$ctrl.addProductos()" class="btn radius btn-primary btn-md">
+                                      <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Producto
+                                  </button>
+                                  <br><br>
+                                  <div class="table-responsive" ng-show="$ctrl.pedido.productos.length>0">
+                                      <table class="pedido-table table table-stripped table-bordered">
 
-                                      <thead>
-                                      <tr>
-                                          <th>
-                                              Cantidad
-                                          </th>
-                                          <th>
-                                              Nombre
-                                          </th>
-                                          <th>
-                                              Marca
-                                          </th>
-                                          <th style="width: 20%">
-                                              Modelo
-                                          </th>
-                                          <th style="width: 20%">
-                                              Precio
-                                          </th>
-                                          <th>
-                                              Accíon
-                                          </th>
-                                      </tr>
-                                      </thead>
-                                      <tbody>
-                                      <tr ng-repeat="producto in $ctrl.pedido.productos">
-                                          <td>
-                                              <input type="text" ng-model="producto.cantidad" class="form-control" placeholder="10">
-                                          </td>
-                                          <td>
-                                              <input type="text" ng-model="producto.nombre_producto" class="form-control" placeholder="Nombre producto">
-                                          </td>
-                                          <td>
-                                              <input type="text" ng-model="producto.marca" class="form-control" placeholder="Marca">
-                                          </td>
-                                          <td>
-                                              <input type="text" ng-model="producto.modelo" class="form-control" placeholder="Modelo">
-                                          </td>
-                                          <td>
-                                              <input type="text" ng-model="producto.precio" class="form-control" placeholder="S/. 0.00">
-                                          </td>
-                                          <td>
-                                                  <button ng-click="$ctrl.deleteProductos($index)" class="btn btn-danger"><i class="fa fa-trash"></i> </button>
-                                          </td>
-                                      </tr>
-                                      </tbody>
+                                          <thead>
+                                          <tr>
+                                              <th style="min-width: 100px;">
+                                                  Cantidad
+                                              </th>
+                                              <th style="min-width: 200px;">
+                                                  Nombre
+                                              </th>
+                                              <th style="min-width: 150px;">
+                                                  Marca
+                                              </th>
+                                              <th style="min-width: 150px;">
+                                                  Modelo
+                                              </th>
+                                              <th style="min-width: 100px;">
+                                                  Precio
+                                              </th>
+                                              <th>
+                                                  Accíon
+                                              </th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          <tr ng-repeat="producto in $ctrl.pedido.productos">
+                                              <td>
+                                                  <input type="text" ng-model="producto.cantidad" class="form-control radius" placeholder="10">
+                                              </td>
+                                              <td>
+                                                  <input type="text" ng-model="producto.nombre_producto" class="form-control radius" placeholder="Nombre producto">
+                                              </td>
+                                              <td>
+                                                  <input type="text" ng-model="producto.marca" class="form-control radius" placeholder="Marca">
+                                              </td>
+                                              <td>
+                                                  <input type="text" ng-model="producto.modelo" class="form-control radius" placeholder="Modelo">
+                                              </td>
+                                              <td>
+                                                  <input type="text" ng-model="producto.precio" class="form-control radius" placeholder="S/. 0.00">
+                                              </td>
+                                              <td>
+                                                      <button ng-click="$ctrl.deleteProductos($index)" class="btn radius btn-danger"><i class="fa fa-trash"></i> </button>
+                                              </td>
+                                          </tr>
+                                          </tbody>
 
-                                  </table>
+                                      </table>
+                                  </div>
                               </div>
-
                           </div>
                         </uib-tab>
                     </uib-tabset>
-                    <div class="panel-body" align="center">
-                        <button type="button" ng-hide="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-primary btn-md">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Pedido
-                        </button>
-                        <a href="escritorio#/orders" class="btn btn-danger btn-md btn-outline">
-                            <span class="glyphicon glyphicon-remove"></span> Cancelar
-                        </a>
-                        <button type="button" ng-show="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-success btn-md btn-outline">
-                            <span class="glyphicon glyphicon-ok"></span> Actualizar
-                        </button>
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <button type="button" ng-hide="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-active radius btn-block btn-primary btn-md">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Pedido
+                                    </button>
+                                    <button type="button" ng-show="$ctrl.pedido.edit" ng-click="$ctrl.savePedido()" class="btn btn-active-blue radius btn-block btn-success btn-md btn-outline">
+                                        <span class="glyphicon glyphicon-ok"></span> Actualizar
+                                    </button>
+                                </div>
+                                <br class="visible-xs">
+                                <div class="col-sm-3">
+                                    <a href="escritorio#/orders" class="btn btn-danger radius btn-block btn-md btn-outline">
+                                        <span class="glyphicon glyphicon-remove"></span> Cancelar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,3 +133,10 @@
         <footer></footer>
     </div>
 </div>
+
+
+<style media="screen">
+    .pedido-table > tbody > tr > td, .pedido-table > thead > tr > th, .pedido-table{
+        border: none !important;
+    }
+</style>

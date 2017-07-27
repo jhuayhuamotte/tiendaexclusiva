@@ -5,15 +5,16 @@
 
     $urlRouterProvider.otherwise('/category/grid');
 
+    function get_user_info($http, usuario){
+        return usuario.session_info().then(function(result){
+            return result.data.user;
+        });
+    }
+
     $stateProvider
     .state('productgrid', {
       resolve: {
-        userinfo: function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then ( function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/grid',
       templateUrl: "scripts/app/modules/views/producto-grid.template.html",
@@ -22,12 +23,7 @@
     })
     .state('productlist', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/product/list',
       templateUrl: 'scripts/app/modules/views/producto-list.template.html',
@@ -36,12 +32,7 @@
     })
     .state('productCategorylist', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/product/list/category/:categoryid',
       templateUrl: 'scripts/app/modules/views/producto-list.template.html',
@@ -50,12 +41,7 @@
     })
     .state('addProduct', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/product',
       templateUrl: 'scripts/app/modules/views/producto.template.html',
@@ -64,12 +50,7 @@
     })
     .state('editProduct', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/product/edit/:id',
       templateUrl: 'scripts/app/modules/views/producto.template.html',
@@ -78,12 +59,7 @@
     })
     .state('productDetail', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/product/detail/:id',
       templateUrl: 'scripts/app/modules/views/producto-detail.template.html',
@@ -92,12 +68,7 @@
     })
     .state('carro', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/car/:id',
       templateUrl: 'scripts/app/modules/views/carro.template.html',
@@ -106,12 +77,7 @@
     })
     .state('order', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/order/:id',
       templateUrl: 'scripts/app/modules/views/pedido.template.html',
@@ -120,12 +86,7 @@
     })
     .state('orderEdit', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/order/edit/:id',
       templateUrl: 'scripts/app/modules/views/pedido.template.html',
@@ -134,12 +95,7 @@
     })
     .state('orderList', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/orders',
       templateUrl: 'scripts/app/modules/views/pedido-list.template.html',
@@ -148,12 +104,7 @@
     })
     .state('ventas', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/ventas',
       templateUrl: 'scripts/app/modules/views/venta.template.html',
@@ -162,12 +113,7 @@
     })
     .state('export', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/export',
       templateUrl: 'scripts/app/modules/views/export.template.html',
@@ -176,12 +122,7 @@
     })
     .state('categoriagrid', {
       resolve: {
-        userinfo: function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then ( function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo: get_user_info
       },
       url: '/category/grid',
       templateUrl: "scripts/app/modules/views/categoria-grid.template.html",
@@ -190,12 +131,7 @@
     })
     .state('categorialist', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/category/list',
       templateUrl: 'scripts/app/modules/views/categoria-list.template.html',
@@ -204,12 +140,7 @@
     })
     .state('addCategoria', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/category',
       templateUrl: 'scripts/app/modules/views/categoria.template.html',
@@ -218,16 +149,22 @@
     })
     .state('editCategoria', {
       resolve:{
-        userinfo:function($http){
-          return $http({ method: 'GET', url:'/session-user'})
-         .then(function (response) {
-           return response.data.user;
-         });
-       }
+        userinfo:get_user_info
       },
       url: '/category/edit/:id',
       templateUrl: 'scripts/app/modules/views/categoria.template.html',
       controller: 'categoriaCtrl',
+      controllerAs: '$ctrl'
+    })
+
+
+    .state('users', {
+      resolve:{
+        userinfo: get_user_info
+      },
+      url: '/user/list',
+      templateUrl: 'scripts/app/modules/views/usuarios.template.html',
+      controller: 'userCtrl',
       controllerAs: '$ctrl'
     })
   })

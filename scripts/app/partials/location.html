@@ -1,5 +1,5 @@
 <div class="col-lg-10">
-    <h2>{{location.page}}</h2>
+    <h2><b>{{location.page}}</b></h2>
     <ol class="breadcrumb">
         <li ng-repeat="ubi in location.list" ng-class="{'active': location.list.length==($index+1)}">
             <a href="escritorio#{{ubi.url}}" ng-class="{'negrita':location.list.length==($index+1)}">{{ubi.name}}</a>
@@ -7,7 +7,7 @@
     </ol>
 </div>
 <div class="col-lg-2 btn-cart">
-    <a style="position:relative" ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn btn-primary pull-right hidden-xs">
+    <a style="position:relative" ng-show="carro.edit" href="escritorio#/car/{{user._id}}" class="btn radius btn-block btn-active btn-primary pull-right hidden-xs">
         <i class="fa fa fa-shopping-cart"></i> Carro
         <span class="count-car label label-warning">{{carro.productos.length}}</span>
     </a>

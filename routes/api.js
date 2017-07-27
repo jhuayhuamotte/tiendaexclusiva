@@ -1,48 +1,51 @@
 var express = require('express');
-var router = express.Router();
-var fs = require('fs-extra');
-var path = require('path');
-var ObjectId = require('mongoose').Types.ObjectId;
-var mongoose = require('mongoose');
-var when = require('when');
-var moment = require('moment');
-var LogModel = mongoose.model('Log');
-var CarroModel = mongoose.model('Carros');
-var VentaModel = mongoose.model('Ventas');
-var ProductoModel = mongoose.model('Productos');
-var PedidoModel = mongoose.model('Pedidos');
-var CategoriaModel = mongoose.model('Categorias');
+var router  = express.Router();
+var fs      = require('fs-extra');
+var path    = require('path');
+var when    = require('when');
+var moment  = require('moment');
+var ObjectId        = require('mongoose').Types.ObjectId;
+var mongoose        = require('mongoose');
+var UserModel       = mongoose.model('Users');
+var LogModel        = mongoose.model('Log');
+var CarroModel      = mongoose.model('Carros');
+var VentaModel      = mongoose.model('Ventas');
+var PedidoModel     = mongoose.model('Pedidos');
+var ProductoModel   = mongoose.model('Productos');
+var CategoriaModel  = mongoose.model('Categorias');
 
 /* START Carros */
 router.get('/carros', function(req, res, next){
-  CarroModel.find({enable:true},function(err,carros){
-    if(err){return next(err);}
-    res.json(carros);
-  });
+    CarroModel.find({enable:true},function(err,carros){
+        if(err){return next(err);}
+        res.json(carros);
+    });
 });
 
 router.get('/carro/:id', function(req, res, next){
-  var id = req.params.id;
-  CarroModel.findOne({_id: new ObjectId(id), enable:true},function(err, carro){
-    if(err){return next(err);}
-    res.json(carro);
-  });
+    var id = req.params.id;
+    CarroModel.findOne({_id: new ObjectId(id), enable:true},
+    function(err, carro){
+        if(err){return next(err);}
+        res.json(carro);
+    });
 });
 
 router.get('/carro/profile/:id', function(req, res, next){
-  var id = req.params.id;
-  CarroModel.findOne({id_profile: new ObjectId(id), enable:true},function(err, carro){
-    if(err){return next(err);}
-    res.json(carro);
-  });
+    var id = req.params.id;
+    CarroModel.findOne({id_profile: new ObjectId(id), enable:true},
+    function(err, carro){
+        if(err){return next(err);}
+        res.json(carro);
+    });
 });
 
 router.post('/carro', function(req, res, next){
-  var Carro = new CarroModel(req.body);
-  Carro.save(function(err, carro){
-    if(err){ return next(err);}
-    res.json(carro);
-  })
+    var Carro = new CarroModel(req.body);
+    Carro.save(function(err, carro){
+        if(err){ return next(err);}
+        res.json(carro);
+    })
 });
 
 router.put('/carro/:id', function(req, res, next){
@@ -53,7 +56,8 @@ router.put('/carro/profile/:id', function(req, res, next){
     var id = req.params.id;
     var producto = req.body;
     console.log("producto", producto);
-    CarroModel.findOne({id_profile: new ObjectId(id), enable:true},function(err, carro){
+    CarroModel.findOne({id_profile: new ObjectId(id), enable:true},
+    function(err, carro){
         if(err){return next(err);}
         var productos = carro.productos;
         if(!productos){productos=[];}
@@ -69,42 +73,51 @@ router.put('/carro/profile/:id', function(req, res, next){
 });
 
 router.delete('/carro/:id', function(req, res, next){
-  var id = req.params.id;
-  CarroModel.remove({_id: new ObjectId(id), enable:true}, function (err, numAffected){
-    if(err) { return next(err); }
-    res.json(numAffected)
-  })
+    var id = req.params.id;
+    CarroModel.remove({_id: new ObjectId(id), enable:true},
+    function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected)
+    })
 });
 /* END Carros */
 
 /* START Ventas */
 router.get('/ventas', function(req, res, next){
-  VentaModel.find({enable:true},function(err,ventas){
-    if(err){return next(err);}
-    res.json(ventas);
-  });
+    VentaModel.find({enable:true},function(err,ventas){
+        if(err){return next(err);}
+        res.json(ventas);
+    });
 });
 
 router.get('/venta/:id', function(req, res, next){
-  var id = req.params.id;
-  VentaModel.findOne({_id: new ObjectId(id), enable:true},function(err, venta){
-    if(err){return next(err);}
-    res.json(venta);
-  });
+    var id = req.params.id;
+    VentaModel.findOne({_id: new ObjectId(id), enable:true},
+    function(err, venta){
+        if(err){return next(err);}
+        res.json(venta);
+    });
 });
 
 router.post('/venta', function(req, res, next){
   var Venta = new VentaModel(req.body);
   Venta.save(function(err, venta){
     if(err){ return next(err);}
-    CarroModel.update({id_profile: new ObjectId(req.body.profile.id), enable:true},
-    {$set: {enable: false}},
+    CarroModel.update(
+    {
+        id_profile: new ObjectId(req.body.profile.id),
+        enable:true
+    },
+    {
+        $set: {enable: false}
+    },
     function (err, numAffected){
         if(err) { return next(err); }
 
         var prod = req.body.productos;
         for (var x in prod){
-            ProductoModel.findOne({_id: new ObjectId(prod[x].id_producto)}, function(err, producto){
+            ProductoModel.findOne({_id: new ObjectId(prod[x].id_producto)},
+            function(err, producto){
                 if(err){ console.log("Error: ", err); return}
                 var pro = producto;
                 var cantidad_actual = pro.cantidad - prod[x].cantidad;
@@ -146,10 +159,10 @@ router.delete('/venta/remove/:id', function(req, res, next){
 
 /* START Productos */
 router.get('/productos', function(req, res, next){
-  ProductoModel.find({enable:true},function(err,productos){
-    if(err){return next(err);}
-    res.json(productos);
-  });
+    ProductoModel.find({enable:true},function(err,productos){
+        if(err){return next(err);}
+        res.json(productos);
+    });
 });
 
 router.get('/productos/list/:ids', function(req, res, next){
@@ -161,7 +174,12 @@ router.get('/productos/list/:ids', function(req, res, next){
         queryIN.push(new mongoose.Types.ObjectId(ids[x]));
     }
     console.log("queryIN: ", queryIN);
-    ProductoModel.find({enable:true, _id: {$in: queryIN}},function(err,productos){
+    ProductoModel.find(
+        {
+            enable:true,
+            _id: {$in: queryIN}
+        },
+    function(err,productos){
         if(err){return next(err);}
         console.log("productos: byID; ", productos);
         res.json(productos);
@@ -184,11 +202,12 @@ router.get('/productos/category/:id', function(req, res, next){
 });
 
 router.get('/producto/:id', function(req, res, next){
-  var id = req.params.id;
-  ProductoModel.findOne({_id: new ObjectId(id), enable: true},function(err, producto){
-    if(err){return next(err);}
-    res.json(producto);
-  });
+    var id = req.params.id;
+    ProductoModel.findOne({_id: new ObjectId(id), enable: true},
+    function(err, producto){
+        if(err){return next(err);}
+        res.json(producto);
+    });
 });
 
 router.post('/producto', function(req, res, next){
@@ -257,26 +276,26 @@ router.delete('/producto/remove/:id', function(req, res, next){
 
 /* START Pedidos */
 router.get('/pedidos', function(req, res, next){
-  PedidoModel.find({enable:true},function(err,pedidos){
-    if(err){return next(err);}
-    res.json(pedidos);
-  });
+    PedidoModel.find({enable:true},function(err,pedidos){
+        if(err){return next(err);}
+        res.json(pedidos);
+    });
 });
 
 router.get('/pedido/:id', function(req, res, next){
-  var id = req.params.id;
-  PedidoModel.findOne({_id: new ObjectId(id)},function(err, pedido){
-    if(err){return next(err);}
-    res.json(pedido);
-  });
+    var id = req.params.id;
+    PedidoModel.findOne({_id: new ObjectId(id)},function(err, pedido){
+        if(err){return next(err);}
+        res.json(pedido);
+    });
 });
 
 router.post('/pedido', function(req, res, next){
-  var Pedido = new PedidoModel(req.body);
-  Pedido.save(function(err, pedido){
-    if(err){ return next(err);}
-    res.json(pedido);
-  })
+    var Pedido = new PedidoModel(req.body);
+    Pedido.save(function(err, pedido){
+        if(err){ return next(err);}
+        res.json(pedido);
+    });
 });
 
 router.put('/pedido/:id', function(req, res, next){
@@ -301,28 +320,29 @@ router.put('/pedido/:id', function(req, res, next){
 });
 
 router.delete('/pedido/:id', function(req, res, next){
-  var id = req.params.id;
-  PedidoModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
-    if(err) { return next(err); }
-    res.json(numAffected)
-  })
+    var id = req.params.id;
+    PedidoModel.remove({_id: new ObjectId(id)}, function (err, numAffected){
+        if(err) { return next(err); }
+        res.json(numAffected);
+    });
 });
 /* END Pedidos */
 
 /* START Categorias */
 router.get('/categorias', function(req, res, next){
-  CategoriaModel.find({enable:true},function(err, categorias){
-    if(err){return next(err);}
-    res.json(categorias);
-  });
+    CategoriaModel.find({enable:true},function(err, categorias){
+        if(err){return next(err);}
+        res.json(categorias);
+    });
 });
 
 router.get('/categoria/:id', function(req, res, next){
-  var id = req.params.id;
-  CategoriaModel.findOne({_id: new ObjectId(id), enable: true},function(err, categoria){
-    if(err){return next(err);}
-    res.json(categoria);
-  });
+    var id = req.params.id;
+    CategoriaModel.findOne({_id: new ObjectId(id), enable: true},
+    function(err, categoria){
+        if(err){return next(err);}
+        res.json(categoria);
+    });
 });
 
 router.post('/categoria', function(req, res, next){
@@ -380,30 +400,49 @@ router.post('/media/upload', function (req, res, next) {
     var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
-        console.log("Uploading: " + filename, fieldname);
 
         //Path where image will be uploaded
-        fstream = fs.createWriteStream(path.join(__dirname, '../dist/assets/img/' + filename));
+        fstream = fs.createWriteStream(
+            path.join(__dirname, '../dist/assets/img/' + filename)
+        );
         file.pipe(fstream);
         fstream.on('close', function () {
-            console.log("Upload Finished of " + filename);
-            res.redirect('back');           //where to go next
+            res.redirect('back');
         });
     });
 });
 /* END Media */
 
+/*START Usuarios*/
+router.get('/usuarios', function(req, res, next){
+    UserModel.find({enabled: true},
+    function(err, usuarios){
+        if(err){return next(err);}
+        res.json(usuarios);
+    });
+});
+
+router.get('/usuario/:id', function(req, res, next){
+    var id = req.params.id;
+    UserModel.findOne({_id: new ObjectId(id), enabled: true},
+    function(err, usuario){
+        if(err){return next(err);}
+        res.json(usuario);
+    });
+});
+/*END Usuarios*/
+
 /*START Log*/
 router.post('/log',function(req,res,next){
-  var Log = new LogModel(req.body);
-  Log.save(function(err,log){
-    if(err){
-      console.log('INCOMING LOG ERROR: ',req.body,err)
-      return next(err)
-    }
-    res.json(log);
-  })
-})
+    var Log = new LogModel(req.body);
+    Log.save(function(err,log){
+        if(err){
+            console.log('INCOMING LOG ERROR: ',req.body,err)
+            return next(err)
+        }
+        res.json(log);
+    });
+});
 /*END Log*/
 
 module.exports = router;
